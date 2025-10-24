@@ -11,7 +11,7 @@ import java.util.List;
 
 import kiosk.admin.dto.DetailOrderDisplayOrderDTO;
 import kiosk.admin.dto.DetailOrderDisplayProductDTO;
-import kiosk.user.dao.GetConnection;
+import kiosk.admin.dao.GetConnection;
 
 public class DetailOrderDisplayDAO {
 
@@ -28,7 +28,7 @@ public class DetailOrderDisplayDAO {
 		return dodDAO;
 	}// getInstance
 	
-	public DetailOrderDisplayOrderDTO selecteOneMakingOrder(String orderNum) throws SQLException, IOException{
+	public DetailOrderDisplayOrderDTO selecteOneMakingOrder(String orderNum) throws SQLException, IOException, ClassNotFoundException{
 		DetailOrderDisplayOrderDTO dodoDTO = null;
 		GetConnection gc =GetConnection.getInstance();
 		
@@ -70,13 +70,13 @@ public class DetailOrderDisplayDAO {
 			dodoDTO = new DetailOrderDisplayOrderDTO(orderNum, totalprice, listProduct, orderStatus, orderTime, takeOutFlag);
 		} finally {
 			// 5.연결 끊기
-			gc.dbClose(con, pstmt, rs);
+			gc.close(con, pstmt, rs);
 		} // end finally
 		
 		return dodoDTO;
 	}// selecteOneMakingOrder
 	
-	public int updateOrderStatus(String orderNum) throws IOException, SQLException{
+	public int updateOrderStatus(String orderNum) throws IOException, SQLException, ClassNotFoundException{
 		int flag = 0;
 		
 		GetConnection gc = GetConnection.getInstance();
@@ -101,7 +101,7 @@ public class DetailOrderDisplayDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.dbClose(con, pstmt, rs);
+			gc.close(con, pstmt, rs);
 		} // end finally
 		
 		return flag;

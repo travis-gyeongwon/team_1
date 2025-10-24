@@ -19,6 +19,8 @@ public class DetailOrderDisplayService {
 		DetailOrderDisplayDAO dodDAO = DetailOrderDisplayDAO.getInstance();
 		try {
 			dodoDTO = dodDAO.selecteOneMakingOrder(orderNum);
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,6 +38,8 @@ public class DetailOrderDisplayService {
 		DetailOrderDisplayDAO dodDAO = DetailOrderDisplayDAO.getInstance();
 		try {
 			flag = dodDAO.updateOrderStatus(orderNum);
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

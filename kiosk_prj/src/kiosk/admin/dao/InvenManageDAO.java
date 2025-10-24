@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kiosk.admin.dto.InvenManageDTO;
-import kiosk.user.dao.GetConnection;
+import kiosk.admin.dao.GetConnection;
 
 public class InvenManageDAO {
 	private static InvenManageDAO imDAO;
@@ -25,7 +25,7 @@ public class InvenManageDAO {
 		return imDAO;
 	}// getInstance
 
-	public List<InvenManageDTO> selectAllInven() throws SQLException, IOException {
+	public List<InvenManageDTO> selectAllInven() throws SQLException, IOException, ClassNotFoundException {
 		List<InvenManageDTO> listImDTO = new ArrayList<InvenManageDTO>();
 		GetConnection gc = GetConnection.getInstance();
 
@@ -55,13 +55,13 @@ public class InvenManageDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.dbClose(con, pstmt, rs);
+			gc.close(con, pstmt, rs);
 		} // end finally
 
 		return listImDTO;
 	}// selectAllInven
 
-	public int updateAllInventory() throws SQLException, IOException {
+	public int updateAllInventory() throws SQLException, IOException, ClassNotFoundException {
 		int flag = 0;
 
 		GetConnection gc = GetConnection.getInstance();
@@ -80,13 +80,13 @@ public class InvenManageDAO {
 			flag = pstmt.executeUpdate();
 
 		} finally {
-			gc.dbClose(con, pstmt, null);
+			gc.close(con, pstmt, null);
 		} // finally
 
 		return flag;
 	}// updateAllInventory
 	
-	public int updateOneInventory(InvenManageDTO imDTO) throws SQLException, IOException {
+	public int updateOneInventory(InvenManageDTO imDTO) throws SQLException, IOException, ClassNotFoundException {
 		int flag = 0;
 		
 		GetConnection gc = GetConnection.getInstance();
@@ -105,7 +105,7 @@ public class InvenManageDAO {
 			flag = pstmt.executeUpdate();
 
 		} finally {
-			gc.dbClose(con, pstmt, null);
+			gc.close(con, pstmt, null);
 		} // finally
 		
 		return flag;

@@ -19,9 +19,8 @@ public class InvenManageDesign extends JDialog {
 	private JTextField jtfFixMenu, jtfFixInventory; 
 	private JButton jbtnConfirm, jbtnTotalFix;
 	
-//	public InvenManageDesign(AdminMainDesign amd) {
-	public InvenManageDesign() {
-//		super(amd,"재고관리창",true);
+	public InvenManageDesign(AdminMainDesign amd) {
+		super(amd,"재고관리창",true);
 		JLabel jlblInstruction = new JLabel("재고 수정하려는 메뉴를 선택해주세요");
 		dlmMenuInventory = new DefaultListModel<String>();
 		jlMenuInventory = new JList<String>(dlmMenuInventory);

@@ -26,6 +26,7 @@ public class MenuManageDesign extends JDialog {
 
         setSize(400, 400);
         setLocationRelativeTo(null);
+        setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
     }
@@ -34,5 +35,4 @@ public class MenuManageDesign extends JDialog {
     public JButton getJbtnMenuAdd(){ return jbtnMenuAdd; }
     public JButton getJbtnMenuDelete(){ return jbtnMenuDelete; }
 
-   
 }

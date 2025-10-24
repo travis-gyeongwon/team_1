@@ -19,7 +19,9 @@ public class OrderManageService {
 		OrderManageDAO omDAO = OrderManageDAO.getInstance();
 		try {
 			listMakeOrder = omDAO.selectAllMakingOrder();
-		} catch (IOException e) {
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -37,6 +39,8 @@ public class OrderManageService {
 		OrderManageDAO omDAO = OrderManageDAO.getInstance();
 		try {
 			flag = omDAO.updateOrderStatus(orderNum);
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

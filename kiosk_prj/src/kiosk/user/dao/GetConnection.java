@@ -36,6 +36,7 @@ public class GetConnection {
         }
 
         // 2. DB 연결 정보 
+        /////////////////////////////////////////////////// 수정 필요 
         String url = "jdbc:oracle:thin:@localhost:1521:orcl1"; 
         String user = "scott"; 
         String pass = "1234"; 

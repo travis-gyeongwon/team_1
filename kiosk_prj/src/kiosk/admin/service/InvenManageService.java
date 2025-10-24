@@ -15,6 +15,8 @@ public class InvenManageService {
 		try {
 			InvenManageDAO imDAO = InvenManageDAO.getInstance();
 			listImDTO = imDAO.selectAllInven();
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,7 +34,9 @@ public class InvenManageService {
 		InvenManageDAO imDAO = InvenManageDAO.getInstance();
 		try {
 			flag = imDAO.updateAllInventory();
-		} catch (SQLException e) {
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -49,6 +53,8 @@ public class InvenManageService {
 		InvenManageDAO imDAO = InvenManageDAO.getInstance();
 		try {
 			flag = imDAO.updateOneInventory(imDTO);
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

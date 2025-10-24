@@ -18,9 +18,8 @@ public class OrderManageDesign extends JDialog {
 	private JButton jbtnRenew;
 	private JLabel jlblRenewTime;
 
-//	public OrderManageDesign(AdminMainDesign amd) {
-//		super(amd,"주문관리창",true);
-	public OrderManageDesign() {
+	public OrderManageDesign(AdminMainDesign amd) {
+		super(amd,"주문관리창",true);
 
 		JLabel jlblInstruction = new JLabel("관리할 주문을 선택해주세요");
 		String header[] = { "주문번호", "주문시간", "대표상품", "금액", "주문상태", "픽업완료" };

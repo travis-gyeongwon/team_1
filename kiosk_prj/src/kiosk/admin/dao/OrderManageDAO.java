@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kiosk.admin.dto.OrderManageMakeOrderDTO;
-import kiosk.user.dao.GetConnection;
+import kiosk.admin.dao.GetConnection;
 
 public class OrderManageDAO {
 	private static OrderManageDAO omDAO;
@@ -26,7 +26,7 @@ public class OrderManageDAO {
 		return omDAO;
 	}// getInstance
 
-	public List<OrderManageMakeOrderDTO> selectAllMakingOrder() throws IOException, SQLException {
+	public List<OrderManageMakeOrderDTO> selectAllMakingOrder() throws IOException, SQLException, ClassNotFoundException {
 		List<OrderManageMakeOrderDTO> listMakeOrder = new ArrayList<OrderManageMakeOrderDTO>();
 		GetConnection gc = GetConnection.getInstance();
 
@@ -68,13 +68,13 @@ public class OrderManageDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.dbClose(con, pstmt, rs);
+			gc.close(con, pstmt, rs);
 		} // end finally
 		return listMakeOrder;
 		
 	}//selectAllMakingOrder
 	
-	public int updateOrderStatus(String orderNum) throws IOException, SQLException{
+	public int updateOrderStatus(String orderNum) throws IOException, SQLException, ClassNotFoundException{
 		int flag = 0;
 		
 		GetConnection gc = GetConnection.getInstance();
@@ -99,7 +99,7 @@ public class OrderManageDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.dbClose(con, pstmt, rs);
+			gc.close(con, pstmt, rs);
 		} // end finally
 		
 		return flag;
