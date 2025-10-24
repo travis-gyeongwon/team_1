@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kiosk.admin.dto.InvenManageDTO;
-import kiosk.admin.dao.GetConnection;
+import kiosk.user.dao.GetConnection;
 
 public class InvenManageDAO {
 	private static InvenManageDAO imDAO;
@@ -55,7 +55,7 @@ public class InvenManageDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		} // end finally
 
 		return listImDTO;
@@ -80,7 +80,7 @@ public class InvenManageDAO {
 			flag = pstmt.executeUpdate();
 
 		} finally {
-			gc.close(con, pstmt, null);
+			gc.dbClose(con, pstmt, null);
 		} // finally
 
 		return flag;
@@ -105,7 +105,7 @@ public class InvenManageDAO {
 			flag = pstmt.executeUpdate();
 
 		} finally {
-			gc.close(con, pstmt, null);
+			gc.dbClose(con, pstmt, null);
 		} // finally
 		
 		return flag;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kiosk.admin.dto.SalesReportDTO;
+import kiosk.user.dao.GetConnection;
 
 public class SalesReportDAO {
 	private static SalesReportDAO srDAO;
@@ -65,7 +66,7 @@ public class SalesReportDAO {
 			}
 			
 		}finally {
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		}
 		
 		return list;
@@ -94,7 +95,7 @@ public class SalesReportDAO {
 			}
 			
 		} finally {
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		}
 		
 		return menuName;

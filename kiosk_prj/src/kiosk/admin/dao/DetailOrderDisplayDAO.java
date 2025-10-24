@@ -11,7 +11,7 @@ import java.util.List;
 
 import kiosk.admin.dto.DetailOrderDisplayOrderDTO;
 import kiosk.admin.dto.DetailOrderDisplayProductDTO;
-import kiosk.admin.dao.GetConnection;
+import kiosk.user.dao.GetConnection;
 
 public class DetailOrderDisplayDAO {
 
@@ -70,7 +70,7 @@ public class DetailOrderDisplayDAO {
 			dodoDTO = new DetailOrderDisplayOrderDTO(orderNum, totalprice, listProduct, orderStatus, orderTime, takeOutFlag);
 		} finally {
 			// 5.연결 끊기
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		} // end finally
 		
 		return dodoDTO;
@@ -101,7 +101,7 @@ public class DetailOrderDisplayDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		} // end finally
 		
 		return flag;

@@ -1,5 +1,6 @@
 package kiosk.user.service;
 
+import java.io.IOException;
 import java.sql.Connection;       // ❗️ import 추가
 import java.sql.SQLException;     // ❗️ import 추가
 import java.text.SimpleDateFormat;  // ❗️ import 추가
@@ -115,6 +116,9 @@ public class OrderService {
 			if (con != null) {
 				try { con.rollback(); } catch (SQLException e1) { e1.printStackTrace(); }
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			// 11. 트랜잭션 종료 (Auto Commit 다시 활성화) 및 연결 닫기
 			if (con != null) {

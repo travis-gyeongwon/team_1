@@ -1,10 +1,15 @@
 package kiosk.user.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
  
 
 public class GetConnection {
@@ -24,23 +29,30 @@ public class GetConnection {
      * Oracle DB 연결을 위한 Connection 객체를 반환합니다.
      * @return Connection
      * @throws SQLException
+     * @throws IOException 
+     * @throws  
      */
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, IOException {
         Connection con = null;
         
-        // 1. 드라이버 로딩
+        // 최신 드라이버명
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+			Class.forName("oracle.jdbc.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         // 2. DB 연결 정보 
-        /////////////////////////////////////////////////// 수정 필요 
-        String url = "jdbc:oracle:thin:@localhost:1521:orcl1"; 
-        String user = "scott"; 
-        String pass = "1234"; 
-         
+        // properties 경로는 환경에 맞춰 수정
+        File file = new File("src/properties/database.properties");
+        Properties prop = new Properties();
+        prop.load(new FileInputStream(file));
+
+        String url = prop.getProperty("url"); 
+        String user = prop.getProperty("id"); 
+        String pass = prop.getProperty("pass"); 
+       
         // 3. 연결
         con = DriverManager.getConnection(url, user, pass);
         return con;

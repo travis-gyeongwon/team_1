@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import kiosk.admin.dto.StoreStatusDTO;
+import kiosk.user.dao.GetConnection;
 
 public class StoreStatusDAO {
 	private static StoreStatusDAO ssDAO;
@@ -50,7 +51,7 @@ public class StoreStatusDAO {
 			}
 			
 		}finally {
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		}
 		
 		
@@ -81,7 +82,7 @@ public class StoreStatusDAO {
 			cnt = pstmt.executeUpdate();
 			
 		}finally {
-			gc.close(con, pstmt, null);
+			gc.dbClose(con, pstmt, null);
 		}
 		
 		return cnt;

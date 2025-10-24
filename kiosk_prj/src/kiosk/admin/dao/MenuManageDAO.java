@@ -3,6 +3,8 @@ package kiosk.admin.dao;
 import kiosk.admin.dto.MenuListAddDTO;
 import kiosk.admin.dto.MenuListSelectDTO;
 import kiosk.admin.dto.MenuListUpdateDTO;
+import kiosk.user.dao.GetConnection;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;

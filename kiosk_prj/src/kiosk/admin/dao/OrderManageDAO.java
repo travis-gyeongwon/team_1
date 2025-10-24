@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kiosk.admin.dto.OrderManageMakeOrderDTO;
-import kiosk.admin.dao.GetConnection;
+import kiosk.user.dao.GetConnection;
 
 public class OrderManageDAO {
 	private static OrderManageDAO omDAO;
-
 	private OrderManageDAO() {
 
 	}// OrderManageDAO
@@ -68,7 +67,7 @@ public class OrderManageDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		} // end finally
 		return listMakeOrder;
 		
@@ -99,7 +98,7 @@ public class OrderManageDAO {
 
 		} finally {
 			// 5.연결 끊기
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		} // end finally
 		
 		return flag;

@@ -102,9 +102,9 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 				message = "영업을 시작할 수 없습니다.";
 				open = "N";
 			}else {
-				message = "영업을 시작합니다.";
 				amd.getJlStatus().setText("영업 상태 : 영업 중");
 				openOrderManager();
+				return;
 			}
 		}
 		

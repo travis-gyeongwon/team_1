@@ -1,5 +1,6 @@
 package kiosk.user.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,6 +76,8 @@ public class OrderDAO {
 				list.add(dto); 
 			}
 
+		}catch (IOException e) {
+			e.printStackTrace();
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		} finally {
@@ -220,6 +223,9 @@ public class OrderDAO {
 				dto.setImageUrl(rs.getString("image_url"));
 				dto.setQuantity(rs.getInt("quantity"));
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		} finally {

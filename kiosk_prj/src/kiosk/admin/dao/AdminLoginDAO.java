@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import kiosk.admin.dto.LoginDTO;
+import kiosk.user.dao.GetConnection;
 
 public class AdminLoginDAO {
 	private static AdminLoginDAO alDAO;
@@ -51,7 +52,7 @@ public class AdminLoginDAO {
 			lDTO.setLoginDate(rs.getDate("last_login_at"));
 		}
 		}finally {
-			gc.close(con, pstmt, rs);
+			gc.dbClose(con, pstmt, rs);
 		}
 		return lDTO;
 	}
@@ -78,7 +79,7 @@ public class AdminLoginDAO {
 		
 		pstmt.execute();
 		}finally {
-			gc.close(con, pstmt, null);
+			gc.dbClose(con, pstmt, null);
 		}
 	}
 
