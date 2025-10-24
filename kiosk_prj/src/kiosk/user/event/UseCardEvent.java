@@ -1,0 +1,71 @@
+package kiosk.user.event;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JOptionPane;
+
+import kiosk.user.service.OrderPayService;
+import kiosk.user.view.UseCardDesign;
+
+public class UseCardEvent extends WindowAdapter implements ActionListener{
+	
+	UseCardDesign ucd;
+	OrderPayService ops;
+	
+	boolean cardFlag=false;
+	
+	
+	
+	public UseCardEvent() {
+		super();
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		
+		failCard();//결제가 완료되기 전 창이 꺼지면 결제실패
+		
+	}//windowClosing
+
+	public UseCardEvent(UseCardDesign ucd) {
+		this.ucd = ucd;
+	}//UseCardEvent
+
+	public void successCard() {
+		
+		 cardFlag=true;
+		 
+	     JOptionPane.showMessageDialog(ucd,"카드 결제가 완료되었습니다.");
+		 ucd.dispose();
+		 //영수증 창으로
+		 
+		}//successCard
+		
+		public void failCard() {
+			
+			cardFlag=false;
+		 ucd.getTimer().stop();
+		 if(cardFlag==false) {
+			 //주문 데이터 삭제(해당 주문번호의 주문테이블과 주문상세테이블 행 삭제)
+			 ops=new OrderPayService();
+			 ops.removeOrderDetail("2510160001");//매개변수에 주문번호 orderNum들어가야함
+			 ops.removeOrderList("2510160001");//매개변수에 주문번호 orderNum들어가야함
+			 JOptionPane.showMessageDialog(ucd, "카드 결제가 취소되었습니다.");
+			 ucd.dispose();
+		 }//end if
+			
+		}//failCard
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource()==ucd.getJbtnCancel()) {//취소버튼 누르면 결제실패
+				failCard();
+			}//end if 
+			
+		}//actionPerformed
+
+
+}
