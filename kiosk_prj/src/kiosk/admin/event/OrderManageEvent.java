@@ -46,6 +46,7 @@ public class OrderManageEvent extends WindowAdapter implements MouseListener, Ac
 	@Override
 	public void windowClosing(WindowEvent e) {
 		scheduler.shutdown();
+		ome=null;
 		omd.dispose();
 	}
 	
