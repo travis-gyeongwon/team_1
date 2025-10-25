@@ -7,7 +7,11 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
+import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.OrderPayService;
+import kiosk.user.service.StartService;
 import kiosk.user.view.OrderPayDesign;
 import kiosk.user.view.UseCardDesign;
 import kiosk.user.view.UsePayDesign;
@@ -16,6 +20,8 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 
 	public OrderPayDesign opd;
 	OrderPayService ops;
+	OrderProductDTO oDTO=new OrderProductDTO();
+	StartService ss=new StartService();
 	
 	public OrderPayEvent() {
 		super();
@@ -35,15 +41,24 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 		
 		//버튼을 눌렀을 때 결제방식 checkout 업데이트
 		if(e.getSource()==opd.getJbtnCard()) {//카드 버튼 
-				ops.changeCheckout("2510160001",1);//null매개변수에 주문번호 orderNum 들어가야함
-			opd.dispose();
-			new UseCardDesign();
+			
+			if(ss.showStoreStatus()==true) {//영업중이면
+				ops.changeCheckout(oDTO.getOrderNum(),1);
+				opd.dispose();
+				new UseCardDesign();
+			}else {//영업중이 아니면
+				JOptionPane.showMessageDialog(opd, "영업 중이 아닙니다");
+			}
 		}//end if
 		
 		if(e.getSource()==opd.getJbtnPay()) {//페이 버튼
-				ops.changeCheckout("2510160001",2);//null매개변수에 주문번호 orderNum 들어가야함
-			opd.dispose();
-			new UsePayDesign();
+			if(ss.showStoreStatus()==true) {//영업 중이면
+				ops.changeCheckout(oDTO.getOrderNum(),2);
+				opd.dispose();
+				new UsePayDesign();
+			}else {//영업 중이 아니면
+				JOptionPane.showMessageDialog(opd, "영업 중이 아닙니다");
+			}
 		}//end if
 		
 		

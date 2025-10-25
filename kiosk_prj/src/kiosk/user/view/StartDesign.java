@@ -26,8 +26,9 @@ public class StartDesign extends JDialog{
 		Font font=new Font("나눔고딕",Font.BOLD,20);
 		jlblScreenStart.setFont(font);
 		
-//		recommendMenuImg=new ImageIcon(ss.showBestmenu());
-//		jlblRecommendMenu=new JLabel(recommendMenuImg);
+		//현재blob이 null이라 데이터 추가 후 주석 해제 
+//		recommendMenuImg=ss.showBestmenu();
+		jlblRecommendMenu=new JLabel(recommendMenuImg);
 		
 	jpStart.add(jlblScreenStart);
 //	jpStart.add(jlblRecommendMenu);
@@ -41,14 +42,14 @@ public class StartDesign extends JDialog{
 	setLayout(null);
 	jpStart.setLayout(null);
 	
-	getJlblScreenStart().setBounds(85,480,300,100);
+	getJlblScreenStart().setBounds(150,700,300,100);
 	
 	
 	StartEvent se=new StartEvent(this);
 	jpStart.addMouseListener(se);
 	
-	setSize(400,600);
-	setLocation(800,300);
+	setSize(700, 1000); 
+	setLocationRelativeTo(null);
 	setVisible(true);
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}//StartDesign

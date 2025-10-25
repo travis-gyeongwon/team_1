@@ -7,12 +7,16 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
 
+import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.OrderPayService;
+import kiosk.user.view.OrderDesign;
+import kiosk.user.view.PrintReceiptDesign;
 import kiosk.user.view.UsePayDesign;
 
 public class UsePayEvent extends WindowAdapter implements ActionListener{
 	UsePayDesign upd;
 	OrderPayService ops;
+	OrderProductDTO oDTO=new OrderProductDTO();
 	
 	boolean payFlag=false;
 	
@@ -40,6 +44,7 @@ public class UsePayEvent extends WindowAdapter implements ActionListener{
 	     JOptionPane.showMessageDialog(upd,"페이 결제가 완료되었습니다.");
 		 upd.dispose();
 		 //영수증 창으로
+		 new PrintReceiptDesign();
 		}//successCard
 		
 		public void failPay() {
@@ -49,13 +54,14 @@ public class UsePayEvent extends WindowAdapter implements ActionListener{
 		 if(payFlag==false) {
 			 //주문 데이터 삭제(해당 주문번호의 주문테이블과 주문상세테이블 행 삭제)
 			 ops=new OrderPayService();
-			 ops.removeOrderDetail("2510160001");//매개변수에 주문번호 orderNum들어가야함
-			 ops.removeOrderList("2510160001");//매개변수에 주문번호 orderNum들어가야함
+			 ops.removeOrderDetail(oDTO.getOrderNum());//매개변수에 주문번호 orderNum들어가야함
+			 ops.removeOrderList(oDTO.getOrderNum());//매개변수에 주문번호 orderNum들어가야함
 			 JOptionPane.showMessageDialog(upd, "페이 결제가 취소되었습니다.");
 		 }//end if
 			
 			upd.dispose();
 			//결제가 취소되면 주문창으로
+			new OrderDesign();
 			
 		}//failCard
 

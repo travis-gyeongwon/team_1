@@ -65,7 +65,7 @@ public class UsePayDesign extends JDialog {
 			ImageIcon payImg=new ImageIcon(img);
 			 JLabel jlblPayImg=new JLabel(payImg);
 		 
-		 jlblPayMsg=new JLabel("<html>휴대폰의 페이 결제 바코드를 <br>스캔해주세요");
+		 jlblPayMsg=new JLabel("휴대폰의 페이 결제 바코드를 스캔해주세요");
 		 jbtnCancel=new JButton("취소");
 		 
 		 Font payFont=new Font("나눔고딕", Font.PLAIN, 20);
@@ -78,16 +78,17 @@ public class UsePayDesign extends JDialog {
 			add(progress);
 			add(jbtnCancel);
 			
-			jlblPayImg.setBounds(100,80,200,200);
-			jlblPayMsg.setBounds(50,30,300,50);
-			progress.setBounds(100,300,200,50);
-			jbtnCancel.setBounds(150,400,100,50);
+			jlblPayImg.setBounds(175, 133, 350, 333);
+			jlblPayMsg.setBounds(180, 50, 525, 83);
+			progress.setBounds(175, 500, 350, 83);
+			jbtnCancel.setBounds(263, 667, 175, 83);
+
 			
 			addWindowListener(upe);
 			jbtnCancel.addActionListener(upe);
 			
-			setSize(400,600);
-			setLocation(800,300);
+			setSize(700, 1000); 
+			setLocationRelativeTo(null);
 			setVisible(true);
 			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		

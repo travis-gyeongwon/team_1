@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import kiosk.user.event.OrderPayEvent;
 import kiosk.user.dto.OrderPayDTO;
+import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.OrderPayService;
 
 public class OrderPayDesign extends JFrame{
@@ -32,9 +33,11 @@ public class OrderPayDesign extends JFrame{
 
 	public OrderPayDesign() {
 		
-		//추후 orderNum 받아옴
+		OrderProductDTO oDTO=new OrderProductDTO();
 		
-    	String orderNum="2510160001";
+		//orderNum 받아옴
+     	String orderNum=oDTO.getOrderNum();
+     	
 	    ops=new OrderPayService();
 	    String[]tableColumn={"메뉴명","수량","금액"};
 	    
@@ -70,7 +73,7 @@ public class OrderPayDesign extends JFrame{
 		String amountPrice="총 수량: "+quantity+"개 총 금액: "+price+"원";
 		jlblAmountPrice=new JLabel(amountPrice);
 		
-		Font font=new Font("맑은고딕",Font.BOLD,20);
+		Font font=new Font("맑은고딕",Font.BOLD,30);
 		
 		JLabel orderTitle=new JLabel("주문내역");
 		JLabel jlblChoosePayMethod=new JLabel("결제방식을 선택해주세요!");
@@ -87,13 +90,13 @@ public class OrderPayDesign extends JFrame{
 		setLayout(null);
 		orderTitle.setFont(font);
 		jlblAmountPrice.setFont(font);
-		orderTitle.setBounds(150,10,100,50);
-		scroll.setBounds(20,50,350,250);
-		jlblAmountPrice.setBounds(50,300,300,50);
-		jlblChoosePayMethod.setBounds(120,350,300,50);
-		jbtnCard.setBounds(70,400,100,50);
-		jbtnPay.setBounds(220,400,100,50);
-		jbtnBefore.setBounds(150,500,100,50);
+		orderTitle.setBounds(300,10,200,50);
+		scroll.setBounds(100,100,450,500);
+		jlblAmountPrice.setBounds(100,600,500,40);
+		jlblChoosePayMethod.setBounds(240,650,300,40);
+		jbtnCard.setBounds(140,700,100,50);
+		jbtnPay.setBounds(440,700,100,50);
+		jbtnBefore.setBounds(300,800,100,50);
 		
 		
 		add(orderTitle);
@@ -106,8 +109,8 @@ public class OrderPayDesign extends JFrame{
 		
 		
 		
-		setSize(400,600);
-		setLocation(800,300);
+		setSize(700, 1000); 
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		

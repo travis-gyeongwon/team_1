@@ -9,9 +9,31 @@ import kiosk.user.dao.StartDAO;
 
 public class StartService {
 	
-	String bestMenu;
+	ImageIcon bestMenu;
 	
-	public String showBestmenu() {
+	
+	public boolean showStoreStatus() {
+		
+		boolean statusFlag=false;
+		
+		try {
+			switch(StartDAO.getInstance().selectStoreStatus()) {
+			
+			case "y": statusFlag=true; break; //영업중
+			case "n": statusFlag=false; break; //영업종료
+				
+			}//end switch
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		return statusFlag;
+		
+	}//showStoreStatus
+	
+	public ImageIcon showBestmenu() {
 		
 		//이미지 경로
 		try {

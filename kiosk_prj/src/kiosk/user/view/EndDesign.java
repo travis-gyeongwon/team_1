@@ -1,5 +1,6 @@
 package kiosk.user.view;
 
+
 import java.awt.Font;
 
 import javax.swing.JDialog;
@@ -40,13 +41,15 @@ public class EndDesign extends JDialog{
 	
 	add(jpEnd);
 	
-	jpEnd.setSize(400,600);
-	jlblOrderFinish.setBounds(90,50,300,50);
-	jlblOrderNum.setBounds(70,200,300,100);
-	jlblreturnToStart.setBounds(100,400,300,100);
+	jpEnd.setSize(700,1000);
+	jlblOrderFinish.setBounds(158, 83, 525, 83);
+	jlblOrderNum.setBounds(123, 333, 525, 167);
+	jlblreturnToStart.setBounds(175, 667, 525, 167);
+
 	
 	
-	setSize(400,600);
+	setSize(700, 1000); 
+	setLocationRelativeTo(null);
 	setLocation(800,300);
 	setVisible(true);
 	

@@ -1,12 +1,14 @@
 package kiosk.user.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JOptionPane;
+
+import kiosk.user.service.StartService;
+import kiosk.user.view.OrderDesign;
 import kiosk.user.view.StartDesign;
 
 public class StartEvent extends WindowAdapter implements MouseListener {
@@ -25,15 +27,25 @@ public class StartEvent extends WindowAdapter implements MouseListener {
 	@Override
 	public void windowClosing(WindowEvent e) {
 		sd.dispose();
-		//만약 화면 터치(클릭)이 아닌 X로 창이 꺼졌다면 영업종료창 떠야함
 		
 	}//windowClosing
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
+		StartService ss=new StartService();
 		if(e.getSource()==sd.getJpStart()) {
-			//메뉴선택창 띄우기
-			sd.dispose();
+			
+			if(ss.showStoreStatus()==true) {
+				//메뉴선택창 띄우기
+				new OrderDesign();
+				sd.dispose();
+				
+			}else {
+				//터치 안되도록
+				JOptionPane.showMessageDialog(sd, "영업시간이 아닙니다");
+			}//end else
+			
 		}//end if
 		
 	}//mouseClicked

@@ -19,7 +19,7 @@ public class EndDAO {
 	
 	
 	
-	public void updateInventory(String menuName) throws SQLException, IOException {
+	public void updateInventory() throws SQLException, IOException {
 	GetConnection gc=GetConnection.getInstance();
 		
 		Connection con=null;

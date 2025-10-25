@@ -77,16 +77,16 @@ public class UseCardDesign extends JDialog {
 			add(progress);
 			add(jbtnCancel);
 			
-			jlblCardImg.setBounds(100,80,200,200);
-			jlblCardMsg.setBounds(50,30,300,50);
-			progress.setBounds(100,300,200,50);
-			jbtnCancel.setBounds(150,400,100,50);
-			
+			jlblCardImg.setBounds(175, 133, 350, 333);
+			jlblCardMsg.setBounds(180, 50, 525, 83);
+			progress.setBounds(175, 500, 350, 83);
+			jbtnCancel.setBounds(263, 667, 175, 83);
+
 			addWindowListener(uce);
 			jbtnCancel.addActionListener(uce);
 			
-			setSize(400,600);
-			setLocation(800,300);
+			setSize(700, 1000); 
+			setLocationRelativeTo(null);
 			setVisible(true);
 			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
