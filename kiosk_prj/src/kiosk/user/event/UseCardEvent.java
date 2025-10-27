@@ -17,7 +17,6 @@ public class UseCardEvent extends WindowAdapter implements ActionListener{
 	
 	UseCardDesign ucd;
 	OrderPayService ops;
-	OrderProductDTO oDTO=new OrderProductDTO();
 	
 	boolean cardFlag=false;
 	
@@ -56,8 +55,8 @@ public class UseCardEvent extends WindowAdapter implements ActionListener{
 		 if(cardFlag==false) {
 			 //주문 데이터 삭제(해당 주문번호의 주문테이블과 주문상세테이블 행 삭제)
 			 ops=new OrderPayService();
-			 ops.removeOrderDetail(oDTO.getOrderNum());//매개변수에 주문번호 orderNum들어가야함
-			 ops.removeOrderList(oDTO.getOrderNum());//매개변수에 주문번호 orderNum들어가야함
+			 ops.removeOrderDetail(ops.showMaxOrderNum());//매개변수에 주문번호 orderNum들어가야함
+			 ops.removeOrderList(ops.showMaxOrderNum());//매개변수에 주문번호 orderNum들어가야함
 			 JOptionPane.showMessageDialog(ucd, "카드 결제가 취소되었습니다.");
 			 ucd.dispose();
 			 

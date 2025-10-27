@@ -1,5 +1,6 @@
 package kiosk.user.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import kiosk.user.dto.OrderPayDTO;
 import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.OrderPayService;
 
-public class OrderPayDesign extends JFrame{
+public class OrderPayDesign extends JDialog{
 
 	DefaultTableModel dtm;
 	JTable jtOrderList;
@@ -25,13 +26,20 @@ public class OrderPayDesign extends JFrame{
 	public JButton jbtnPay;
 	public JButton jbtnBefore;
 	OrderPayService ops;
+	private OrderDesign od;
 	
+	private static final Color COLOR_BG = Color.WHITE;
 	
 	
 
 
 
-	public OrderPayDesign() {
+	
+
+
+	public OrderPayDesign(OrderDesign od) {
+		super(od,"주문내역",true);
+		this.od=od;
 		
 		OrderProductDTO oDTO=new OrderProductDTO();
 		
@@ -46,7 +54,7 @@ public class OrderPayDesign extends JFrame{
         jtOrderList.setEnabled(false);
 		
 		
-		List<OrderPayDTO>orderDetailList=ops.showOrderDetail(orderNum);
+		List<OrderPayDTO>orderDetailList=ops.showOrderDetail(ops.showMaxOrderNum());
 			for(OrderPayDTO opDTO : orderDetailList) {
 				String menu=
 						opDTO.getMenuName()+"("+opDTO.getTempOption()+","
@@ -91,12 +99,16 @@ public class OrderPayDesign extends JFrame{
 		orderTitle.setFont(font);
 		jlblAmountPrice.setFont(font);
 		orderTitle.setBounds(300,10,200,50);
-		scroll.setBounds(100,100,450,500);
-		jlblAmountPrice.setBounds(100,600,500,40);
-		jlblChoosePayMethod.setBounds(240,650,300,40);
+		scroll.setBounds(120,100,450,500);
+		jlblAmountPrice.setBounds(150,600,500,40);
+		jlblChoosePayMethod.setBounds(270,650,300,40);
 		jbtnCard.setBounds(140,700,100,50);
+		jbtnCard.setBackground(Color.black);
+		jbtnCard.setForeground(COLOR_BG);
 		jbtnPay.setBounds(440,700,100,50);
-		jbtnBefore.setBounds(300,800,100,50);
+		jbtnPay.setBackground(Color.black);
+		jbtnPay.setForeground(COLOR_BG);
+		jbtnBefore.setBounds(285,800,100,50);
 		
 		
 		add(orderTitle);
@@ -111,6 +123,7 @@ public class OrderPayDesign extends JFrame{
 		
 		setSize(700, 1000); 
 		setLocationRelativeTo(null);
+		getContentPane().setBackground(COLOR_BG);
 		setVisible(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
@@ -136,7 +149,7 @@ public class OrderPayDesign extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		new OrderPayDesign();
+//		new OrderPayDesign();
 	}
 
 }//class

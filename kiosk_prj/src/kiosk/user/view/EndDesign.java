@@ -1,6 +1,7 @@
 package kiosk.user.view;
 
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JDialog;
@@ -16,6 +17,8 @@ public class EndDesign extends JDialog{
 	public JLabel jlblreturnToStart;
 	public JPanel jpEnd;
 	
+	private static final Color COLOR_BG = Color.WHITE;
+	
 	public EndDesign() {
 		
 		jpEnd=new JPanel();
@@ -24,7 +27,7 @@ public class EndDesign extends JDialog{
 	jlblreturnToStart=new JLabel("화면을 터치하면 처음으로 돌아갑니다");
 	
 	
-	Font font=new Font("나눔고딕",Font.BOLD,20);
+	Font font=new Font("나눔고딕",Font.BOLD,30);
 	jlblOrderFinish.setFont(font);
 	jlblOrderNum.setFont(font);
 	
@@ -42,15 +45,16 @@ public class EndDesign extends JDialog{
 	add(jpEnd);
 	
 	jpEnd.setSize(700,1000);
-	jlblOrderFinish.setBounds(158, 83, 525, 83);
+	jpEnd.setBackground(COLOR_BG);
+	jlblOrderFinish.setBounds(165, 83, 525, 83);
 	jlblOrderNum.setBounds(123, 333, 525, 167);
-	jlblreturnToStart.setBounds(175, 667, 525, 167);
+	jlblreturnToStart.setBounds(230, 667, 525, 167);
 
 	
 	
 	setSize(700, 1000); 
+	getContentPane().setBackground(COLOR_BG);
 	setLocationRelativeTo(null);
-	setLocation(800,300);
 	setVisible(true);
 	
 		

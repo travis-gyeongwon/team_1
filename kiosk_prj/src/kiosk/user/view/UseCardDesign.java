@@ -1,6 +1,7 @@
 package kiosk.user.view;
 
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,8 @@ public class UseCardDesign extends JDialog {
 	public  Timer timer;
 	public JButton jbtnCancel;
 	ImageIcon tempCardImg;
+	
+	private static final Color COLOR_BG = Color.WHITE;
 	
 	
 	public UseCardDesign() {
@@ -87,6 +90,7 @@ public class UseCardDesign extends JDialog {
 			
 			setSize(700, 1000); 
 			setLocationRelativeTo(null);
+			getContentPane().setBackground(COLOR_BG);
 			setVisible(true);
 			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		

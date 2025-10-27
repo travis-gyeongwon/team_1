@@ -101,19 +101,20 @@ public class StartDAO {
 			int amount=0;
 			
 			ImageIcon menuImg=null;
-			InputStream is=rs.getBinaryStream("menu_img");
 			while(rs.next()) {//조회결과에 다음 레코드가 존재하는지
 				//resultSet은 커서로 조회권을 가진다
-
-				BufferedImage bi=ImageIO.read(is);
-				menuImg=new ImageIcon(bi);
-				
 				menuName=rs.getString("menu_name");
-				amount=rs.getInt(amount);
+				amount=rs.getInt("amount");
+				InputStream is=rs.getBinaryStream("menu_img");
 
+				if(is!=null) {
+					BufferedImage bi=ImageIO.read(is);
+					menuImg=new ImageIcon(bi);
+				}//end if
+				
+				is.close();
 			}//end while
 			
-			is.close();
 			return menuImg;
 		}finally {
 		//5.연결끊기

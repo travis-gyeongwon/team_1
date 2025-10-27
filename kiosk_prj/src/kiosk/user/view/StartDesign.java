@@ -1,5 +1,6 @@
 package kiosk.user.view;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -18,6 +19,8 @@ public class StartDesign extends JDialog{
 	public JPanel jpStart;
 	StartService ss;
 	
+	private static final Color COLOR_BG = Color.WHITE;
+	
 	public StartDesign() {
 	
 		jpStart=new JPanel();
@@ -35,14 +38,15 @@ public class StartDesign extends JDialog{
 	
 	
 	
-	jpStart.setSize(400,600);
+	jpStart.setSize(700,1000);
 
 	add(jpStart);
 	
 	setLayout(null);
 	jpStart.setLayout(null);
+	jpStart.setBackground(COLOR_BG);
 	
-	getJlblScreenStart().setBounds(150,700,300,100);
+	jlblScreenStart.setBounds(250,700,300,50);
 	
 	
 	StartEvent se=new StartEvent(this);
@@ -50,6 +54,7 @@ public class StartDesign extends JDialog{
 	
 	setSize(700, 1000); 
 	setLocationRelativeTo(null);
+	getContentPane().setBackground(COLOR_BG);
 	setVisible(true);
 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}//StartDesign

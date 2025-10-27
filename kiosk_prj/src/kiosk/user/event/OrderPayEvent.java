@@ -20,7 +20,6 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 
 	public OrderPayDesign opd;
 	OrderPayService ops;
-	OrderProductDTO oDTO=new OrderProductDTO();
 	StartService ss=new StartService();
 	
 	public OrderPayEvent() {
@@ -43,7 +42,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 		if(e.getSource()==opd.getJbtnCard()) {//카드 버튼 
 			
 			if(ss.showStoreStatus()==true) {//영업중이면
-				ops.changeCheckout(oDTO.getOrderNum(),1);
+				ops.changeCheckout(ops.showMaxOrderNum(),1);
 				opd.dispose();
 				new UseCardDesign();
 			}else {//영업중이 아니면
@@ -53,7 +52,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 		
 		if(e.getSource()==opd.getJbtnPay()) {//페이 버튼
 			if(ss.showStoreStatus()==true) {//영업 중이면
-				ops.changeCheckout(oDTO.getOrderNum(),2);
+				ops.changeCheckout(ops.showMaxOrderNum(),2);
 				opd.dispose();
 				new UsePayDesign();
 			}else {//영업 중이 아니면

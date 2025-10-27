@@ -19,6 +19,21 @@ public class OrderPayService {
 		super();
 		
 	}
+	
+	
+	public String showMaxOrderNum() {
+		
+		String orderNum="";
+		try {
+			orderNum=OrderPayDAO.getInstance().selectMaxOrderNum();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		return orderNum;
+	}//showMaxOrderNum
 
 
 	//메뉴명(옵션1,옵션2,옵션3)  수량  금액

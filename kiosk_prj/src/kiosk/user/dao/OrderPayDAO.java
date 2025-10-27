@@ -17,7 +17,6 @@ public class OrderPayDAO {
 private static OrderPayDAO opDAO;
 public List<OrderPayDTO> orderList;
 
-
 	
 	static public OrderPayDAO getInstance() {
 		if(opDAO==null) {
@@ -26,6 +25,43 @@ public List<OrderPayDTO> orderList;
 		return opDAO;
 		
 	}//getInstance
+	
+	
+	public String selectMaxOrderNum() throws SQLException, IOException {
+		Connection con=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        
+        GetConnection gc=GetConnection.getInstance();
+        
+        try {
+           con=gc.getConnection();
+           
+        //3.쿼리문 생성객체 얻기
+           StringBuilder selectMaxOrderNum=new StringBuilder();
+           selectMaxOrderNum
+           .append("	select max(to_number(ORDER_NUM))	")
+           .append("	from  order_detail	");
+           pstmt=con.prepareStatement(selectMaxOrderNum.toString());
+           
+        //4.쿼리문 수행 후 결과 얻기(커서의 제어권을 얻기)
+           String orderNum="";
+
+           rs=pstmt.executeQuery();
+           
+           while(rs.next()) {//조회결과에 다음 레코드가 존재하는지
+        	  orderNum= rs.getString("order_num");
+           }//end while
+           
+           return orderNum;
+           
+        }finally {
+        //5.연결끊기
+           gc.dbClose(con, pstmt, rs);
+        }//end finally
+        
+		
+	}//selectMaxOrderNum
 	
 	public List<OrderPayDTO> selectOrderDetail(String orderNum) throws SQLException, IOException{
         orderList=new ArrayList<OrderPayDTO>();

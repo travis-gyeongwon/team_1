@@ -1,6 +1,7 @@
 package kiosk.user.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -27,6 +28,8 @@ public class UsePayDesign extends JDialog {
 	public  Timer timer;
 	public JButton jbtnCancel;
 	ImageIcon tempPayImg;
+	
+	private static final Color COLOR_BG = Color.WHITE;
 	
 	
 	
@@ -89,6 +92,7 @@ public class UsePayDesign extends JDialog {
 			
 			setSize(700, 1000); 
 			setLocationRelativeTo(null);
+			getContentPane().setBackground(COLOR_BG);
 			setVisible(true);
 			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
