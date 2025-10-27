@@ -31,10 +31,9 @@ public class OrderPayDesign extends JDialog{
 	private static final Color COLOR_BG = Color.WHITE;
 	
 	
-
-
-
-	
+	public OrderDesign getOd() {
+		return od;
+	}
 
 
 	public OrderPayDesign(OrderDesign od) {
@@ -149,7 +148,7 @@ public class OrderPayDesign extends JDialog{
 	}
 
 	public static void main(String[] args) {
-//		new OrderPayDesign();
+//		new OrderPayDesign(od);
 	}
 
 }//class

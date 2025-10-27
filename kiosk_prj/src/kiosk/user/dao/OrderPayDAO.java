@@ -40,7 +40,7 @@ public List<OrderPayDTO> orderList;
         //3.쿼리문 생성객체 얻기
            StringBuilder selectMaxOrderNum=new StringBuilder();
            selectMaxOrderNum
-           .append("	select max(to_number(ORDER_NUM))	")
+           .append("	select max(to_number(ORDER_NUM)) as order_num	")
            .append("	from  order_detail	");
            pstmt=con.prepareStatement(selectMaxOrderNum.toString());
            
@@ -52,7 +52,7 @@ public List<OrderPayDTO> orderList;
            while(rs.next()) {//조회결과에 다음 레코드가 존재하는지
         	  orderNum= rs.getString("order_num");
            }//end while
-           
+           System.out.println(orderNum);
            return orderNum;
            
         }finally {

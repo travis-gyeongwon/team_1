@@ -4,15 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.OrderPayService;
 import kiosk.user.service.StartService;
+import kiosk.user.view.OrderDesign;
 import kiosk.user.view.OrderPayDesign;
+import kiosk.user.view.SaveStampDesign;
 import kiosk.user.view.UseCardDesign;
 import kiosk.user.view.UsePayDesign;
 
@@ -42,7 +41,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 		if(e.getSource()==opd.getJbtnCard()) {//카드 버튼 
 			
 			if(ss.showStoreStatus()==true) {//영업중이면
-				ops.changeCheckout(ops.showMaxOrderNum(),1);
+				ops.changeCheckout(ops.showMaxOrderNum(),1);//checkout 1은 카드
 				opd.dispose();
 				new UseCardDesign();
 			}else {//영업중이 아니면
@@ -52,7 +51,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 		
 		if(e.getSource()==opd.getJbtnPay()) {//페이 버튼
 			if(ss.showStoreStatus()==true) {//영업 중이면
-				ops.changeCheckout(ops.showMaxOrderNum(),2);
+				ops.changeCheckout(ops.showMaxOrderNum(),2);//checkout 2는 페이
 				opd.dispose();
 				new UsePayDesign();
 			}else {//영업 중이 아니면
@@ -64,7 +63,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 		if(e.getSource()==opd.getJbtnBefore()) {//이전 버튼
 			opd.dispose();
 			//적립창으로 돌아가게
-			
+			new SaveStampDesign(opd.getOd());
 		}//end if
 	}//actionPerformed
 

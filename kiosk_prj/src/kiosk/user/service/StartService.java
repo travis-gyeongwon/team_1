@@ -19,7 +19,9 @@ public class StartService {
 		try {
 			switch(StartDAO.getInstance().selectStoreStatus()) {
 			
+			case "Y": statusFlag=true; break; //영업중
 			case "y": statusFlag=true; break; //영업중
+			case "N": statusFlag=false; break; //영업종료
 			case "n": statusFlag=false; break; //영업종료
 				
 			}//end switch

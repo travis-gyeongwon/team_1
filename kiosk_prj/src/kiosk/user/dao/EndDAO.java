@@ -19,7 +19,7 @@ public class EndDAO {
 	
 	
 	
-	public void updateInventory(String menuName) throws SQLException, IOException {
+	public void updateInventory(String orderNum) throws SQLException, IOException {
 	GetConnection gc=GetConnection.getInstance();
 		
 		Connection con=null;
@@ -39,13 +39,15 @@ public class EndDAO {
 		.append("	    where order_detail.menu_name=inventory.menu_name     ")
 		.append("	    group by menu_name)  					")
 		.append("	 where  menu_name in (select menu_name      ")
-		.append("	                      from order_detail)    ");
+		.append("	                      from order_detail     ")
+		.append("						where order_num=?	)	");
 	
 		
 		//3.쿼리문 생성 객체 얻기
 		pstmt=con.prepareStatement(updateCheckOut.toString());
 		
 		//4.바인드변수에 값 설정
+		pstmt.setString(1, orderNum);
 		//5.쿼리문 수행 후 결과 얻기
 		pstmt.executeUpdate();
 		

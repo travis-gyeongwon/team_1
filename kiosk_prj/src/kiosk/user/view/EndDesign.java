@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import kiosk.user.event.EndEvent;
+import kiosk.user.service.OrderPayService;
 
 public class EndDesign extends JDialog{
 	
@@ -16,14 +17,15 @@ public class EndDesign extends JDialog{
 	public JLabel jlblOrderNum;
 	public JLabel jlblreturnToStart;
 	public JPanel jpEnd;
+	OrderPayService ops=new OrderPayService();
 	
 	private static final Color COLOR_BG = Color.WHITE;
 	
 	public EndDesign() {
 		
-		jpEnd=new JPanel();
+	jpEnd=new JPanel();
 	jlblOrderFinish=new JLabel("주문이 완료되었습니다");
-	jlblOrderNum=new JLabel("주문번호: ");
+	jlblOrderNum=new JLabel("주문번호: "+ops.showMaxOrderNum());
 	jlblreturnToStart=new JLabel("화면을 터치하면 처음으로 돌아갑니다");
 	
 	

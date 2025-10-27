@@ -37,8 +37,8 @@ public class EndEvent extends WindowAdapter implements MouseListener{
 
 		es=new EndService();
 		if(e.getSource()==ed.getJpEnd()) {//패널 화면 클릭하면 
-			//매개변수에 메뉴이름
-			es.changeInventory(opDTO.getMenuName());//재고 변경
+			//매개변수에 orderNum
+			es.changeInventory(ops.showMaxOrderNum());//재고 변경
 			
 			//매개변수에 주문번호 orderNum
 			es.changeOrderStatus(ops.showMaxOrderNum());//주문상태 변경(확인 대기 중으로)
