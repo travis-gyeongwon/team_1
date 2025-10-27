@@ -122,8 +122,8 @@ public class SalesReportDesign extends JDialog {
 		jtfStartDate.addMouseListener(sre);
 		jtfEndDate.addMouseListener(sre);
 		
-		setSize(500,500);
-		setBounds(amd.getX(), amd.getY(), 500, 440);
+		setSize(500, 440);
+		setLocationRelativeTo(amd);
 		setResizable(false);
 		setVisible(true);
 	}

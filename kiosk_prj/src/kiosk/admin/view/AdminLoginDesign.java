@@ -2,10 +2,13 @@ package kiosk.admin.view;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -112,7 +115,10 @@ public class AdminLoginDesign extends JFrame{
 		jbLogin.addActionListener(le);
 		addWindowListener(le);
 		
-		setBounds(100,100,535,240);
+		setSize(535,240);
+		Dimension frameSize = getSize();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((screenSize.width-frameSize.width)/2, (screenSize.height - frameSize.height)/2);
 		setResizable(false); 
 		setVisible(true);
 		

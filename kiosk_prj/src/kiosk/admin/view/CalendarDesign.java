@@ -27,7 +27,7 @@ public class CalendarDesign extends JDialog {
 	private JButton[][] jbtnDay;
 	
 	public CalendarDesign(SalesReportDesign srd, JTextField selectTextField) {
-		super(srd,true);
+		super(srd,"달력",true);
 		this.selectTextField = selectTextField;
 		
 		dcmYear = new DefaultComboBoxModel<String>(setYear());
@@ -74,7 +74,14 @@ public class CalendarDesign extends JDialog {
 		add("North", jpNorth);
 		add("Center", jpCenter);
 		
-		setBounds(100,100,400,300);
+//		setLocationRelativeTo(srd);
+//		setSize(400,300);
+		
+		setSize(400,300);
+		int x = srd.getLocation().x + srd.getSize().width/2 - getSize().width/2;
+		int y = srd.getLocation().y + srd.getSize().height/2 - getSize().height/2;
+		setLocation(x, y);
+		
 		setVisible(true);
 	}
 	
