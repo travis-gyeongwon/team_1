@@ -5,7 +5,7 @@ import kiosk.admin.event.MenuAddEvent;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
+import java.awt.*; // Frame import 포함
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +20,21 @@ public class MenuAddDesign extends JDialog {
     private JLabel jlblImagePreview;
     private JTextArea jtaPreview;
     private JButton jbtnImageSelect, jbtnAddMenu, jbtnCancel;
-    
-    // [추가] 작업 성공 여부를 저장할 플래그
-    private boolean actionSuccess = false;
 
-    public MenuAddDesign() {
-        super();
-        initDisplay();
+    private boolean actionSuccess = false; // 작업 성공 플래그
+    private Frame parentFrame; // [추가] 부모 프레임 참조 변수
+
+    // [수정!] 생성자에서 부모 Frame을 받도록 변경
+    public MenuAddDesign(Frame parent) {
+        super(parent, "메뉴 추가", true); // 부모 설정, 제목 설정, Modal 설정
+        this.parentFrame = parent; // 부모 프레임 저장
+        initDisplay(); // UI 초기화 호출
+        // setVisible(true); // 외부(MenuManageEvent)에서 호출하므로 주석 처리
     }
 
+    // UI 초기화 및 컴포넌트 배치 메서드
     public void initDisplay() {
+        // --- UI 컴포넌트 생성 ---
         JLabel jlblCategory = new JLabel("카테고리");
         jrbCoffee = new JRadioButton("커피", true);
         jrbNonCoffee = new JRadioButton("논커피");
@@ -45,7 +50,7 @@ public class MenuAddDesign extends JDialog {
         
         JLabel jlblTemp = new JLabel("온도");
         jcbHot = new JCheckBox("핫");
-        jcbIce = new JCheckBox("아이스", true);
+        jcbIce = new JCheckBox("아이스", true); // 기본값 아이스 선택
 
         JLabel jlblSize = new JLabel("사이즈");
         jcbM = new JCheckBox("M");
@@ -58,15 +63,19 @@ public class MenuAddDesign extends JDialog {
 
         jlblImagePreview = new JLabel("이미지", SwingConstants.CENTER);
         jlblImagePreview.setBorder(BorderFactory.createEtchedBorder());
+        jlblImagePreview.setOpaque(true); // 배경색 적용 위해 필요
+        jlblImagePreview.setBackground(new Color(230,240,250)); // 이미지 없을 때 배경색
 
         jtaPreview = new JTextArea();
         jtaPreview.setEditable(false);
         jtaPreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        jtaPreview.setFont(new Font("맑은 고딕", Font.PLAIN, 12)); // 폰트 설정
 
         jbtnImageSelect = new JButton("선택");
         jbtnAddMenu = new JButton("추가");
         jbtnCancel = new JButton("취소");
         
+        // --- 레이아웃 설정 (null layout) ---
         setLayout(null);
         
         jlblCategory.setBounds(30, 20, 80, 30);
@@ -100,6 +109,7 @@ public class MenuAddDesign extends JDialog {
         jbtnAddMenu.setBounds(370, 390, 90, 34);
         jbtnCancel.setBounds(480, 390, 90, 34);
         
+        // --- 컴포넌트 추가 ---
         add(jlblCategory); add(jrbCoffee); add(jrbNonCoffee);
         add(jlblMenuName); add(jtfMenuName);
         add(jlblPrice); add(jtfMenuPrice);
@@ -110,6 +120,7 @@ public class MenuAddDesign extends JDialog {
         add(jtaPreview);
         add(jbtnAddMenu); add(jbtnCancel);
 
+        // --- 실시간 미리보기를 위한 리스너 추가 ---
         ItemListener itemListener = e -> updatePreviewLabel();
         DocumentListener documentListener = new DocumentListener() {
             public void insertUpdate(DocumentEvent e) { updatePreviewLabel(); }
@@ -128,20 +139,24 @@ public class MenuAddDesign extends JDialog {
         jcbMild.addItemListener(itemListener);
         jcbAddShot.addItemListener(itemListener);
 
+        // --- 이벤트 연결 ---
         MenuAddEvent event = new MenuAddEvent(this);
         jbtnAddMenu.addActionListener(event);
         jbtnCancel.addActionListener(event);
         jbtnImageSelect.addActionListener(event);
 
-        setTitle("메뉴 추가");
+        // --- 다이얼로그 설정 ---
         setSize(600, 480);
-        setLocationRelativeTo(null);
+        // [수정!] 부모 창 기준으로 중앙 정렬
+        setLocationRelativeTo(parentFrame); 
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
+        // 처음 실행 시 미리보기 한 번 호출
         updatePreviewLabel();
     }
     
+    // 이미지 미리보기 설정 메서드
     public void setImagePreview(String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
             ImageIcon icon = new ImageIcon(imagePath);
@@ -155,41 +170,44 @@ public class MenuAddDesign extends JDialog {
         }
     }
     
+    // 미리보기 업데이트 메서드
     public void updatePreviewLabel() {
         String category = jrbCoffee.isSelected() ? "커피" : "논커피";
         String menuName = jtfMenuName.getText();
-        String price = jtfMenuPrice.getText() + "원";
+        String priceText = jtfMenuPrice.getText();
+        String price = priceText.isEmpty() ? "0원" : priceText + "원"; // 가격 비어있을 때 처리
 
         List<String> temps = new ArrayList<>();
         if (jcbHot.isSelected()) temps.add("핫");
         if (jcbIce.isSelected()) temps.add("아이스");
-        String tempStr = String.join(",", temps);
+        String tempStr = temps.isEmpty() ? "없음" : String.join(",", temps);
 
         List<String> sizes = new ArrayList<>();
         if (jcbM.isSelected()) sizes.add("M");
         if (jcbL.isSelected()) sizes.add("L(+500)");
-        String sizeStr = String.join(",", sizes);
+        String sizeStr = sizes.isEmpty() ? "없음" : String.join(",", sizes);
 
         List<String> shots = new ArrayList<>();
         if (jcbBasic.isSelected()) shots.add("기본");
         if (jcbMild.isSelected()) shots.add("연하게");
         if (jcbAddShot.isSelected()) shots.add("샷추가(+500)");
-        String shotStr = String.join(",", shots);
+        String shotStr = shots.isEmpty() ? "없음" : String.join(",", shots);
         
         jtaPreview.setText(String.format("%s/%s/%s\n온도:%s / 사이즈:%s\n샷:%s",
-                category, menuName, price, tempStr, sizeStr, shotStr));
+                category, menuName.isEmpty() ? "(메뉴명)" : menuName, price, tempStr, sizeStr, shotStr));
     }
 
-    // [추가] 외부에서 성공 여부를 설정하는 메서드
+    // 작업 성공 여부 설정 메서드
     public void setActionSuccess(boolean success) {
         this.actionSuccess = success;
     }
 
-    // [추가] 외부에서 성공 여부를 확인하는 메서드
+    // 작업 성공 여부 확인 메서드
     public boolean isActionSuccess() {
         return this.actionSuccess;
     }
 
+    // --- Getter 메서드들 ---
     public JRadioButton getJrbCoffee() { return jrbCoffee; }
     public JTextField getJtfMenuName() { return jtfMenuName; }
     public JTextField getJtfMenuPrice() { return jtfMenuPrice; }
@@ -203,5 +221,8 @@ public class MenuAddDesign extends JDialog {
     public JButton getJbtnImageSelect() { return jbtnImageSelect; }
     public JButton getJbtnAddMenu() { return jbtnAddMenu; }
     public JButton getJbtnCancel() { return jbtnCancel; }
+    
+    // [추가] 부모 프레임을 반환하는 getter (필요시 사용)
+    public Frame getParentFrame() { return parentFrame; }
 }
 

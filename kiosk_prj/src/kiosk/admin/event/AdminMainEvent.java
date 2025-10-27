@@ -78,7 +78,7 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 	
 	//버튼 눌렀을 때 해당 화면 생성 method 들
 	private void openMenuManager() {
-		new MenuManageDesign();
+		new MenuManageDesign(amd);
 	}
 	
 	private void openOrderManager() {
