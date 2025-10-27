@@ -6,14 +6,12 @@ public class OrderMenuDTO {
     private String status;
     private String deleteFlag;
     private String category;
-    private String imageUrl; 
     private int quantity;
+    private byte[] menuImage; 
 
-    // 기본 생성자
     public OrderMenuDTO() {
     }
 
-    // Getters and Setters (모든 필드)
     public String getMenuName() {
         return menuName;
     }
@@ -54,14 +52,6 @@ public class OrderMenuDTO {
         this.category = category;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-    
     public int getQuantity() {
         return quantity;
     }
@@ -69,4 +59,13 @@ public class OrderMenuDTO {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
+    public byte[] getMenuImage() {
+        return menuImage;
+    }
+
+    public void setMenuImage(byte[] menuImage) {
+        this.menuImage = menuImage;
+    }
+      
 }

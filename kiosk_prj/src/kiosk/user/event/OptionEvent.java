@@ -25,9 +25,9 @@ public class OptionEvent implements ActionListener {
     private int basePrice = 0;
     private int finalPrice = 0;
 
-    private String tempOption = "ICE"; // 기본값
-    private String sizeOption = "Regular"; // 기본값
-    private String extraOption = "기본"; // 기본값
+    private String tempOption = "ICE"; 
+    private String sizeOption = "Regular"; 
+    private String extraOption = "기본"; 
 
     public OptionEvent(OptionDesign od, OrderDesign orderDesignView, OrderMenuDTO menuDTO) {
         this.od = od;
@@ -35,10 +35,9 @@ public class OptionEvent implements ActionListener {
         this.menuDTO = menuDTO;
         this.basePrice = menuDTO.getPrice();
         
-        updatePrice(); // 총액 초기화
-        updateMenuLabel(); // ❗️ 1. 생성자에서 라벨 초기 업데이트 호출
+        updatePrice(); 
+        updateMenuLabel(); 
 
-        // 리스너 등록
         od.getJbtnHot().addActionListener(this);
         od.getJbtnIce().addActionListener(this);
         od.getJbtnMedium().addActionListener(this);
@@ -70,21 +69,16 @@ public class OptionEvent implements ActionListener {
      */
     private void updateMenuLabel() {
         StringBuilder labelText = new StringBuilder("상품명 : ");
-        labelText.append(menuDTO.getMenuName()); // 기본 메뉴 이름 추가
-        
-        // 선택된 옵션들을 괄호 안에 추가 (기본값("ICE", "Medium", "기본")은 제외하고 표시)
+        labelText.append(menuDTO.getMenuName()); 
         List<String> options = new ArrayList<>();
         options.add(tempOption);
-        if (!"Regular".equals(sizeOption)) options.add(sizeOption); // Medium이 기본값이므로 Large만 추가
-        if (!"기본".equals(extraOption)) options.add(extraOption); // 기본 외 옵션만 추가
-        
+        if (!"Regular".equals(sizeOption)) options.add(sizeOption); 
+        if (!"기본".equals(extraOption)) options.add(extraOption); 
         if (!options.isEmpty()) {
             labelText.append(" (");
-            labelText.append(String.join(", ", options)); // 콤마로 구분해서 합침
+            labelText.append(String.join(", ", options)); 
             labelText.append(")");
         }
-        
-        // OptionDesign의 jlblMenu 텍스트 업데이트
         od.getJlblMenu().setText(labelText.toString());
     }
 
@@ -92,9 +86,8 @@ public class OptionEvent implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
-        boolean optionChanged = false; // ❗️ 3. 옵션 변경 여부 플래그
+        boolean optionChanged = false; 
 
-        // --- 옵션 선택 ---
         if (source == od.getJbtnHot()) {
             tempOption = "HOT";
             optionChanged = true;
@@ -118,7 +111,6 @@ public class OptionEvent implements ActionListener {
             optionChanged = true;
         }
 
-        // --- 수량 변경 ---
         else if (source == od.getJbtnMinus()) {
             if (amount > 1) {
                 amount--;
@@ -130,9 +122,7 @@ public class OptionEvent implements ActionListener {
                 JOptionPane.showMessageDialog(od, "최대 주문 수량은 10개입니다.", "수량 제한", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        // --- 확인 버튼 ---
         else if (source == od.getJbtnCheck()) {
-            // ... (DTO 생성 및 addOrderItemToPanel 호출 코드는 동일) ...
             OrderProductDTO productDTO = new OrderProductDTO();
             productDTO.setMenuName(menuDTO.getMenuName());
             productDTO.setTempOption(tempOption);
@@ -145,13 +135,11 @@ public class OptionEvent implements ActionListener {
             orderDesignView.addOrderItemToPanel(productDTO);
             od.dispose();
         }
-
-        // ❗️ 4. 옵션이나 수량이 변경되었으면 가격과 메뉴 라벨을 다시 계산/업데이트
         if (source != od.getJbtnCheck()) {
-            updatePrice(); // 가격 업데이트
-            if (optionChanged) { // 옵션이 변경된 경우에만 메뉴 라벨 업데이트
+            updatePrice();
+            if (optionChanged) {
                 updateMenuLabel(); 
             }
         }
-    } // actionPerformed 끝
-} // OptionEvent 클래스 끝
+    }
+} 

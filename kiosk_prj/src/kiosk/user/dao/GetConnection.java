@@ -45,7 +45,7 @@ public class GetConnection {
 
         // 2. DB 연결 정보 
         // properties 경로는 환경에 맞춰 수정
-        File file = new File("C:\\Users\\JEONGHWAN\\git\\team_1\\kiosk_prj\\src\\properties\\database.properties");
+        File file = new File("C:\\Users\\user\\git\\team_1\\kiosk_prj\\src\\properties\\database.properties");
         Properties prop = new Properties();
         prop.load(new FileInputStream(file));
 

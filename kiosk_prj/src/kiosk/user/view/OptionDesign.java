@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-// import javax.swing.JFrame; // OrderDesign을 직접 사용하므로 JFrame 대신 import
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -41,11 +40,8 @@ public class OptionDesign extends JDialog {
     private JLabel jlblTprice;
     private JButton jbtnCheck;
 
-    // ❗️❗️❗️ 생성자를 OrderEvent 호출에 맞게 수정 (JFrame -> OrderDesign, String 추가)
     public OptionDesign(OrderDesign parent, OrderMenuDTO menuDto) { 
-        super(parent, "상품 세부 정보", true); // 부모 프레임(parent)을 super에 전달
-
-        // ❗️❗️ 전달받은 menuName으로 라벨 텍스트 설정
+        super(parent, "상품 세부 정보", true); 
         jlblMenu = new JLabel("상품명 : " + menuDto.getMenuName());
         
         jlblTemp = new JLabel("핫,아이스");
@@ -70,9 +66,9 @@ public class OptionDesign extends JDialog {
         jlblTprice = new JLabel(menuDto.getPrice() + "원");
         jbtnCheck = new JButton("확인");
 
-        // 라벨 크기 설정
+
         Dimension labelSize = new Dimension(80, 30);
-        // jlblMenu 크기 설정은 여전히 주석 처리 (자동 크기 조절)
+
         jlblTemp.setPreferredSize(labelSize);
         jlblSize.setPreferredSize(labelSize);
         jlblOption.setPreferredSize(labelSize);
@@ -125,7 +121,7 @@ public class OptionDesign extends JDialog {
         
         // 메인 패널 (GridLayout 6x1)
         JPanel mainPanel = new JPanel(new GridLayout(6, 1));
-        mainPanel.setBorder(new EmptyBorder( 10, 10, 10, 10)); // 여백
+        mainPanel.setBorder(new EmptyBorder( 10, 10, 10, 10)); 
         mainPanel.add(jpMenu);
         mainPanel.add(jpTemp);
         mainPanel.add(jpSize);
@@ -136,14 +132,12 @@ public class OptionDesign extends JDialog {
         add(mainPanel);
 
         new OptionEvent(this, parent, menuDto);
-        // 다이얼로그 설정
-        pack(); // 컴포넌트 크기에 맞춰 자동 조절
-        setLocationRelativeTo(parent); // 부모 창 중앙에 표시
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // X 누르면 창만 닫힘
+        pack(); 
+        setLocationRelativeTo(parent); 
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setVisible(true); 
     }
     
-    // --- Getters ---
     public JLabel getJlblMenu() {
     	return jlblMenu;
     }
@@ -183,8 +177,7 @@ public class OptionDesign extends JDialog {
     public JLabel getJlblCounter() { 
     	return jlblCounter; 
     	}
-   
-    
+     
     public JButton getJbtnPlus() { 
     	return jbtnPlus; 
     	}
