@@ -1,13 +1,10 @@
 package kiosk.admin.view;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -146,9 +143,10 @@ public class AdminMainDesign extends JFrame {
 		addWindowListener(ame);
 		
 		setSize(380, 440);
-		Dimension frameSize = getSize();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation((screenSize.width-frameSize.width)/2, (screenSize.height - frameSize.height)/2);
+//		Dimension frameSize = getSize();
+//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//		setLocation((screenSize.width-frameSize.width)/2, (screenSize.height - frameSize.height)/2);
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);//기본적으로 창이 닫히지 않도록 설정
 		setVisible(true);
