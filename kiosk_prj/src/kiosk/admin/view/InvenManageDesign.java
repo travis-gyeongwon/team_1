@@ -63,8 +63,8 @@ public class InvenManageDesign extends JDialog {
 		jlMenuInventory.addMouseListener(ime);
 		ime.searchAllInven();
 		
-		
-		setBounds(100, 100, 650, 550);
+		setSize(650, 550);
+		setLocationRelativeTo(amd);
 		setVisible(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		

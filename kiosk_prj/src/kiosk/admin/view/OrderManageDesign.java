@@ -49,7 +49,8 @@ public class OrderManageDesign extends JDialog {
 		addWindowListener(ome);
 //		ome.searchAllMakingOrder();
 
-		setBounds(100, 100, 800, 550);
+		setSize(800,550);
+		setLocationRelativeTo(amd);
 		setVisible(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
