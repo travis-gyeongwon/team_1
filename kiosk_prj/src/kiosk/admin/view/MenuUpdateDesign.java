@@ -27,10 +27,10 @@ public class MenuUpdateDesign extends JDialog {
     private JCheckBox jcbShotBasic, jcbShotLight, jcbShotPlus;
 
     private final MenuListUpdateDTO dto;
-    // [추가] 부모 프레임 참조 변수
+   
     private Frame parentFrame; 
 
-    // [수정!] 생성자에서 부모 Frame과 DTO를 받도록 변경
+    
     public MenuUpdateDesign(Frame parent, MenuListUpdateDTO dto) {
         super(parent, "메뉴 수정", true); // 부모 설정, 제목 설정, Modal 설정
         this.parentFrame = parent; // 부모 프레임 저장
@@ -38,7 +38,7 @@ public class MenuUpdateDesign extends JDialog {
         
         setLayout(null);
 
-        // DTO에서 옵션 리스트 가져오기 (Null 체크 포함)
+        // DTO에서 옵션 리스트 가져오기
         List<String> tempOptions = dto.getTempOption() != null ? dto.getTempOption() : new ArrayList<>();
         List<String> sizeOptions = dto.getSizeOption() != null ? dto.getSizeOption() : new ArrayList<>();
         List<String> shotOptions = dto.getShotOption() != null ? dto.getShotOption() : new ArrayList<>();
@@ -140,14 +140,14 @@ public class MenuUpdateDesign extends JDialog {
 
         // --- 다이얼로그 기본 설정 ---
         setSize(600, 480);
-        // [수정!] 부모 창 기준으로 중앙 정렬
+        
         setLocationRelativeTo(parent); 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        // setVisible(true); // 외부에서 호출
+       
     }
     
     /**
-     * 이미지 미리보기 레이블을 업데이트합니다.
+     
      * @param imagePath 선택된 이미지 파일의 경로, null이면 기본 텍스트 표시
      */
     public void setImagePreview(String imagePath) {
@@ -165,7 +165,7 @@ public class MenuUpdateDesign extends JDialog {
     }
     
     /**
-     * 하단의 텍스트 미리보기 영역(JTextArea)을 현재 선택/입력된 값으로 업데이트합니다.
+     * 하단의 텍스트 JTextArea을 현재 선택/입력된 값으로 업데이트
      */
     public void updatePreviewLabel() {
         // 현재 선택된 값들을 가져옵니다.

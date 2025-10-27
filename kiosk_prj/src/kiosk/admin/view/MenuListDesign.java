@@ -61,7 +61,7 @@ public class MenuListDesign extends JDialog {
                     if(row != -1 && target.getSelectedColumn() == 0) {
                         String menuName = target.getValueAt(row, 0).toString();
 
-                        // [수정!] 확인 창(JOptionPane) 다시 추가
+                        // 확인 창(JOptionPane)
                         int sel = JOptionPane.showConfirmDialog(MenuListDesign.this,
                                 "'" + menuName + "' 메뉴를 수정하시겠습니까?", "메뉴 수정", JOptionPane.YES_NO_OPTION);
 
