@@ -14,12 +14,12 @@ import kiosk.user.view.TakeOutDecisionDesign;
 
 public class TakeOutDecisionEvent extends WindowAdapter implements ActionListener {
 
-	private OrderDesign ut;
+	private OrderDesign od;
 	private TakeOutDecisionDesign ud;
 	private TakeOutDecisionService us;
 
-	public TakeOutDecisionEvent(OrderDesign ut, TakeOutDecisionDesign ud) {
-		this.ut = ut;
+	public TakeOutDecisionEvent(OrderDesign od, TakeOutDecisionDesign ud) {
+		this.od = od;
 		this.ud = ud;
 		us = new TakeOutDecisionService();
 	}// TakeOutDecisionEvent
@@ -32,16 +32,16 @@ public class TakeOutDecisionEvent extends WindowAdapter implements ActionListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ud.getJbtnForHere()) {
-			modifyOrderList("2510160001", "N");
+			modifyOrderList("N");
 		} // end if
 
 		if (e.getSource() == ud.getJbtnToGo()) {
-			modifyOrderList("2510160001", "Y");
+			modifyOrderList("Y");
 		} // end if
 	}// actionPerformed
 
-	public void modifyOrderList(String order_num, String takeout_flg) {
-		int flag = us.modifyOrderList(order_num, takeout_flg);
+	public void modifyOrderList(String takeout_flg) {
+		int flag = us.modifyOrderList(takeout_flg);
 		
 		switch (flag) {
 		case 0:
@@ -49,7 +49,7 @@ public class TakeOutDecisionEvent extends WindowAdapter implements ActionListene
 			break;
 		case 1:
 			ud.dispose();
-			new SaveStampDesign(ut);
+			new SaveStampDesign(od);
 			break;
 		}// end switch
 	}// modifyOrderList

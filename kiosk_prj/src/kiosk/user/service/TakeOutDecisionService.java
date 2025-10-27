@@ -10,12 +10,12 @@ public class TakeOutDecisionService {
 	public TakeOutDecisionService() {
 	}// TakeOutDecisionService
 
-	public int modifyOrderList(String order_num, String takeout_flg) {
+	public int modifyOrderList(String takeout_flg) {
 		int flag = 0;
 
 		try {
 			TakeOutDecisionDAO todDAO = TakeOutDecisionDAO.getInstance();
-			flag = todDAO.updateOrderList(order_num, takeout_flg);
+			flag = todDAO.updateOrderList(takeout_flg);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

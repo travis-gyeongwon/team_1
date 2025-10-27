@@ -10,17 +10,18 @@ import javax.swing.JOptionPane;
 import kiosk.user.service.SaveStampService;
 import kiosk.user.view.JoinDecisionDesign;
 import kiosk.user.view.OrderDesign;
+import kiosk.user.view.OrderPayDesign;
 import kiosk.user.view.SaveStampDesign;
 import kiosk.user.view.StampInfoDesign;
 
 public class SaveStampEvent extends WindowAdapter implements ActionListener {
 
-	private OrderDesign ut;
+	private OrderDesign od;
 	private SaveStampDesign ud;
 	private SaveStampService us;
 
-	public SaveStampEvent(OrderDesign ut, SaveStampDesign ud) {
-		this.ut = ut;
+	public SaveStampEvent(OrderDesign od, SaveStampDesign ud) {
+		this.od = od;
 		this.ud = ud;
 		us = new SaveStampService();
 	}// SaveStampEvent
@@ -54,8 +55,8 @@ public class SaveStampEvent extends WindowAdapter implements ActionListener {
 		} // end if
 
 		if (e.getSource() == ud.getJbtnNs()) {
-//			ud.dispose();
-//			new OrderPayDesign(ut);
+			ud.dispose();
+			new OrderPayDesign(od);
 		} // end if
 
 		if (e.getSource() == ud.getJbtnYs()) {
