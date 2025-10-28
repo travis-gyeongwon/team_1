@@ -53,8 +53,8 @@ public class UsePayEvent extends WindowAdapter implements ActionListener{
 		 if(payFlag==false) {
 			 //주문 데이터 삭제(해당 주문번호의 주문테이블과 주문상세테이블 행 삭제)
 			 ops=new OrderPayService();
-			 ops.removeOrderDetail(ops.showMaxOrderNum());//매개변수에 주문번호 orderNum들어가야함
-			 ops.removeOrderList(ops.showMaxOrderNum());//매개변수에 주문번호 orderNum들어가야함
+			 ops.removeOrderDetail();
+			 ops.removeOrderList();
 			 JOptionPane.showMessageDialog(upd, "페이 결제가 취소되었습니다.");
 		 }//end if
 			

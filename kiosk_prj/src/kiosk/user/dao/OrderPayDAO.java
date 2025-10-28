@@ -151,14 +151,13 @@ public List<OrderPayDTO> orderList;
 		updateCheckOut
 		.append("	update order_list	")
 		.append("	set  checkout_typecode=? ")
-		.append("	where order_num=?     ");
+		.append("	where order_num=(select max(order_num) from order_list)     ");
 		
 		//3.쿼리문 생성 객체 얻기
 		pstmt=con.prepareStatement(updateCheckOut.toString());
 		
 		//4.바인드변수에 값 설정
 		pstmt.setInt(1, checkout);
-		pstmt.setString(2, orderNum);
 		//5.쿼리문 수행 후 결과 얻기
 		pstmt.executeUpdate();
 		
@@ -171,7 +170,7 @@ public List<OrderPayDTO> orderList;
 	}//updateCheckOut
 	
 	
-	public void deleteOrderDetail(String orderNum) throws SQLException, IOException {
+	public void deleteOrderDetail() throws SQLException, IOException {
 		
 		
 		Connection con=null;
@@ -184,13 +183,12 @@ public List<OrderPayDTO> orderList;
 		StringBuilder deleteOrderDetail=new StringBuilder();
 		deleteOrderDetail
 		.append("	delete from   order_detail	")
-		.append("	where order_num=?");
+		.append("	where order_num=(select max(order_num) from order_list) ");
 		
 		//3.쿼리문 생성 객체 얻기
 		pstmt=con.prepareStatement(deleteOrderDetail.toString());
 		
 		//바인드 변수에 값 설정
-		pstmt.setString(1, orderNum);
 		
 		pstmt.executeUpdate();
 		}finally {
@@ -203,7 +201,7 @@ public List<OrderPayDTO> orderList;
 	}//deleteOrderDetail
 	
 	
-	public void deleteOrderList(String orderNum) throws SQLException, IOException {
+	public void deleteOrderList() throws SQLException, IOException {
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -215,11 +213,10 @@ public List<OrderPayDTO> orderList;
 		StringBuilder deleteOrderList=new StringBuilder();
 		deleteOrderList
 		.append("	delete from order_list	")
-		.append("	where order_num=?");
+		.append("	where order_num=(select max(order_num) from order_list) ");
 		//3.쿼리문 생성 객체 얻기
 		pstmt=con.prepareStatement(deleteOrderList.toString());
 		//바인드 변수에 값 설정
-		pstmt.setString(1, orderNum);
 		
 		pstmt.executeUpdate();
 		}finally {

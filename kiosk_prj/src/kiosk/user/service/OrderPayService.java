@@ -55,7 +55,7 @@ public class OrderPayService {
 	
 	
 	//수량과 금액의 합계
-	public int[] amountPriceTotal(String orderNum) {
+	public int[] amountPriceTotal() {
 	
 		    tempList=null;
 		try {
@@ -88,18 +88,18 @@ public class OrderPayService {
 		};
 	}//changeCheckout
 	
-	public void removeOrderDetail(String orderNum) {
+	public void removeOrderDetail() {
 		try {
-			OrderPayDAO.getInstance().deleteOrderDetail(orderNum);
+			OrderPayDAO.getInstance().deleteOrderDetail();
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}//removeOrderDetail
 	
-	public void removeOrderList(String orderNum) {
+	public void removeOrderList() {
 		try {
-			OrderPayDAO.getInstance().deleteOrderList(orderNum);
+			OrderPayDAO.getInstance().deleteOrderList();
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

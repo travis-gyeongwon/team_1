@@ -89,6 +89,7 @@ public class UsePayDesign extends JDialog {
 			
 			addWindowListener(upe);
 			jbtnCancel.addActionListener(upe);
+			addWindowListener(upe);
 			
 			setSize(700, 1000); 
 			setLocationRelativeTo(null);

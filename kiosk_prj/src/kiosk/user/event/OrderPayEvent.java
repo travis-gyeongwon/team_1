@@ -18,7 +18,7 @@ import kiosk.user.view.UsePayDesign;
 public class OrderPayEvent extends WindowAdapter implements ActionListener{
 
 	public OrderPayDesign opd;
-	OrderPayService ops;
+	OrderPayService ops=new OrderPayService();
 	StartService ss=new StartService();
 	
 	public OrderPayEvent() {
@@ -71,6 +71,8 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		ops.removeOrderDetail();
+		ops.removeOrderList();
 		opd.dispose();
 	}//windowClosing
 	

@@ -73,7 +73,7 @@ public class OrderPayDesign extends JDialog{
 
         JScrollPane scroll=new JScrollPane(jtOrderList);
 	
-        int[]total=ops.amountPriceTotal(orderNum);
+        int[]total=ops.amountPriceTotal();
 		String quantity=String.valueOf(total[0]);
 		String price=String.valueOf(total[1]);
 		
@@ -93,6 +93,7 @@ public class OrderPayDesign extends JDialog{
 		jbtnCard.addActionListener(ope);
 		jbtnPay.addActionListener(ope);
 		jbtnBefore.addActionListener(ope);
+		addWindowListener(ope);
 		
 		setLayout(null);
 		orderTitle.setFont(font);

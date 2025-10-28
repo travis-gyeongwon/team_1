@@ -87,6 +87,7 @@ public class UseCardDesign extends JDialog {
 
 			addWindowListener(uce);
 			jbtnCancel.addActionListener(uce);
+			addWindowListener(uce);
 			
 			setSize(700, 1000); 
 			setLocationRelativeTo(null);
