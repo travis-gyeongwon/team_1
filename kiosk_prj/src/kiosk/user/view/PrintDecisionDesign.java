@@ -15,7 +15,7 @@ public class PrintDecisionDesign extends JFrame {
 	public PrintDecisionDesign() {
 		super("영수증 출력 여부 선택");
 
-		jlblOrderNum = new JLabel("주문번호 : 2510160001");
+		jlblOrderNum = new JLabel();
 		jlblOrderNum.setHorizontalAlignment(SwingConstants.CENTER);
 
 		jbtnNp = new JButton("미출력");

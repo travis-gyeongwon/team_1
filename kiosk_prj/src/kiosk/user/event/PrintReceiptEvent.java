@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import kiosk.user.dto.PrintReceiptDTO;
 import kiosk.user.service.PrintReceiptService;
+import kiosk.user.view.EndDesign;
 import kiosk.user.view.PrintReceiptDesign;
 
 public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
@@ -22,7 +23,8 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 		this.ud = ud;
 		us = new PrintReceiptService();
 
-		addData("2510160001");
+		ud.getJlblOrderNum().setText("주문번호 : "+searchOrderList());;
+		addData();
 	}// PrintReceiptEvent
 
 	@Override
@@ -33,25 +35,29 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ud.getJbtnCheck()) {
-//			ud.dispose();
-//			new EndDesign();
+			ud.dispose();
+			new EndDesign();
 		} // end if
 	}// actionPerformed
 
-	public List<PrintReceiptDTO> searchOrderDetail(String order_num) {
-		List<PrintReceiptDTO> list = null;
-		list = us.searchOrderDetail(order_num);
+	public String searchOrderList() {
+		String order_num = us.searchOrderList();
+
+		return order_num;
+	}// searchOrderList
+
+	public List<PrintReceiptDTO> searchOrderDetail() {
+		List<PrintReceiptDTO> list = us.searchOrderDetail();
 
 		return list;
 	}// searchOrderDetail
 
-	public void addData(String order_num) {
-		List<PrintReceiptDTO> list = us.searchOrderDetail(order_num);
+	public void addData() {
+		List<PrintReceiptDTO> list = us.searchOrderDetail();
 		DefaultTableModel dtm = ud.getDtm();
 		dtm.setRowCount(0);
 
 		List<Object> rowData = new ArrayList<Object>();
-		String total_name = "";
 		for (PrintReceiptDTO prDTO : list) {
 			rowData.add(prDTO.getMenu_name());
 			rowData.add(prDTO.getAmount());

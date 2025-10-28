@@ -12,12 +12,12 @@ public class StampInfoService {
 	public StampInfoService() {
 	}// StampInfoService
 
-	public List<StampInfoDTO> searchOrderDetail(String order_num) {
+	public List<StampInfoDTO> searchOrderDetail() {
 		List<StampInfoDTO> list = null;
 
 		try {
 			StampInfoDAO siDAO = StampInfoDAO.getInstance();
-			list = siDAO.selectOrderDetail(order_num);
+			list = siDAO.selectOrderDetail();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

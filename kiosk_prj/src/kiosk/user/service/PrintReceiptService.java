@@ -9,15 +9,31 @@ import kiosk.user.dto.PrintReceiptDTO;
 
 public class PrintReceiptService {
 
+	private PrintReceiptDAO prDAO;
+
 	public PrintReceiptService() {
+		prDAO = PrintReceiptDAO.getInstance();
 	}// PrintReceiptService
 
-	public List<PrintReceiptDTO> searchOrderDetail(String order_num) {
+	public String searchOrderList() {
+		String order_num = "";
+
+		try {
+			order_num = prDAO.selectOrderList();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} // end catch
+
+		return order_num;
+	}// searchOrderList
+
+	public List<PrintReceiptDTO> searchOrderDetail() {
 		List<PrintReceiptDTO> list = null;
 
 		try {
-			PrintReceiptDAO prDAO = PrintReceiptDAO.getInstance();
-			list = prDAO.selectOrderDetail(order_num);
+			list = prDAO.selectOrderDetail();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

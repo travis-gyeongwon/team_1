@@ -50,6 +50,10 @@ public class PrintReceiptDesign extends JFrame {
 		this.setVisible(true);
 	}// PrintReceiptDesign
 
+	public JLabel getJlblOrderNum() {
+		return jlblOrderNum;
+	}// getJlblOrderNum
+
 	public DefaultTableModel getDtm() {
 		return dtm;
 	}// getDtm

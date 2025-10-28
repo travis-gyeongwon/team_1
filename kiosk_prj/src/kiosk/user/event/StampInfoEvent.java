@@ -11,22 +11,26 @@ import javax.swing.JOptionPane;
 import kiosk.user.dto.StampInfoDTO;
 import kiosk.user.service.StampInfoService;
 import kiosk.user.view.OrderDesign;
+import kiosk.user.view.OrderPayDesign;
+import kiosk.user.view.SaveStampDesign;
 import kiosk.user.view.StampInfoDesign;
 
 public class StampInfoEvent extends WindowAdapter implements ActionListener {
 
-	private OrderDesign ut;
+	private OrderDesign od;
+	private SaveStampDesign ssd;
 	private StampInfoDesign ud;
 	private StampInfoService us;
 	private String phone;
 	private int temp_stamp, pre_stamp, total_stamp;
 
-	public StampInfoEvent(OrderDesign ut, StampInfoDesign ud) {
-		this.ut = ut;
+	public StampInfoEvent(OrderDesign od, StampInfoDesign ud, SaveStampDesign ssd) {
+		this.od = od;
+		this.ssd=ssd;
 		this.ud = ud;
 		us = new StampInfoService();
 
-		temp_stamp = stampCalculator(searchOrderDetail("2510160001"));
+		temp_stamp = stampCalculator(searchOrderDetail());
 		ud.getJtpStampInfo().setText("스탬프 " + temp_stamp + "개가 적립되었습니다.");
 
 		phone = ud.getSsd().getJtfTel().getText();
@@ -57,9 +61,9 @@ public class StampInfoEvent extends WindowAdapter implements ActionListener {
 		return result;
 	}// stampCalculator
 
-	public List<StampInfoDTO> searchOrderDetail(String order_num) {
+	public List<StampInfoDTO> searchOrderDetail() {
 		List<StampInfoDTO> list = null;
-		list = us.searchOrderDetail(order_num);
+		list = us.searchOrderDetail();
 
 		return list;
 	}// searchOrderDetail
@@ -79,8 +83,9 @@ public class StampInfoEvent extends WindowAdapter implements ActionListener {
 			JOptionPane.showMessageDialog(ud, "문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			break;
 		case 1:
-//			ud.dispose();
-//			new OrderPayDesign(ut);
+			ud.dispose();
+			ssd.dispose();
+			new OrderPayDesign(od);
 			break;
 		}// end switch
 	}// modifyMember

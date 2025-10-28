@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import kiosk.user.view.EndDesign;
 import kiosk.user.view.PrintDecisionDesign;
 import kiosk.user.view.PrintReceiptDesign;
 
@@ -24,8 +25,8 @@ public class PrintDecisionEvent extends WindowAdapter implements ActionListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==ud.getJbtnNp()) {
-//			ud.dispose();
-//			new EndDesign();
+			ud.dispose();
+			new EndDesign();
 		}// end if
 		
 		if(e.getSource()==ud.getJbtnYp()) {

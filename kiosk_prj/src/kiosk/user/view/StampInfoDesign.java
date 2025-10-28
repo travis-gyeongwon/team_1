@@ -40,7 +40,7 @@ public class StampInfoDesign extends JDialog {
 		add(jtpStampInfo);
 		add(jbtnCheck);
 
-		StampInfoEvent ue = new StampInfoEvent(ssd.getOd(), this);
+		StampInfoEvent ue = new StampInfoEvent(ssd.getOd(), this, ssd);
 		jbtnCheck.addActionListener(ue);
 
 		this.setSize(300, 200);

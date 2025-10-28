@@ -2,17 +2,16 @@ package kiosk.user.dto;
 
 public class PrintReceiptDTO {
 
-	private String order_num, order_detail_num, menu_name;
+	private String order_detail_num, menu_name;
 	private int temp_option, size_option, shot_option, amount, order_price;
 
 	public PrintReceiptDTO() {
 		super();
 	}// PrintReceiptDTO
 
-	public PrintReceiptDTO(String order_num, String order_detail_num, String menu_name, int temp_option,
-			int size_option, int shot_option, int amount, int order_price) {
+	public PrintReceiptDTO(String order_detail_num, String menu_name, int temp_option, int size_option, int shot_option,
+			int amount, int order_price) {
 		super();
-		this.order_num = order_num;
 		this.order_detail_num = order_detail_num;
 		this.menu_name = menu_name;
 		this.temp_option = temp_option;
@@ -21,14 +20,6 @@ public class PrintReceiptDTO {
 		this.amount = amount;
 		this.order_price = order_price;
 	}// PrintReceiptDTO
-
-	public String getOrder_num() {
-		return order_num;
-	}// getOrder_num
-
-	public void setOrder_num(String order_num) {
-		this.order_num = order_num;
-	}// setOrder_num
 
 	public String getOrder_detail_num() {
 		return order_detail_num;
@@ -88,9 +79,9 @@ public class PrintReceiptDTO {
 
 	@Override
 	public String toString() {
-		return "PrintReceiptDTO [order_num=" + order_num + ", order_detail_num=" + order_detail_num + ", menu_name="
-				+ menu_name + ", temp_option=" + temp_option + ", size_option=" + size_option + ", shot_option="
-				+ shot_option + ", amount=" + amount + ", order_price=" + order_price + "]";
+		return "PrintReceiptDTO [order_detail_num=" + order_detail_num + ", menu_name=" + menu_name + ", temp_option="
+				+ temp_option + ", size_option=" + size_option + ", shot_option=" + shot_option + ", amount=" + amount
+				+ ", order_price=" + order_price + "]";
 	}// toString
 
 }// class

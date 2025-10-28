@@ -22,7 +22,36 @@ public class PrintReceiptDAO {
 		return prDAO;
 	}// getInstance
 
-	public List<PrintReceiptDTO> selectOrderDetail(String order_num) throws SQLException, IOException {
+	public String selectOrderList() throws SQLException, IOException {
+		String order_num = "";
+
+		GetConnection gc = GetConnection.getInstance();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = gc.getConnection();
+
+			StringBuilder selectOrderList = new StringBuilder();
+			selectOrderList.append("	select	MAX(ORDER_NUM)			").append("	from  	ORDER_LIST    			");
+
+			pstmt = con.prepareStatement(selectOrderList.toString());
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				order_num = rs.getString("MAX(ORDER_NUM)");
+			} // end while
+		} finally {
+			gc.dbClose(con, pstmt, rs);
+		} // end finally
+
+		return order_num;
+	}// selectOrderList
+
+	public List<PrintReceiptDTO> selectOrderDetail() throws SQLException, IOException {
 		List<PrintReceiptDTO> list = new ArrayList<PrintReceiptDTO>();
 
 		GetConnection gc = GetConnection.getInstance();
@@ -37,11 +66,10 @@ public class PrintReceiptDAO {
 			StringBuilder selectOrderDetail = new StringBuilder();
 			selectOrderDetail.append(
 					"	select 	order_detail_num, menu_name, temp_option, size_option, shot_option, amount, order_price		")
-					.append("	from  	ORDER_DETAIL    	").append("	where 	ORDER_NUM=?			");
+					.append("	from  	ORDER_DETAIL    	")
+					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
 
 			pstmt = con.prepareStatement(selectOrderDetail.toString());
-
-			pstmt.setString(1, order_num);
 
 			rs = pstmt.executeQuery();
 
@@ -63,8 +91,8 @@ public class PrintReceiptDAO {
 				amount = rs.getInt("amount");
 				order_price = rs.getInt("order_price");
 
-				prDTO = new PrintReceiptDTO(order_num, order_detail_num, menu_name, temp_option, size_option,
-						shot_option, amount, order_price);
+				prDTO = new PrintReceiptDTO(order_detail_num, menu_name, temp_option, size_option, shot_option, amount,
+						order_price);
 
 				list.add(prDTO);
 			} // end while

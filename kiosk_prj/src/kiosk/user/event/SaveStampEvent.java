@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -49,9 +51,7 @@ public class SaveStampEvent extends WindowAdapter implements ActionListener {
 
 			if ((input + key).length() < 12) {
 				ud.getJtfTel().setText(input + key);
-			} else {
-				JOptionPane.showMessageDialog(ud, "전화번호는 최대 11자리까지 입력 가능합니다.");
-			} // end else
+			}
 		} // end if
 
 		if (e.getSource() == ud.getJbtnNs()) {
@@ -60,9 +60,38 @@ public class SaveStampEvent extends WindowAdapter implements ActionListener {
 		} // end if
 
 		if (e.getSource() == ud.getJbtnYs()) {
-			searchMember(input);
+			if (ud.getJtfTel().getText().length() != 11) {
+				JOptionPane.showMessageDialog(ud, "휴대폰 번호 11자리를 입력해주세요.");
+				return;
+			} // end if
+
+			if (isValidTel()) {
+				searchMember(input);
+			} else {
+				JOptionPane.showMessageDialog(ud, "유효한 휴대폰 번호를 입력해주세요.");
+			} // end if
 		} // end if
 	}// actionPerformed
+
+	public boolean isValidTel() {
+		boolean flag = false;
+
+		String code = ud.getJtfTel().getText().substring(0, 3);
+		List<String> validList = new ArrayList<String>();
+
+		validList.add("010");
+		validList.add("011");
+		validList.add("016");
+		validList.add("017");
+		validList.add("018");
+		validList.add("019");
+
+		if (validList.indexOf(code) != -1) {
+			flag = true;
+		} // end if
+
+		return flag;
+	}// isValidTel
 
 	public void searchMember(String phone) {
 		int flag = us.searchMember(phone);

@@ -22,7 +22,7 @@ public class StampInfoDAO {
 		return siDAO;
 	}// getInstance
 
-	public List<StampInfoDTO> selectOrderDetail(String order_num) throws SQLException, IOException {
+	public List<StampInfoDTO> selectOrderDetail() throws SQLException, IOException {
 		List<StampInfoDTO> list = new ArrayList<StampInfoDTO>();
 
 		GetConnection gc = GetConnection.getInstance();
@@ -36,11 +36,9 @@ public class StampInfoDAO {
 
 			StringBuilder selectOrderDetail = new StringBuilder();
 			selectOrderDetail.append("	select 	ORDER_DETAIL_NUM, AMOUNT		")
-					.append("	from  	ORDER_DETAIL    	").append("	where 	ORDER_NUM=?			");
+					.append("	from  	ORDER_DETAIL    	").append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
 
 			pstmt = con.prepareStatement(selectOrderDetail.toString());
-
-			pstmt.setString(1, order_num);
 
 			rs = pstmt.executeQuery();
 
@@ -52,7 +50,7 @@ public class StampInfoDAO {
 				order_detail_num = rs.getString("order_detail_num");
 				amount = rs.getInt("amount");
 
-				siDTO = new StampInfoDTO(order_num, order_detail_num, amount);
+				siDTO = new StampInfoDTO(order_detail_num, amount);
 				list.add(siDTO);
 			} // end while
 		} finally {
