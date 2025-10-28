@@ -36,7 +36,7 @@ public class InvenManageDAO {
 		try {
 			con = gc.getConnection();
 			// 3.쿼리문 생성객체 얻기
-			String selectMember = "select * from inventory";
+			String selectMember = "select * from inventory order by update_at desc";
 			pstmt = con.prepareStatement(selectMember);
 			// 4.바인드 변수 설정
 			// 5.쿼리문 수행 후 결과 얻기(cursor의 제어권 얻기)

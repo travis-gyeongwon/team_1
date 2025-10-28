@@ -40,8 +40,9 @@ public class OrderManageDAO {
 			selectMakeOrder
 			.append("	select ol.order_num order_num, ol.order_time order_time, detail.menu_name menu_name, sum(detail.order_price) total_price, os.status_text status_text	")
 			.append("	from order_list ol, order_detail detail, order_status os	")
-			.append("	where detail.order_num = ol.order_num and os.status_code = ol.status_code and (ol.status_code in (1,2,3)) and ol.order_time >= trunc(sysdate)  and ol.order_time < trunc(sysdate) + 1	")
-			.append("	group by ol.order_num, ol.order_time, detail.menu_name, os.status_text	");
+			.append("	where detail.order_num = ol.order_num and os.status_code = ol.status_code and (ol.status_code in (1,2,3)) and ol.order_time >= trunc(sysdate)  and ol.order_time < trunc(sysdate) + 1   and detail.order_detail_num = (ol.order_num||'_01')	")
+			.append("	group by ol.order_num, ol.order_time, detail.menu_name, os.status_text	")
+			.append("	order by order_time	");
 			pstmt = con.prepareStatement(selectMakeOrder.toString());
 			// 4.바인드 변수 설정
 			// 5.쿼리문 수행 후 결과 얻기(cursor의 제어권 얻기)
