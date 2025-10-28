@@ -66,6 +66,7 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 			int select = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 영업을 종료하고 닫으시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
 			if(select == JOptionPane.YES_OPTION) {
 				storeClose();
+				amd.dispose();
 			}else {
 			int selectClose = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 화면을 닫으시겠습니까?","종료 확인",JOptionPane.YES_NO_OPTION);
 			if(selectClose == JOptionPane.YES_OPTION)
