@@ -37,11 +37,11 @@ public class OrderPayService {
 
 
 	//메뉴명(옵션1,옵션2,옵션3)  수량  금액
-	public List<OrderPayDTO> showOrderDetail(String orderNum){ 
+	public List<OrderPayDTO> showOrderDetail(){ 
 
 		
 		try {
-			orderDetailList = OrderPayDAO.getInstance().selectOrderDetail(orderNum);
+			orderDetailList = OrderPayDAO.getInstance().selectOrderDetail();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class OrderPayService {
 	
 		    tempList=null;
 		try {
-			tempList=OrderPayDAO.getInstance().selectOrderDetail(orderNum);
+			tempList=OrderPayDAO.getInstance().selectOrderDetail();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

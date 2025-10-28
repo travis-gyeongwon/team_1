@@ -4,10 +4,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
-import kiosk.user.dao.OrderPayDAO;
 import kiosk.user.dto.OrderPayDTO;
-import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.EndService;
 import kiosk.user.service.OrderPayService;
 import kiosk.user.view.EndDesign;
@@ -30,15 +29,21 @@ public class EndEvent extends WindowAdapter implements MouseListener{
 	}//EndEvent
 
 
-	
+	public void temp() {
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
+		OrderPayService ops = new OrderPayService();
+		List<OrderPayDTO> temp=ops.showOrderDetail();
 		es=new EndService();
 		if(e.getSource()==ed.getJpEnd()) {//패널 화면 클릭하면 
 			//매개변수에 orderNum
-			es.changeInventory(ops.showMaxOrderNum());//재고 변경
+			for(OrderPayDTO opDTO : temp) {
+				es.changeInventory(opDTO.getMenuName(),opDTO.getAmount());//재고 변경
+				
+			}
 			
 			//매개변수에 주문번호 orderNum
 			es.changeOrderStatus(ops.showMaxOrderNum());//주문상태 변경(확인 대기 중으로)

@@ -2,7 +2,7 @@ package kiosk.user.dao;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,16 +103,13 @@ public class StartDAO {
 			ImageIcon menuImg=null;
 			while(rs.next()) {//조회결과에 다음 레코드가 존재하는지
 				//resultSet은 커서로 조회권을 가진다
-				menuName=rs.getString("menu_name");
-				amount=rs.getInt("amount");
-				InputStream is=rs.getBinaryStream("menu_img");
+				Blob blob=rs.getBlob("menu_img");
 
-				if(is!=null) {
-					BufferedImage bi=ImageIO.read(is);
-					menuImg=new ImageIcon(bi);
+				if(blob !=null) {
+					byte[]imgByte=blob.getBytes(1,(int)blob.length());
+					menuImg=new ImageIcon(imgByte);
 				}//end if
 				
-				is.close();
 			}//end while
 			
 			return menuImg;

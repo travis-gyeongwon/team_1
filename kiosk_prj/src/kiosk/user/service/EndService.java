@@ -7,10 +7,10 @@ import kiosk.user.dao.EndDAO;
 
 public class EndService {
 	
-	public void changeInventory(String orderNum)  {
+	public void changeInventory(String menuName, int amount)  {
 		
 			try {
-				EndDAO.getInstance().updateInventory(orderNum);
+				EndDAO.getInstance().updateInventory(menuName, amount);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

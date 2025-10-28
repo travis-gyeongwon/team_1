@@ -53,7 +53,7 @@ public class OrderPayDesign extends JDialog{
         jtOrderList.setEnabled(false);
 		
 		
-		List<OrderPayDTO>orderDetailList=ops.showOrderDetail(ops.showMaxOrderNum());
+		List<OrderPayDTO>orderDetailList=ops.showOrderDetail();
 			for(OrderPayDTO opDTO : orderDetailList) {
 				String menu=
 						opDTO.getMenuName()+"("+opDTO.getTempOption()+","

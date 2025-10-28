@@ -63,7 +63,7 @@ public List<OrderPayDTO> orderList;
 		
 	}//selectMaxOrderNum
 	
-	public List<OrderPayDTO> selectOrderDetail(String orderNum) throws SQLException, IOException{
+	public List<OrderPayDTO> selectOrderDetail() throws SQLException, IOException{
         orderList=new ArrayList<OrderPayDTO>();
 		
 		Connection con=null;
@@ -84,14 +84,14 @@ public List<OrderPayDTO> orderList;
            .append("	(select shot_text from shot where shot_code=shot_option) as shot_option , AMOUNT, ORDER_PRICE,	")
            .append("	MENU_NAME, ORDER_NUM	")
            .append("	from  order_detail	")
-           .append("	where order_num=?	");
+           .append("	where order_num=(select max(order_num) from order_list)	");
            pstmt=con.prepareStatement(selectOrderDetail.toString());
            
         //4.쿼리문 수행 후 결과 얻기(커서의 제어권을 얻기)
 
-           pstmt.setString(1, orderNum);
            rs=pstmt.executeQuery();
            
+           String orderNum="";
            String menuName="";
            int amount=0;
            String tempOption="";
@@ -104,7 +104,7 @@ public List<OrderPayDTO> orderList;
               OrderPayDTO opDTO=null;
         	   
              opDTO=new OrderPayDTO(orderNum, menuName, amount, tempOption, sizeOption, shotOption, orderPrice);
-             opDTO.setOrderNum(orderNum);
+             opDTO.setOrderNum(rs.getString("order_num"));
              opDTO.setMenuName(rs.getString("menu_name"));
              opDTO.setAmount(rs.getInt("amount"));
              opDTO.setTempOption(rs.getString("temp_option"));

@@ -2,6 +2,7 @@ package kiosk.user.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -22,19 +23,24 @@ public class StartDesign extends JDialog{
 	private static final Color COLOR_BG = Color.WHITE;
 	
 	public StartDesign() {
-	
+		
+	ss=new StartService();
 		jpStart=new JPanel();
 		jlblScreenStart=new JLabel("화면을 터치해주세요");
 	
 		Font font=new Font("나눔고딕",Font.BOLD,20);
 		jlblScreenStart.setFont(font);
 		
-		//현재blob이 null이라 데이터 추가 후 주석 해제 
-//		recommendMenuImg=ss.showBestmenu();
+		ImageIcon originalMenuImg=new ImageIcon();
+		originalMenuImg=ss.showBestmenu();
+		
+		Image resize=originalMenuImg.getImage().getScaledInstance(200, 200, DO_NOTHING_ON_CLOSE);
+		recommendMenuImg=new ImageIcon(resize);
+		
 		jlblRecommendMenu=new JLabel(recommendMenuImg);
 		
 	jpStart.add(jlblScreenStart);
-//	jpStart.add(jlblRecommendMenu);
+	jpStart.add(jlblRecommendMenu);
 	
 	
 	
@@ -47,6 +53,7 @@ public class StartDesign extends JDialog{
 	jpStart.setBackground(COLOR_BG);
 	
 	jlblScreenStart.setBounds(250,700,300,50);
+	jlblRecommendMenu.setBounds(150,100,400,600);
 	
 	
 	StartEvent se=new StartEvent(this);
