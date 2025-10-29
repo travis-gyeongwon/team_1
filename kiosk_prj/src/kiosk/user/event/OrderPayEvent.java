@@ -43,7 +43,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 			if(ss.showStoreStatus()==true) {//영업중이면
 				ops.changeCheckout(ops.showMaxOrderNum(),1);//checkout 1은 카드
 				opd.dispose();
-				new UseCardDesign();
+				new UseCardDesign(opd.getOd());
 			}else {//영업중이 아니면
 				JOptionPane.showMessageDialog(opd, "영업 중이 아닙니다");
 			}
@@ -53,7 +53,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 			if(ss.showStoreStatus()==true) {//영업 중이면
 				ops.changeCheckout(ops.showMaxOrderNum(),2);//checkout 2는 페이
 				opd.dispose();
-				new UsePayDesign();
+				new UsePayDesign(opd.getOd());
 			}else {//영업 중이 아니면
 				JOptionPane.showMessageDialog(opd, "영업 중이 아닙니다");
 			}

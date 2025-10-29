@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.OrderPayService;
 import kiosk.user.view.OrderDesign;
+import kiosk.user.view.PrintDecisionDesign;
 import kiosk.user.view.PrintReceiptDesign;
 import kiosk.user.view.UsePayDesign;
 
@@ -46,8 +47,9 @@ public class UsePayEvent extends WindowAdapter implements ActionListener{
 		 
 	     JOptionPane.showMessageDialog(upd,"페이 결제가 완료되었습니다.");
 		 upd.dispose();
+		 upd.getOd().dispose();
 		 //영수증 창으로
-		 new PrintReceiptDesign();
+		 new PrintDecisionDesign();
 		}//successCard
 		
 		public void failPay() {

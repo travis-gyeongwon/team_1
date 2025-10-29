@@ -26,11 +26,13 @@ public class UseCardDesign extends JDialog {
 	public  Timer timer;
 	public JButton jbtnCancel;
 	ImageIcon tempCardImg;
+	private OrderDesign od;
 	
 	private static final Color COLOR_BG = Color.WHITE;
 	
 	
-	public UseCardDesign() {
+	public UseCardDesign(OrderDesign od) {
+		this.od=od;
 		
 		UseCardEvent uce=new UseCardEvent(this);
 		 progress=new JProgressBar(0,100);
@@ -113,9 +115,10 @@ public class UseCardDesign extends JDialog {
 
 
 	
-   public static void main(String[] args) {
-	  new UseCardDesign();
-		
-	}//main
+  
+
+   public OrderDesign getOd() {
+	return od;
+   }
 
 }

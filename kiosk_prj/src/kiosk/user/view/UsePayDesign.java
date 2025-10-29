@@ -28,12 +28,14 @@ public class UsePayDesign extends JDialog {
 	public  Timer timer;
 	public JButton jbtnCancel;
 	ImageIcon tempPayImg;
+	private OrderDesign od;
 	
 	private static final Color COLOR_BG = Color.WHITE;
 	
 	
 	
-	public UsePayDesign() {
+	public UsePayDesign(OrderDesign od) {
+		this.od=od;
 		
 		UsePayEvent upe=new UsePayEvent(this);
 		 progress=new JProgressBar(0,100);
@@ -100,6 +102,10 @@ public class UsePayDesign extends JDialog {
 		
 	}//UseCardDesign
 	
+	public OrderDesign getOd() {
+		return od;
+	}
+
 	public Timer getTimer() {
 		return timer;
 	}
@@ -116,9 +122,6 @@ public class UsePayDesign extends JDialog {
 		return jbtnCancel;
 	}
 
-   public static void main(String[] args) {
-	  new UsePayDesign();
-		
-	}//main
+
 
 }//class
