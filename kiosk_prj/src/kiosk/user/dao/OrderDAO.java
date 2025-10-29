@@ -197,7 +197,6 @@ public class OrderDAO {
 			if (rsOption != null) { try { rsOption.close(); } catch (SQLException e) { /* ignored */ } }
 			if (pstmtOption != null) { try { pstmtOption.close(); } catch (SQLException e) { /* ignored */ } }
 		}
-		System.out.println("DAO - getAllowedOptionCodes for '" + menuName + "' ("+sql.substring(7, 16).trim()+"): " + codes); // 확인용
 		// 조회된 코드가 없으면 빈 리스트 반환
 		return codes.isEmpty() ? Collections.emptyList() : codes;
 	}
@@ -306,7 +305,6 @@ public class OrderDAO {
 			if (rs != null) { try { rs.close(); } catch (SQLException e) { /* ignored */ } }
 			if (pstmt != null) { try { pstmt.close(); } catch (SQLException e) { /* ignored */ } }
 		}
-		System.out.println("DAO - getMaxOrderSequenceForDate(" + datePart + "): " + maxSequence);
 		return maxSequence;
 	}
 

@@ -46,7 +46,6 @@ public class OptionDesign extends JDialog {
 		List<Integer> allowedTemps = menuDto.getAllowedTempCodes() != null ? menuDto.getAllowedTempCodes() : Collections.emptyList();
 		List<Integer> allowedSizes = menuDto.getAllowedSizeCodes() != null ? menuDto.getAllowedSizeCodes() : Collections.emptyList();
 		List<Integer> allowedShots = menuDto.getAllowedShotCodes() != null ? menuDto.getAllowedShotCodes() : Collections.emptyList();
-		System.out.println("OptionDesign - Received allowed SHOT codes for '" + menuDto.getMenuName() + "': " + allowedShots); // 확인용
 
 		// --- 컴포넌트 생성 ---
 		jlblMenu = new JLabel("상품명 : " + menuDto.getMenuName());
@@ -76,9 +75,7 @@ public class OptionDesign extends JDialog {
 		jbtnNormal.setEnabled(allowedShots.contains(1)); // SHOT 코드 1 (기본)
 		jbtnMild.setEnabled(allowedShots.contains(2));   // SHOT 코드 2 (연하게)
 		jbtnShot.setEnabled(allowedShots.contains(3));   // SHOT 코드 3 (샷 추가)
-		System.out.println("  -> jbtnNormal enabled: " + jbtnNormal.isEnabled()); // 확인용
-        System.out.println("  -> jbtnMild enabled: " + jbtnMild.isEnabled());   // 확인용
-        System.out.println("  -> jbtnShot enabled: " + jbtnShot.isEnabled());   // 확인용
+		
 
 		// --- ❗️ 유효한 기본 선택 옵션 결정 ---
 		String defaultTemp = allowedTemps.contains(2) ? "ICE" : (allowedTemps.contains(1) ? "HOT" : (allowedTemps.isEmpty() ? null : (allowedTemps.get(0) == 1 ? "HOT" : "ICE")));
