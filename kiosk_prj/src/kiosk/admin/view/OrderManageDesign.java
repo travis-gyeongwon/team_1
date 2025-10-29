@@ -17,11 +17,12 @@ public class OrderManageDesign extends JDialog {
 	private DefaultTableModel dtmOrderTable;
 	private JButton jbtnRenew;
 	private JLabel jlblRenewTime;
+	private JLabel jlblInstruction;
 
 	public OrderManageDesign(AdminMainDesign amd) {
 		super(amd,"주문관리창",true);
 
-		JLabel jlblInstruction = new JLabel("관리할 주문을 선택해주세요");
+		jlblInstruction = new JLabel("관리할 주문을 선택해주세요");
 		String header[] = { "주문번호", "주문시간", "대표상품", "금액", "주문상태", "픽업완료" };
 		dtmOrderTable = new DefaultTableModel(header, 0);
 		jtOrderTable = new JTable(dtmOrderTable);
@@ -60,16 +61,44 @@ public class OrderManageDesign extends JDialog {
 		return jtOrderTable;
 	}
 
+	public void setJtOrderTable(JTable jtOrderTable) {
+		this.jtOrderTable = jtOrderTable;
+	}
+
 	public DefaultTableModel getDtmOrderTable() {
 		return dtmOrderTable;
+	}
+
+	public void setDtmOrderTable(DefaultTableModel dtmOrderTable) {
+		this.dtmOrderTable = dtmOrderTable;
 	}
 
 	public JButton getJbtnRenew() {
 		return jbtnRenew;
 	}
 
+	public void setJbtnRenew(JButton jbtnRenew) {
+		this.jbtnRenew = jbtnRenew;
+	}
+
 	public JLabel getJlblRenewTime() {
 		return jlblRenewTime;
 	}
 
+	public void setJlblRenewTime(JLabel jlblRenewTime) {
+		this.jlblRenewTime = jlblRenewTime;
+	}
+
+	public JLabel getJlblInstruction() {
+		return jlblInstruction;
+	}
+
+	public void setJlblInstruction(JLabel jlblInstruction) {
+		this.jlblInstruction = jlblInstruction;
+	}
+
+	
+	
+	
+	
 }// class

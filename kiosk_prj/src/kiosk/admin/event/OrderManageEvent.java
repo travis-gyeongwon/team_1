@@ -96,6 +96,13 @@ public class OrderManageEvent extends WindowAdapter implements MouseListener, Ac
 			omd.getDtmOrderTable().addRow(rowData);
 		} // end for
 		
+		// 주문 목록이 비어있을 경우 안내 문구 추가
+	    if (omd.getDtmOrderTable().getRowCount() == 0) {
+	    	omd.getJlblInstruction().setText("현재 진행 중인 주문이 없습니다.");
+	    }// end if
+	    else {
+	    	omd.getJlblInstruction().setText("관리할 주문을 선택해주세요");
+	    }// end else
 		omd.getJlblRenewTime().setText("최근 갱신 시간 : "+new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
 		
 	}// searchAllMakingOrder
