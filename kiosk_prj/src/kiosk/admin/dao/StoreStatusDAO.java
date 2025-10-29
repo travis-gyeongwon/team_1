@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import kiosk.admin.dto.StoreStatusDTO;
 import kiosk.user.dao.GetConnection;
@@ -86,5 +89,41 @@ public class StoreStatusDAO {
 		}
 		
 		return cnt;
+	}
+	
+	public boolean selectOrderList() throws SQLException, IOException {
+		boolean flag = false;
+		
+		GetConnection gc = GetConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String date = df.format(new Date());
+
+		try {
+			con = gc.getConnection();
+			
+			StringBuilder sbSelect = new StringBuilder();
+			sbSelect
+			.append("	select order_num	")
+			.append("	from order_list	")
+			.append("	where status_code in (1,2,3) and order_time = to_date(?)	");
+			pstmt = con.prepareStatement(sbSelect.toString());
+			pstmt.setString(1, date);
+			
+			rs = pstmt.executeQuery();
+			
+			
+			if(!rs.next()) {
+				flag = true;
+			}
+			
+		}finally {
+			gc.dbClose(con, pstmt, rs);
+		}
+		
+		return flag;
 	}
 }

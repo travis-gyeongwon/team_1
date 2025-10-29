@@ -21,6 +21,7 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 	
 	private StoreStatusService sss;
 	private String open;
+	private boolean flag;
 	
 	public AdminMainEvent(AdminMainDesign amd) {
 		this.amd = amd;
@@ -56,21 +57,30 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 			storeOpen();
 		}
 		if(ae.getSource() == amd.getJbtnClose()) {
-			storeClose();
+			flag = sss.checkOrderList();
+			if(flag){
+				JOptionPane.showMessageDialog(amd, "처리되지 않은 주문 내역이 있습니다.");
+			}else {
+				storeClose();
+			}
 		}
 	}
 
 	@Override
 	public void windowClosing(WindowEvent we) {
 		if("Y".equals(open)) {
-			int select = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 영업을 종료하고 닫으시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
-			if(select == JOptionPane.YES_OPTION) {
-				storeClose();
-				amd.dispose();
+			if(!flag) {
+				int select = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 영업을 종료하고 닫으시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
+				if(select == JOptionPane.YES_OPTION) {
+					storeClose();
+					amd.dispose();
+				}else {
+					int selectClose = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 화면을 닫으시겠습니까?","종료 확인",JOptionPane.YES_NO_OPTION);
+					if(selectClose == JOptionPane.YES_OPTION)
+						amd.dispose();
+				}
 			}else {
-			int selectClose = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 화면을 닫으시겠습니까?","종료 확인",JOptionPane.YES_NO_OPTION);
-			if(selectClose == JOptionPane.YES_OPTION)
-				amd.dispose();
+				JOptionPane.showMessageDialog(amd, "처리되지 않은 주문 내역이 있습니다.\n종료할 수 없습니다.");
 			}
 		}else {
 			amd.dispose();
@@ -98,11 +108,10 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 	private void storeOpen() {
 		String message = "영업 중 입니다.";
 		if("N".equals(open)) {
-			open = "Y";
 			if(sss.modifyStoreStatus(open,amd.getlDTO().getId())!=1) {
 				message = "영업을 시작할 수 없습니다.";
-				open = "N";
 			}else {
+				open = "Y";
 				amd.getJlStatus().setText("영업 상태 : 영업 중");
 				openOrderManager();
 				return;
@@ -115,11 +124,10 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 	private void storeClose() {
 		String message = "영업 중이 아닙니다.";
 		if("Y".equals(open)) {
-			open = "N";
 			if(sss.modifyStoreStatus(open,amd.getlDTO().getId())!=1) {
 				message = "영업을 종료할 수 없습니다.";
-				open = "Y";//DB 오류이므로 DB는 변경되지 않은 상태일 것이라 예상..
 			}else {
+				open = "N";
 				message = "영업을 종료합니다.";
 				amd.getJlStatus().setText("영업 상태 : 영업 종료");
 			}

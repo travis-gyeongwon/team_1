@@ -35,4 +35,19 @@ public class StoreStatusService {
 		if(cnt > 1) cnt = 1;
 		return cnt;
 	}
+	
+	public boolean checkOrderList() {
+		//처리되지 않은 주문 내역이 있는지 확인
+		boolean flag = false;
+		
+		StoreStatusDAO ssDAO = StoreStatusDAO.getInstance();
+		try {
+			flag = ssDAO.selectOrderList();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 }
