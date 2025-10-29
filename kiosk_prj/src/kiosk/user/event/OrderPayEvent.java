@@ -59,12 +59,7 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 			}
 		}//end if
 		
-		
-		if(e.getSource()==opd.getJbtnBefore()) {//이전 버튼
-			opd.dispose();
-			//적립창으로 돌아가게
-			new SaveStampDesign(opd.getOd());
-		}//end if
+	
 	}//actionPerformed
 
 
@@ -73,7 +68,6 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 	public void windowClosing(WindowEvent e) {
 		ops.removeOrderDetail();
 		ops.removeOrderList();
-		opd.dispose();
 	}//windowClosing
 	
 	

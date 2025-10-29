@@ -7,9 +7,10 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
 
+import kiosk.user.dto.OrderProductDTO;
 import kiosk.user.service.OrderPayService;
 import kiosk.user.view.OrderDesign;
-import kiosk.user.view.PrintDecisionDesign;
+import kiosk.user.view.PrintReceiptDesign;
 import kiosk.user.view.UseCardDesign;
 
 public class UseCardEvent extends WindowAdapter implements ActionListener{
@@ -27,8 +28,11 @@ public class UseCardEvent extends WindowAdapter implements ActionListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		
-		failCard();//결제가 완료되기 전 창이 꺼지면 결제실패
+		ucd.getTimer().stop();
+		 ops=new OrderPayService();
+		 ops.removeOrderDetail();
+		 ops.removeOrderList();
+		 JOptionPane.showMessageDialog(ucd, "카드 결제가 취소되었습니다.");
 		
 	}//windowClosing
 
@@ -43,7 +47,7 @@ public class UseCardEvent extends WindowAdapter implements ActionListener{
 	     JOptionPane.showMessageDialog(ucd,"카드 결제가 완료되었습니다.");
 		 ucd.dispose();
 		 //영수증 창으로
-		 new PrintDecisionDesign();
+		 new PrintReceiptDesign();
 		 
 		}//successCard
 		
@@ -57,10 +61,9 @@ public class UseCardEvent extends WindowAdapter implements ActionListener{
 			 ops.removeOrderDetail();
 			 ops.removeOrderList();
 			 JOptionPane.showMessageDialog(ucd, "카드 결제가 취소되었습니다.");
-			 ucd.dispose();
 			 
+			 ucd.dispose();
 			//결제가 취소되면 주문창으로
-			 new OrderDesign();
 		 }//end if
 			
 		}//failCard

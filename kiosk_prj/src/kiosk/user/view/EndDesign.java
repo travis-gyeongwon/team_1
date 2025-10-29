@@ -36,6 +36,7 @@ public class EndDesign extends JDialog{
 	
 	EndEvent ee=new EndEvent(this);
 	jpEnd.addMouseListener(ee);
+	addWindowListener(ee);
 	
 	setLayout(null);
 	jpEnd.setLayout(null);
@@ -48,9 +49,9 @@ public class EndDesign extends JDialog{
 	
 	jpEnd.setSize(700,1000);
 	jpEnd.setBackground(COLOR_BG);
-	jlblOrderFinish.setBounds(165, 83, 525, 83);
-	jlblOrderNum.setBounds(123, 333, 525, 167);
-	jlblreturnToStart.setBounds(230, 667, 525, 167);
+	jlblOrderFinish.setBounds(190, 83, 525, 83);
+	jlblOrderNum.setBounds(180, 333, 525, 167);
+	jlblreturnToStart.setBounds(240, 667, 525, 167);
 
 	
 	

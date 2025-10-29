@@ -81,11 +81,10 @@ public class UseCardDesign extends JDialog {
 			add(jbtnCancel);
 			
 			jlblCardImg.setBounds(175, 133, 350, 333);
-			jlblCardMsg.setBounds(180, 50, 525, 83);
+			jlblCardMsg.setBounds(210, 50, 525, 83);
 			progress.setBounds(175, 500, 350, 83);
 			jbtnCancel.setBounds(263, 667, 175, 83);
 
-			addWindowListener(uce);
 			jbtnCancel.addActionListener(uce);
 			addWindowListener(uce);
 			

@@ -24,7 +24,6 @@ public class OrderPayDesign extends JDialog{
 	public JLabel jlblAmountPrice;
 	public JButton jbtnCard;
 	public JButton jbtnPay;
-	public JButton jbtnBefore;
 	OrderPayService ops;
 	private OrderDesign od;
 	
@@ -87,12 +86,10 @@ public class OrderPayDesign extends JDialog{
 		
 		jbtnCard=new JButton("카드");
 		jbtnPay=new JButton("페이");
-		jbtnBefore=new JButton("이전");
 		
 		OrderPayEvent ope=new OrderPayEvent(this);
 		jbtnCard.addActionListener(ope);
 		jbtnPay.addActionListener(ope);
-		jbtnBefore.addActionListener(ope);
 		addWindowListener(ope);
 		
 		setLayout(null);
@@ -108,7 +105,6 @@ public class OrderPayDesign extends JDialog{
 		jbtnPay.setBounds(440,700,100,50);
 		jbtnPay.setBackground(Color.black);
 		jbtnPay.setForeground(COLOR_BG);
-		jbtnBefore.setBounds(285,800,100,50);
 		
 		
 		add(orderTitle);
@@ -117,7 +113,6 @@ public class OrderPayDesign extends JDialog{
 		add(jlblChoosePayMethod);
 		add(jbtnCard);
 		add(jbtnPay);
-		add(jbtnBefore);
 		
 		
 		
@@ -144,9 +139,6 @@ public class OrderPayDesign extends JDialog{
 		return jbtnPay;
 	}
 
-	public JButton getJbtnBefore() {
-		return jbtnBefore;
-	}
 
 	public static void main(String[] args) {
 //		new OrderPayDesign(od);
