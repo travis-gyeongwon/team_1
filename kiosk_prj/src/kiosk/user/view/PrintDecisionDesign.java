@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 import kiosk.user.event.PrintDecisionEvent;
 
@@ -35,6 +36,8 @@ public class PrintDecisionDesign extends JFrame {
 		PrintDecisionEvent ue = new PrintDecisionEvent(this);
 		jbtnNp.addActionListener(ue);
 		jbtnYp.addActionListener(ue);
+		addWindowListener(ue);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		this.setSize(800, 1000);
 		this.setVisible(true);

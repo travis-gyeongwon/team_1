@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import kiosk.user.event.PrintReceiptEvent;
@@ -41,6 +42,8 @@ public class PrintReceiptDesign extends JFrame {
 
 		PrintReceiptEvent ue = new PrintReceiptEvent(this);
 		jbtnCheck.addActionListener(ue);
+		addWindowListener(ue);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		add(jlblOrderNum);
 		add(jspOrderList);

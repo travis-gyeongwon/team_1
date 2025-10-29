@@ -13,6 +13,7 @@ import kiosk.user.dto.PrintReceiptDTO;
 import kiosk.user.service.PrintReceiptService;
 import kiosk.user.view.EndDesign;
 import kiosk.user.view.PrintReceiptDesign;
+import kiosk.user.view.StartDesign;
 
 public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 
@@ -30,6 +31,7 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 	@Override
 	public void windowClosing(WindowEvent e) {
 		ud.dispose();
+		new StartDesign();
 	}// windowClosing
 
 	@Override

@@ -9,6 +9,7 @@ import kiosk.user.service.PrintReceiptService;
 import kiosk.user.view.EndDesign;
 import kiosk.user.view.PrintDecisionDesign;
 import kiosk.user.view.PrintReceiptDesign;
+import kiosk.user.view.StartDesign;
 
 public class PrintDecisionEvent extends WindowAdapter implements ActionListener {
 
@@ -20,12 +21,12 @@ public class PrintDecisionEvent extends WindowAdapter implements ActionListener 
 		us = new PrintReceiptService();
 
 		ud.getJlblOrderNum().setText("주문번호 : " + searchOrderList());
-		;
 	}// PrintDecisionEvent
 
 	@Override
 	public void windowClosing(WindowEvent e) {
 		ud.dispose();
+		new StartDesign();
 	}// windowClosing
 
 	@Override
