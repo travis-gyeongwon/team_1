@@ -1,21 +1,20 @@
 package kiosk.admin.view;
 
 import kiosk.admin.event.MenuManageEvent;
-import java.awt.Frame; // Frame import 추가
+// import java.awt.Frame; // Frame 대신 AdminMainDesign 사용
 import javax.swing.*;
 
 public class MenuManageDesign extends JDialog {
     private JButton jbtnMenuList = new JButton("메뉴 목록");
     private JButton jbtnMenuAdd  = new JButton("메뉴 추가");
     private JButton jbtnMenuDelete = new JButton("메뉴 삭제");
-    
+    // private Frame parentFrame; // Frame 대신 AdminMainDesign 사용
+    private AdminMainDesign amd; // [수정!] AdminMainDesign 참조 변수
 
-    private Frame parentFrame; 
-
-
-    public MenuManageDesign(Frame parent){
-        super(parent, "메뉴관리", true); // 부모 설정, 제목 설정, Modal 설정
-        this.parentFrame = parent; // 부모 프레임 저장
+    // [수정!] 생성자에서 AdminMainDesign 객체(amd) 받기
+    public MenuManageDesign(AdminMainDesign parentAmd){
+        super(parentAmd, "메뉴관리", true); // 부모 JFrame 설정, 제목, Modal
+        this.amd = parentAmd; // 전달받은 AdminMainDesign 객체 저장
 
         setLayout(null);
 
@@ -26,22 +25,22 @@ public class MenuManageDesign extends JDialog {
         add(jbtnMenuList);
         add(jbtnMenuAdd);
         add(jbtnMenuDelete);
-       
-     
-        new MenuManageEvent(this, parent);
+
+        // [수정!] MenuManageEvent 생성 시 AdminMainDesign 객체 전달
+        new MenuManageEvent(this, amd);
 
         setSize(400, 400);
-     
-        setLocationRelativeTo(parent); 
+        // [수정!] 부모 창(AdminMainDesign) 위에 중앙 정렬
+        setLocationRelativeTo(amd); 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setVisible(true); // 생성자에서 호출하지 않고 외부(AdminMainEvent)에서 호출
+        setVisible(true); // 외부(AdminMainEvent)에서 호출됨
     }
 
     public JButton getJbtnMenuList(){ return jbtnMenuList; }
     public JButton getJbtnMenuAdd(){ return jbtnMenuAdd; }
     public JButton getJbtnMenuDelete(){ return jbtnMenuDelete; }
     
-   
-    public Frame getParentFrame() { return parentFrame; }
+    // [수정!] AdminMainDesign 객체를 반환하는 getter (필요시 사용)
+    public AdminMainDesign getAdminMainDesign() { return amd; }
 }
 
