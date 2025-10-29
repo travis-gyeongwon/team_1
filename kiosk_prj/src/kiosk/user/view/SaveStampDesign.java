@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import kiosk.user.event.SaveStampEvent;
 
@@ -67,6 +68,8 @@ public class SaveStampDesign extends JDialog {
 
 		jbtnNs.addActionListener(ue);
 		jbtnYs.addActionListener(ue);
+		addWindowListener(ue);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		this.setSize(400, 600);
 		this.setLocationRelativeTo(od);

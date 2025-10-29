@@ -2,6 +2,7 @@ package kiosk.user.view;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.WindowConstants;
 
 import kiosk.user.event.TakeOutDecisionEvent;
 
@@ -27,6 +28,8 @@ public class TakeOutDecisionDesign extends JDialog {
 		TakeOutDecisionEvent ue = new TakeOutDecisionEvent(od, this);
 		jbtnForHere.addActionListener(ue);
 		jbtnToGo.addActionListener(ue);
+		addWindowListener(ue);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		this.setSize(400, 600);
 		this.setLocationRelativeTo(od);

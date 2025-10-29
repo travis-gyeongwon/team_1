@@ -17,6 +17,7 @@ public class TakeOutDecisionEvent extends WindowAdapter implements ActionListene
 	private OrderDesign od;
 	private TakeOutDecisionDesign ud;
 	private TakeOutDecisionService us;
+	private boolean isProceeding = false;
 
 	public TakeOutDecisionEvent(OrderDesign od, TakeOutDecisionDesign ud) {
 		this.od = od;
@@ -26,6 +27,11 @@ public class TakeOutDecisionEvent extends WindowAdapter implements ActionListene
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		if (!isProceeding) {
+			us.removeOrderDetail();
+			us.removeOrderList();
+		}// end if
+
 		ud.dispose();
 	}// windowClosing
 
@@ -42,12 +48,13 @@ public class TakeOutDecisionEvent extends WindowAdapter implements ActionListene
 
 	public void modifyOrderList(String takeout_flg) {
 		int flag = us.modifyOrderList(takeout_flg);
-		
+
 		switch (flag) {
 		case 0:
 			JOptionPane.showMessageDialog(ud, "문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			break;
 		case 1:
+			isProceeding = true;
 			ud.dispose();
 			new SaveStampDesign(od);
 			break;

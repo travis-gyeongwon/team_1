@@ -44,4 +44,54 @@ public class TakeOutDecisionDAO {
 		return flag;
 	}// updateOrderList
 
+	public int deleteOrderList() throws SQLException, IOException {
+		int flag = 0;
+
+		GetConnection gc = GetConnection.getInstance();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = gc.getConnection();
+
+			StringBuilder deleteOrderList = new StringBuilder();
+			deleteOrderList.append("	delete 	from	ORDER_LIST			                            ")
+					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)		");
+
+			pstmt = con.prepareStatement(deleteOrderList.toString());
+
+			flag = pstmt.executeUpdate();
+		} finally {
+			gc.dbClose(con, pstmt, null);
+		} // end finally
+
+		return flag;
+	}// deleteOrderList
+
+	public int deleteOrderDetail() throws SQLException, IOException {
+		int flag = 0;
+
+		GetConnection gc = GetConnection.getInstance();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = gc.getConnection();
+
+			StringBuilder deleteOrderDetail = new StringBuilder();
+			deleteOrderDetail.append("	delete 	from	ORDER_DETAIL			                        ")
+					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)		");
+
+			pstmt = con.prepareStatement(deleteOrderDetail.toString());
+
+			flag = pstmt.executeUpdate();
+		} finally {
+			gc.dbClose(con, pstmt, null);
+		} // end finally
+
+		return flag;
+	}// deleteOrderDetail
+
 }// class

@@ -21,6 +21,7 @@ public class SaveStampEvent extends WindowAdapter implements ActionListener {
 	private OrderDesign od;
 	private SaveStampDesign ud;
 	private SaveStampService us;
+	private boolean isProceeding = false;
 
 	public SaveStampEvent(OrderDesign od, SaveStampDesign ud) {
 		this.od = od;
@@ -30,6 +31,11 @@ public class SaveStampEvent extends WindowAdapter implements ActionListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		if (!isProceeding) {
+			us.removeOrderDetail();
+			us.removeOrderList();
+		}// end if
+
 		ud.dispose();
 	}// windowClosing
 
@@ -55,6 +61,7 @@ public class SaveStampEvent extends WindowAdapter implements ActionListener {
 		} // end if
 
 		if (e.getSource() == ud.getJbtnNs()) {
+			isProceeding = true;
 			ud.dispose();
 			new OrderPayDesign(od);
 		} // end if
@@ -98,9 +105,11 @@ public class SaveStampEvent extends WindowAdapter implements ActionListener {
 
 		switch (flag) {
 		case 0:
+			isProceeding = true;
 			new JoinDecisionDesign(ud);
 			break;
 		case 1:
+			isProceeding = true;
 			new StampInfoDesign(ud);
 			break;
 		}// end switch
