@@ -211,13 +211,12 @@ public class OrderDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
-			String sql = "INSERT INTO ORDER_LIST (ORDER_NUM, ORDER_TIME, PHONE, TAKEOUT_FLG, CHECKOUT_TYPECODE, STATUS_CODE) VALUES (?, SYSTIMESTAMP, ?, ?, ?, ?)";
+			String sql = "INSERT INTO ORDER_LIST (ORDER_NUM, ORDER_TIME, PHONE, TAKEOUT_FLG, CHECKOUT_TYPECODE) VALUES (?, SYSTIMESTAMP, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, orderNum);
 			pstmt.setString(2, null);
 			pstmt.setString(3, "N");
 			pstmt.setInt(4, 1);
-			pstmt.setInt(5, 1);
 			result = pstmt.executeUpdate();
 		} finally {
 			if (pstmt != null) { try { pstmt.close(); } catch (SQLException e) { /* ignored */ } }
