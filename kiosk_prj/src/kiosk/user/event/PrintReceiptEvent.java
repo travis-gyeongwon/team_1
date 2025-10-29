@@ -31,7 +31,7 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 	@Override
 	public void windowClosing(WindowEvent e) {
 		ud.dispose();
-		new StartDesign();
+		new EndDesign();
 	}// windowClosing
 
 	@Override
