@@ -136,8 +136,6 @@ public class OptionEvent implements ActionListener {
             productDTO.setExtraOption(extraOption);
             productDTO.setAmount(amount);
             productDTO.setOrderPrice(finalPrice);
-
-            System.out.println("OptionEvent: 장바구니에 추가할 DTO: " + productDTO);
             orderDesignView.addOrderItemToPanel(productDTO);
             od.dispose();
         }

@@ -72,7 +72,6 @@ public class OrderService {
 			if (orderResult == 1 && allProductsInserted) {
 				con.commit();
 				success = true;
-				System.out.println("주문 저장 성공: " + newOrderNum);
 			} else {
 				con.rollback();
 				System.err.println("주문 저장 실패: Rollback 실행. orderResult=" + orderResult + ", allProductsInserted=" + allProductsInserted);

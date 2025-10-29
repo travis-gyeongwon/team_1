@@ -34,7 +34,6 @@ import kiosk.user.service.OrderService;
  */
 public class OrderDesign extends JFrame {
 
-
 	private JButton jbtnHome, jbtnCoffee, jbtnBeverage;
 	private JPanel jpNorth;
 	private JPanel jpCenter;

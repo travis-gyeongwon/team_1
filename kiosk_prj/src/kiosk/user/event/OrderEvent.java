@@ -152,7 +152,6 @@ public class OrderEvent implements ActionListener {
          OrderMenuDTO menuDto = OrderService.getInstance().getMenuByName(command);
 
          if (menuDto != null) {
-            System.out.println(command + " 클릭됨. OptionDesign 창을 엽니다.");
             new OptionDesign(ud, menuDto);
          } else {
             System.err.println(command + " 메뉴 정보를 DB에서 찾을 수 없습니다.");
