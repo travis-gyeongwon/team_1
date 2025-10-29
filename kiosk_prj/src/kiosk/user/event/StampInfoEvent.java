@@ -26,7 +26,7 @@ public class StampInfoEvent extends WindowAdapter implements ActionListener {
 
 	public StampInfoEvent(OrderDesign od, StampInfoDesign ud, SaveStampDesign ssd) {
 		this.od = od;
-		this.ssd=ssd;
+		this.ssd = ssd;
 		this.ud = ud;
 		us = new StampInfoService();
 
@@ -41,7 +41,7 @@ public class StampInfoEvent extends WindowAdapter implements ActionListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		ud.dispose();
+		modifyMember(phone, total_stamp);
 	}// windowClosing
 
 	@Override

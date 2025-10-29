@@ -3,6 +3,7 @@ package kiosk.user.view;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextPane;
+import javax.swing.WindowConstants;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -42,6 +43,8 @@ public class StampInfoDesign extends JDialog {
 
 		StampInfoEvent ue = new StampInfoEvent(ssd.getOd(), this, ssd);
 		jbtnCheck.addActionListener(ue);
+		addWindowListener(ue);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		this.setSize(300, 200);
 		this.setLocationRelativeTo(ssd);
