@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import kiosk.user.service.PrintReceiptService;
 import kiosk.user.view.EndDesign;
 import kiosk.user.view.PrintDecisionDesign;
 import kiosk.user.view.PrintReceiptDesign;
@@ -12,9 +13,14 @@ import kiosk.user.view.PrintReceiptDesign;
 public class PrintDecisionEvent extends WindowAdapter implements ActionListener {
 
 	private PrintDecisionDesign ud;
+	private PrintReceiptService us;
 
 	public PrintDecisionEvent(PrintDecisionDesign ud) {
 		this.ud = ud;
+		us = new PrintReceiptService();
+
+		ud.getJlblOrderNum().setText("주문번호 : " + searchOrderList());
+		;
 	}// PrintDecisionEvent
 
 	@Override
@@ -24,15 +30,21 @@ public class PrintDecisionEvent extends WindowAdapter implements ActionListener 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==ud.getJbtnNp()) {
+		if (e.getSource() == ud.getJbtnNp()) {
 			ud.dispose();
 			new EndDesign();
-		}// end if
-		
-		if(e.getSource()==ud.getJbtnYp()) {
+		} // end if
+
+		if (e.getSource() == ud.getJbtnYp()) {
 			ud.dispose();
 			new PrintReceiptDesign();
-		}// end if
+		} // end if
 	}// actionPerformed
+
+	public String searchOrderList() {
+		String order_num = us.searchOrderList();
+
+		return order_num;
+	}// searchOrderList
 
 }// class

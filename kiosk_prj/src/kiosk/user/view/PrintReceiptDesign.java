@@ -21,7 +21,7 @@ public class PrintReceiptDesign extends JFrame {
 	public PrintReceiptDesign() {
 		super("영수증 출력");
 
-		jlblOrderNum = new JLabel("주문번호 : 2510160001");
+		jlblOrderNum = new JLabel();
 		jlblOrderNum.setHorizontalAlignment(SwingConstants.CENTER);
 
 		String[] colNames = { "상품명", "수량", "금액" };

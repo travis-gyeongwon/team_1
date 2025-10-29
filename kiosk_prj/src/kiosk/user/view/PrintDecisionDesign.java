@@ -40,6 +40,10 @@ public class PrintDecisionDesign extends JFrame {
 		this.setVisible(true);
 	}// PrintDecisionDesign
 
+	public JLabel getJlblOrderNum() {
+		return jlblOrderNum;
+	}// getJlblOrderNum
+
 	public JButton getJbtnNp() {
 		return jbtnNp;
 	}// getJbtnNp
