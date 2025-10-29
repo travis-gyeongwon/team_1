@@ -4,10 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import kiosk.user.dto.OrderPayDTO;
 import kiosk.user.dto.OrderProductDTO;
+import kiosk.user.service.EndService;
 import kiosk.user.service.OrderPayService;
 import kiosk.user.view.OrderDesign;
 import kiosk.user.view.PrintDecisionDesign;
@@ -46,6 +49,21 @@ public class UsePayEvent extends WindowAdapter implements ActionListener{
 		payFlag=true;
 		 
 	     JOptionPane.showMessageDialog(upd,"페이 결제가 완료되었습니다.");
+	     
+	     
+	     OrderPayService ops = new OrderPayService();
+			List<OrderPayDTO> temp=ops.showOrderDetail();
+			EndService es=new EndService();
+				//매개변수에 orderNum
+				for(OrderPayDTO opDTO : temp) {
+					es.changeInventory(opDTO.getMenuName(),opDTO.getAmount());//재고 변경
+					
+				}
+				
+				//매개변수에 주문번호 orderNum
+				es.changeOrderStatus(ops.showMaxOrderNum());//주문상태 변경(확인 대기 중으로)
+	     
+	     
 		 upd.dispose();
 		 upd.getOd().dispose();
 		 //영수증 창으로
