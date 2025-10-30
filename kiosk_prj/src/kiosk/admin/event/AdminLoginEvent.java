@@ -42,7 +42,9 @@ public class AdminLoginEvent extends WindowAdapter implements ActionListener {
 		if(ae.getSource() == ald.getJtfId()) {
 			ald.getJtfPass().requestFocus();
 		}
-		confirmLogin();
+		if(ae.getSource() == ald.getJtfPass()) {
+			confirmLogin();
+		}
 	}
 
 	@Override

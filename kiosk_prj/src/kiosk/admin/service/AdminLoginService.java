@@ -1,7 +1,6 @@
 package kiosk.admin.service;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 
 import kiosk.admin.dao.AdminLoginDAO;
@@ -14,9 +13,7 @@ public class AdminLoginService {
 		lDTO = null;
 		AdminLoginDAO alDAO = AdminLoginDAO.getInstance();
 		try {
-			if((lDTO = alDAO.selectLogin(id, pw)) != null) {				
-				alDAO.updateLoginDate(id, pw);
-			}
+			lDTO = alDAO.selectLogin(id, pw);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -24,7 +21,6 @@ public class AdminLoginService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return lDTO;
 	}
 

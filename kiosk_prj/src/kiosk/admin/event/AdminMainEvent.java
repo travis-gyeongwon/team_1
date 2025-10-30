@@ -37,6 +37,7 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		flag = sss.checkOrderList();
 	}
 
 	@Override
@@ -108,13 +109,15 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 	private void storeOpen() {
 		String message = "영업 중 입니다.";
 		if("N".equals(open)) {
-			if(sss.modifyStoreStatus(open,amd.getlDTO().getId())!=1) {
-				message = "영업을 시작할 수 없습니다.";
-			}else {
-				open = "Y";
-				amd.getJlStatus().setText("영업 상태 : 영업 중");
+			open = "Y";
+			int cnt = sss.modifyStoreStatus(open,amd.getlDTO().getId());
+			setStoreStatus();
+			if(cnt==1) {
 				openOrderManager();
 				return;
+			}else {
+				open = "N";
+				message = "영업을 시작할 수 없습니다.";
 			}
 		}
 		
@@ -124,13 +127,16 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 	private void storeClose() {
 		String message = "영업 중이 아닙니다.";
 		if("Y".equals(open)) {
-			if(sss.modifyStoreStatus(open,amd.getlDTO().getId())!=1) {
+			open = "N";
+			int cnt = sss.modifyStoreStatus(open,amd.getlDTO().getId());
+			message = "영업을 종료합니다.";
+			
+			if(cnt!=1) {
+				open = "Y";
 				message = "영업을 종료할 수 없습니다.";
-			}else {
-				open = "N";
-				message = "영업을 종료합니다.";
-				amd.getJlStatus().setText("영업 상태 : 영업 종료");
 			}
+			
+			setStoreStatus();
 		}
 		
 		JOptionPane.showMessageDialog(amd, message);

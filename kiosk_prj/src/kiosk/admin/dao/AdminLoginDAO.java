@@ -50,6 +50,7 @@ public class AdminLoginDAO {
 			lDTO = new LoginDTO();
 			lDTO.setId(id);
 			lDTO.setLoginDate(rs.getDate("last_login_at"));
+			updateLoginDate(id);
 		}
 		}finally {
 			gc.dbClose(con, pstmt, rs);
@@ -57,7 +58,7 @@ public class AdminLoginDAO {
 		return lDTO;
 	}
 	
-	public void updateLoginDate(String id, String pass) throws SQLException, IOException, ClassNotFoundException {
+	private void updateLoginDate(String id) throws SQLException, IOException, ClassNotFoundException {
 		GetConnection gc = GetConnection.getInstance();
 		
 		Connection con = null;
@@ -70,12 +71,11 @@ public class AdminLoginDAO {
 		upDate
 		.append("	update admin 	")
 		.append("	set last_login_at = sysdate	")
-		.append("	where id = ? and password = ?	");
+		.append("	where id = ?	");
 		
 		pstmt = con.prepareStatement(upDate.toString());
 		
 		pstmt.setString(1, id);
-		pstmt.setString(2, pass);
 		
 		pstmt.execute();
 		}finally {
