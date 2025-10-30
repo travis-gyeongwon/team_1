@@ -10,11 +10,6 @@ public class StoreStatusService {
 		String flagStr = "";
 		StoreStatusDAO ssDAO = StoreStatusDAO.getInstance();
 		flagStr = ssDAO.selectStoreStatus(id);
-		
-		if("".equals(flagStr)) {
-			
-		}
-		
 		return flagStr;
 	}
 	
@@ -35,13 +30,13 @@ public class StoreStatusService {
 		return cnt;
 	}
 	
-	public boolean checkOrderList() {
+	public boolean checkOrderListToday() {
 		//처리되지 않은 주문 내역이 있는지 확인
 		boolean flag = false;
 		
 		StoreStatusDAO ssDAO = StoreStatusDAO.getInstance();
 		try {
-			flag = ssDAO.selectOrderList();
+			flag = ssDAO.selectOrderListToday();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

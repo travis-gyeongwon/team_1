@@ -41,7 +41,7 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		flag = sss.checkOrderList();
+		flag = sss.checkOrderListToday();
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 			storeOpen();
 		}
 		if(ae.getSource() == amd.getJbtnClose()) {
-			flag = sss.checkOrderList();
+			flag = sss.checkOrderListToday();
 			if(flag){
 				JOptionPane.showMessageDialog(amd, "처리되지 않은 주문 내역이 있습니다.");
 			}else {
@@ -73,19 +73,20 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 
 	@Override
 	public void windowClosing(WindowEvent we) {
+		if(flag=sss.checkOrderListToday()) {
+			JOptionPane.showMessageDialog(amd, "처리되지 않은 주문 내역이 있습니다.\n종료할 수 없습니다.");
+			return;
+		}
+		
 		if("Y".equals(open)) {
-			if(!flag) {
-				int select = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 영업을 종료하고 닫으시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
-				if(select == JOptionPane.YES_OPTION) {
-					storeClose();
-					amd.dispose();
-				}else {
-					int selectClose = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 화면을 닫으시겠습니까?","종료 확인",JOptionPane.YES_NO_OPTION);
-					if(selectClose == JOptionPane.YES_OPTION)
-						amd.dispose();
-				}
+			int select = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 영업을 종료하고 닫으시겠습니까?", "종료 확인", JOptionPane.YES_NO_OPTION);
+			if(select == JOptionPane.YES_OPTION) {
+				storeClose();
+				amd.dispose();
 			}else {
-				JOptionPane.showMessageDialog(amd, "처리되지 않은 주문 내역이 있습니다.\n종료할 수 없습니다.");
+				int selectClose = JOptionPane.showConfirmDialog(amd, "영업 중입니다. 화면을 닫으시겠습니까?","종료 확인",JOptionPane.YES_NO_OPTION);
+				if(selectClose == JOptionPane.YES_OPTION)
+					amd.dispose();
 			}
 		}else {
 			amd.dispose();
@@ -111,39 +112,38 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 	}
 	
 	private void storeOpen() {
-		String message = "영업 중 입니다.";
-		if("N".equals(open)) {
-			open = "Y";
-			int cnt = sss.modifyStoreStatus(open,amd.getlDTO().getId());
-			setStoreStatus();
-			if(cnt==1) {
-				openOrderManager();
-				return;
-			}else {
-				open = "N";
-				message = "영업을 시작할 수 없습니다.";
-			}
+		if("Y".equals(open)) {
+			JOptionPane.showMessageDialog(amd, "영업 중 입니다.");
+			return;
 		}
-		
-		JOptionPane.showMessageDialog(amd, message);
+
+		int cnt = sss.modifyStoreStatus("Y",amd.getlDTO().getId());
+			
+		if(cnt==1) {
+			open = "Y";
+			setStoreStatus();
+			openOrderManager();
+		}else {
+			JOptionPane.showMessageDialog(amd, "영업을 시작할 수 없습니다.");
+		}
 	}
 	
 	private void storeClose() {
-		String message = "영업 중이 아닙니다.";
-		if("Y".equals(open)) {
+		if("N".equals(open)) {
+			JOptionPane.showMessageDialog(amd, "영업 중이 아닙니다.");
+			return;
+		}
+
+		int cnt = sss.modifyStoreStatus("N",amd.getlDTO().getId());
+			
+		if(cnt==1) {
 			open = "N";
-			int cnt = sss.modifyStoreStatus(open,amd.getlDTO().getId());
-			message = "영업을 종료합니다.";
-			
-			if(cnt!=1) {
-				open = "Y";
-				message = "영업을 종료할 수 없습니다.";
-			}
-			
 			setStoreStatus();
+		}else {
+			JOptionPane.showMessageDialog(amd, "영업을 종료할 수 없습니다.");
 		}
 		
-		JOptionPane.showMessageDialog(amd, message);
+		
 	}
 	
 	private void setStoreStatus() {

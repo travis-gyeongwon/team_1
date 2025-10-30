@@ -87,7 +87,7 @@ public class StoreStatusDAO {
 		return cnt;
 	}
 	
-	public boolean selectOrderList() throws SQLException, IOException {
+	public boolean selectOrderListToday() throws SQLException, IOException {
 		boolean flag = false;
 		
 		GetConnection gc = GetConnection.getInstance();
@@ -95,9 +95,6 @@ public class StoreStatusDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		String date = df.format(new Date());
-
 		try {
 			con = gc.getConnection();
 			
@@ -105,14 +102,13 @@ public class StoreStatusDAO {
 			sbSelect
 			.append("	select order_num	")
 			.append("	from order_list	")
-			.append("	where status_code in (1,2,3) and order_time = to_date(?)	");
+			.append("	where status_code in (1,2,3) and trunc(order_time) = trunc(sysdate)	");
 			pstmt = con.prepareStatement(sbSelect.toString());
-			pstmt.setString(1, date);
 			
 			rs = pstmt.executeQuery();
 			
 			
-			if(!rs.next()) {
+			if(rs.next()) {
 				flag = true;
 			}
 			
