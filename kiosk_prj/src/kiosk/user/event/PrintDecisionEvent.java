@@ -9,7 +9,6 @@ import kiosk.user.service.PrintReceiptService;
 import kiosk.user.view.EndDesign;
 import kiosk.user.view.PrintDecisionDesign;
 import kiosk.user.view.PrintReceiptDesign;
-import kiosk.user.view.StartDesign;
 
 public class PrintDecisionEvent extends WindowAdapter implements ActionListener {
 

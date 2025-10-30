@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kiosk.user.dao.PrintReceiptDAO;
-import kiosk.user.dto.PrintReceiptDTO;
+import kiosk.user.dto.OrderDetailDTO;
 
 public class PrintReceiptService {
 
@@ -29,8 +29,8 @@ public class PrintReceiptService {
 		return order_num;
 	}// searchOrderList
 
-	public List<PrintReceiptDTO> searchOrderDetail() {
-		List<PrintReceiptDTO> list = null;
+	public List<OrderDetailDTO> searchOrderDetail() {
+		List<OrderDetailDTO> list = null;
 
 		try {
 			list = prDAO.selectOrderDetail();

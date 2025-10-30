@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kiosk.user.dto.PrintReceiptDTO;
+import kiosk.user.dto.OrderDetailDTO;
 
 public class PrintReceiptDAO {
 
@@ -51,8 +51,8 @@ public class PrintReceiptDAO {
 		return order_num;
 	}// selectOrderList
 
-	public List<PrintReceiptDTO> selectOrderDetail() throws SQLException, IOException {
-		List<PrintReceiptDTO> list = new ArrayList<PrintReceiptDTO>();
+	public List<OrderDetailDTO> selectOrderDetail() throws SQLException, IOException {
+		List<OrderDetailDTO> list = new ArrayList<OrderDetailDTO>();
 
 		GetConnection gc = GetConnection.getInstance();
 
@@ -81,7 +81,7 @@ public class PrintReceiptDAO {
 			int amount = 0;
 			int order_price = 0;
 
-			PrintReceiptDTO prDTO = null;
+			OrderDetailDTO prDTO = null;
 			while (rs.next()) {
 				order_detail_num = rs.getString("order_detail_num");
 				menu_name = rs.getString("menu_name");
@@ -91,8 +91,8 @@ public class PrintReceiptDAO {
 				amount = rs.getInt("amount");
 				order_price = rs.getInt("order_price");
 
-				prDTO = new PrintReceiptDTO(order_detail_num, menu_name, temp_option, size_option, shot_option, amount,
-						order_price);
+//				prDTO = new OrderDetailDTO(order_detail_num, menu_name, temp_option, size_option, shot_option, amount,
+//						order_price);
 
 				list.add(prDTO);
 			} // end while

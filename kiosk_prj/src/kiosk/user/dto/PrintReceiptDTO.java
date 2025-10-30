@@ -1,87 +1,80 @@
 package kiosk.user.dto;
 
+import java.sql.Timestamp;
+
 public class PrintReceiptDTO {
 
-	private String order_detail_num, menu_name;
-	private int temp_option, size_option, shot_option, amount, order_price;
+	private String phone, takeout_flg;
+	private Timestamp order_time;
+	private int checkout_code, stamp, coupon;
 
 	public PrintReceiptDTO() {
 		super();
 	}// PrintReceiptDTO
 
-	public PrintReceiptDTO(String order_detail_num, String menu_name, int temp_option, int size_option, int shot_option,
-			int amount, int order_price) {
+	public PrintReceiptDTO(String phone, String takeout_flg, Timestamp order_time, int checkout_code, int stamp,
+			int coupon) {
 		super();
-		this.order_detail_num = order_detail_num;
-		this.menu_name = menu_name;
-		this.temp_option = temp_option;
-		this.size_option = size_option;
-		this.shot_option = shot_option;
-		this.amount = amount;
-		this.order_price = order_price;
+		this.phone = phone;
+		this.takeout_flg = takeout_flg;
+		this.order_time = order_time;
+		this.checkout_code = checkout_code;
+		this.stamp = stamp;
+		this.coupon = coupon;
 	}// PrintReceiptDTO
 
-	public String getOrder_detail_num() {
-		return order_detail_num;
-	}// getOrder_detail_num
+	public String getPhone() {
+		return phone;
+	}
 
-	public void setOrder_detail_num(String order_detail_num) {
-		this.order_detail_num = order_detail_num;
-	}// setOrder_detail_num
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-	public String getMenu_name() {
-		return menu_name;
-	}// getMenu_name
+	public String getTakeout_flg() {
+		return takeout_flg;
+	}
 
-	public void setMenu_name(String menu_name) {
-		this.menu_name = menu_name;
-	}// setMenu_name
+	public void setTakeout_flg(String takeout_flg) {
+		this.takeout_flg = takeout_flg;
+	}
 
-	public int getTemp_option() {
-		return temp_option;
-	}// getTemp_option
+	public Timestamp getOrder_time() {
+		return order_time;
+	}
 
-	public void setTemp_option(int temp_option) {
-		this.temp_option = temp_option;
-	}// setTemp_option
+	public void setOrder_time(Timestamp order_time) {
+		this.order_time = order_time;
+	}
 
-	public int getSize_option() {
-		return size_option;
-	}// getSize_option
+	public int getCheckout_code() {
+		return checkout_code;
+	}
 
-	public void setSize_option(int size_option) {
-		this.size_option = size_option;
-	}// setSize_option
+	public void setCheckout_code(int checkout_code) {
+		this.checkout_code = checkout_code;
+	}
 
-	public int getShot_option() {
-		return shot_option;
-	}// getShot_option
+	public int getStamp() {
+		return stamp;
+	}
 
-	public void setShot_option(int shot_option) {
-		this.shot_option = shot_option;
-	}// setShot_option
+	public void setStamp(int stamp) {
+		this.stamp = stamp;
+	}
 
-	public int getAmount() {
-		return amount;
-	}// getAmount
+	public int getCoupon() {
+		return coupon;
+	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}// setAmount
-
-	public int getOrder_price() {
-		return order_price;
-	}// getOrder_price
-
-	public void setOrder_price(int order_price) {
-		this.order_price = order_price;
-	}// setOrder_price
+	public void setCoupon(int coupon) {
+		this.coupon = coupon;
+	}
 
 	@Override
 	public String toString() {
-		return "PrintReceiptDTO [order_detail_num=" + order_detail_num + ", menu_name=" + menu_name + ", temp_option="
-				+ temp_option + ", size_option=" + size_option + ", shot_option=" + shot_option + ", amount=" + amount
-				+ ", order_price=" + order_price + "]";
+		return "PrintReceiptDTO [phone=" + phone + ", takeout_flg=" + takeout_flg + ", order_time=" + order_time
+				+ ", checkout_code=" + checkout_code + ", stamp=" + stamp + ", coupon=" + coupon + "]";
 	}// toString
 
 }// class
