@@ -71,7 +71,7 @@ public class InvenManageDAO {
 		try {
 			con = gc.getConnection();
 
-			String updateAllInven = "update inventory set quantity= ?, update_at = sysdate ";
+			String updateAllInven = "update inventory set quantity= 1000, update_at = sysdate where menu_name in (select menu_name from menu where delete_flag='N')	 ";
 
 			pstmt = con.prepareStatement(updateAllInven);
 			int defalutQuantity = 1000;
