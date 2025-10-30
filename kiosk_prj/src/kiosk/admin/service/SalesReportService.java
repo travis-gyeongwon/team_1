@@ -40,13 +40,14 @@ public class SalesReportService {
 				map.get(srDTO.getName()).setPrice(price);
 			}//for
 			
-			int index = srDAO.menuNameList().size();
+			List<String> menuList = srDAO.menuNameList();
+			int index = menuList.size();
 			sumArr = new SalesReportDTO[index];
 			//map에 있는 DTO를 배열에 저장
 			//판매된적 없는 매뉴는 수량 0, 가격 0으로 새로 만들어서 저상
 			String menuName = "";
 			for(int i = 0; i < index ; i++) {
-				menuName = srDAO.menuNameList().get(i);
+				menuName = menuList.get(i);
 				
 				SalesReportDTO srDTO = new SalesReportDTO(0, 0, menuName);
 				if(map.containsKey(menuName)) {
@@ -57,15 +58,16 @@ public class SalesReportService {
 			}//for
 			
 			//많이 판매된 메뉴부터 위로 올라오기 위함
-			for(int i = 0; i < index; i++){
-				for(int j = 0; j < index-1 ; j++) {
-					if(sumArr[j].getCount() < sumArr[j+1].getCount()) {
-						SalesReportDTO temp = sumArr[j];
-						sumArr[j] = sumArr[j+1];
-						sumArr[j+1] = temp;
-					}//if
-				}//for		
-			}
+//			for(int i = 0; i < index; i++){
+//				for(int j = 0; j < index-1 ; j++) {
+//					if(sumArr[j].getCount() < sumArr[j+1].getCount()) {
+//						SalesReportDTO temp = sumArr[j];
+//						sumArr[j] = sumArr[j+1];
+//						sumArr[j+1] = temp;
+//					}//if
+//				}//for		
+//			}
+			Arrays.sort(sumArr,(a,b) -> Integer.compare(b.getCount(), a.getCount()));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

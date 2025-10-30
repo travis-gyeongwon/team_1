@@ -1,6 +1,5 @@
 package kiosk.admin.view;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Calendar;
@@ -50,7 +49,7 @@ public class CalendarDesign extends JDialog {
 		jcbMonth.addActionListener(ce);
 		
 		jbtnDay = new JButton[6][7];
-		setDay(ce);
+//		setDay(ce);
 		JPanel jpCenter = new JPanel();
 		jpCenter.setLayout(new GridLayout(7,7));
 		
@@ -67,9 +66,12 @@ public class CalendarDesign extends JDialog {
 		}
 		for(int i = 0; i < jbtnDay.length; i++) {
 			for(int j = 0; j < jbtnDay[0].length; j++) {
+				jbtnDay[i][j] = new JButton();
+				jbtnDay[i][j].addActionListener(ce);
 				jpCenter.add(jbtnDay[i][j]);
 			}
 		}
+		ce.setDayButton();
 		
 		add("North", jpNorth);
 		add("Center", jpCenter);
@@ -102,52 +104,6 @@ public class CalendarDesign extends JDialog {
 			monthArr[i] = String.valueOf(i+1);
 		}
 		return monthArr;
-	}
-	
-	private void setDay(CalendarEvent ce) {		
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		
-		int weekCnt = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
-		
-		weekCnt = 0;
-		int dayCount = 0;
-		int startDayofWeek = cal.get(Calendar.DAY_OF_WEEK);
-		for(int i = 1; i < startDayofWeek ; i++) {
-			jbtnDay[weekCnt][dayCount] = new JButton();
-			jbtnDay[weekCnt][dayCount].addActionListener(ce);
-			jbtnDay[weekCnt][dayCount++].setEnabled(false);
-		}
-		
-		for(int day = 1; ; day++) {
-			cal.set(Calendar.DAY_OF_MONTH, day);
-			//값이 다를 경우 다음 달로 넘어간 것이기 때문에 공백으로 넣어주면 됨
-			if(day != cal.get(Calendar.DAY_OF_MONTH)) {
-				//다음 달의 1일의 요일을 받아서 토요일까지 공백으로 넣어주기
-				for(int blank = cal.get(Calendar.DAY_OF_WEEK); blank < Calendar.SATURDAY + 1; blank++) {
-					jbtnDay[weekCnt][dayCount] = new JButton();
-					jbtnDay[weekCnt][dayCount].addActionListener(ce);
-					jbtnDay[weekCnt][dayCount++].setEnabled(false);
-				}
-				if(weekCnt == 4) {
-					weekCnt++;
-					dayCount = 0;
-					for(int i = 0; i < 7 ; i++) {
-						jbtnDay[weekCnt][dayCount] = new JButton();
-						jbtnDay[weekCnt][dayCount].addActionListener(ce);
-						jbtnDay[weekCnt][dayCount++].setEnabled(false);
-					}
-				}
-				break;
-			}
-			jbtnDay[weekCnt][dayCount] = new JButton(String.valueOf(day));
-			jbtnDay[weekCnt][dayCount++].addActionListener(ce);
-			
-			if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-				weekCnt++;
-				dayCount = 0;
-			}
-		}
 	}
 
 	public DefaultComboBoxModel<String> getDcmYear() {

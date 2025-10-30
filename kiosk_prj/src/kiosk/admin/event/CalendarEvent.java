@@ -44,7 +44,7 @@ public class CalendarEvent implements ActionListener{
 		
 	}
 	
-	private void setDayButton() {
+	public void setDayButton() {
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, 1);
 		
@@ -70,9 +70,10 @@ public class CalendarEvent implements ActionListener{
 				}
 				if(weekCount == 4) {
 					weekCount++;
-					for(int i = 0; i < Calendar.SATURDAY; i++) {
-						jbtnDay[weekCount][0].setText("");
-						jbtnDay[weekCount][0].setEnabled(false);
+					dayCount = 0;
+					for(int i = 0; i < 7 ; i++) {
+						jbtnDay[weekCount][dayCount].setText("");;
+						jbtnDay[weekCount][dayCount++].setEnabled(false);
 					}
 				}
 				break;

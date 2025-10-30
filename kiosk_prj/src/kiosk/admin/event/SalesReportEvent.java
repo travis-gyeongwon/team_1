@@ -62,7 +62,7 @@ public class SalesReportEvent extends MouseAdapter implements ActionListener{
 			return;
 		}
 		//2. start보다 end의 날짜가 뒤인가
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date sd = sdf.parse(startDate);
 			Date ed = sdf.parse(endDate);
