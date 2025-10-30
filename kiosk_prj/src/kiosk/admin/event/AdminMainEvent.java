@@ -28,8 +28,12 @@ public class AdminMainEvent extends WindowAdapter implements ActionListener {
 		//open 설정해주는 곳. 테이블에서 값을 가져와야함.
 		sss = new StoreStatusService();
 		try {
-			open = sss.searchStoreStatus(amd.getlDTO().getId());
-			setStoreStatus();
+			open = sss.searchStoreStatus(amd.getlDTO().getId()).toUpperCase();
+			if("Y".equals(open) || "N".equals(open))
+				setStoreStatus();
+			else {
+				amd.getJlStatus().setText("영업 상태 : 알 수 없음");
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

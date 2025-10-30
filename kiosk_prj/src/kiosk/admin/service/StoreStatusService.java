@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import kiosk.admin.dao.StoreStatusDAO;
-import kiosk.admin.dto.StoreStatusDTO;
 
 public class StoreStatusService {
 	public String searchStoreStatus(String id) throws SQLException, IOException, ClassNotFoundException {
-		String flagStr = "N";
+		String flagStr = "";
 		StoreStatusDAO ssDAO = StoreStatusDAO.getInstance();
-		StoreStatusDTO ssDTO = ssDAO.selectStoreStatus(id);
+		flagStr = ssDAO.selectStoreStatus(id);
 		
-		if(ssDTO != null) {
-			flagStr = ssDTO.getStatus();
+		if("".equals(flagStr)) {
+			
 		}
 		
 		return flagStr;

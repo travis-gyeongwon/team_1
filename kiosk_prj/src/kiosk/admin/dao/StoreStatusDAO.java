@@ -9,7 +9,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import kiosk.admin.dto.StoreStatusDTO;
 import kiosk.user.dao.GetConnection;
 
 public class StoreStatusDAO {
@@ -24,8 +23,8 @@ public class StoreStatusDAO {
 		return ssDAO;
 	}
 	
-	public StoreStatusDTO selectStoreStatus(String id) throws SQLException, IOException, ClassNotFoundException {
-		StoreStatusDTO ssDTO = null;
+	public String selectStoreStatus(String id) throws SQLException, IOException, ClassNotFoundException {
+		String storeStatus = "";
 		
 		GetConnection gc = GetConnection.getInstance();
 		Connection con = null;
@@ -46,11 +45,8 @@ public class StoreStatusDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			String status = "";
 			if(rs.next()) {
-				ssDTO = new StoreStatusDTO();
-				status = rs.getString("status");
-				ssDTO.setStatus(status);
+				storeStatus = rs.getString("status");
 			}
 			
 		}finally {
@@ -58,7 +54,7 @@ public class StoreStatusDAO {
 		}
 		
 		
-		return ssDTO;
+		return storeStatus;
 	}
 	
 	public int updateStoreStatus(String openStatus, String id) throws SQLException, IOException, ClassNotFoundException {
