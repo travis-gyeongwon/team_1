@@ -46,8 +46,6 @@ public class SalesReportDesign extends JDialog {
 		jtfEndDate = new JTextField(10);
 		jtfStartDate.setEditable(false);
 		jtfEndDate.setEditable(false);
-		jtfStartDate.setBackground(Color.white);
-		jtfEndDate.setBackground(Color.white);
 		jbtnSearch = new JButton("검색");
 		
 		jlDateLabel.setFont(font);
@@ -87,6 +85,12 @@ public class SalesReportDesign extends JDialog {
 		jlSavePath.setVisible(false);
 		jlSavePath.setFont(saveFont);
 		
+		SalesReportEvent sre = new SalesReportEvent(this);
+		jbtnSearch.addActionListener(sre);
+		jbtnSave.addActionListener(sre);
+		jtfStartDate.addMouseListener(sre);
+		jtfEndDate.addMouseListener(sre);
+		
 		
 		//위에 정산기간
 		JPanel jpNorth = new JPanel();
@@ -95,6 +99,7 @@ public class SalesReportDesign extends JDialog {
 		jpNorth.add(jlDateTilde);
 		jpNorth.add(jtfEndDate);
 		jpNorth.add(jbtnSearch);
+		
 		
 		JPanel jpPrice = new JPanel();
 		jpPrice.add(jlTotalPriceLabel);
@@ -111,16 +116,38 @@ public class SalesReportDesign extends JDialog {
 		jpSouth.add("West",jpPrice);
 		jpSouth.add("East",jpSave);
 		
-		
 		add("North", jpNorth);
 		add("South", jpSouth);
 		add("Center", jspReport);
 		
-		SalesReportEvent sre = new SalesReportEvent(this);
-		jbtnSearch.addActionListener(sre);
-		jbtnSave.addActionListener(sre);
-		jtfStartDate.addMouseListener(sre);
-		jtfEndDate.addMouseListener(sre);
+		//디자인
+		DesignPreset dp = new DesignPreset();
+		dp.setButtonDesign(jbtnSave, 12);
+		dp.setButtonDesign(jbtnSearch, 12);
+		dp.setTextPlain(jlDateLabel, 15);
+		dp.setTextPlain(jlDateTilde, 15);
+		dp.setTextPlain(jlTotalPriceLabel, 15);
+		dp.setTextPlain(jlSavePath, 15);
+		dp.setTextPlain(jlTotalPrice, 15);
+		dp.setTextPlain(jtfStartDate, 15);
+		dp.setTextPlain(jtfEndDate, 15);
+		dp.setTextPlain(jtReport, 13);
+		
+		dp.setPannelColor(jpSouth);
+		dp.setPannelColor(jpPrice);
+		dp.setPannelColor(jpSave);
+		
+		dp.setColor(jtReport, "#F5EFE7");
+		dp.setColor(jpNorth, "#F5EFE7");
+		dp.setColor(jtfStartDate, "#FFFFFF");
+		dp.setColor(jtfEndDate, "#FFFFFF");
+		
+		Color myBackgroundColor = Color.decode("#F5EFE7");
+		Color headerColor = Color.decode("#C6B2A2");
+		jtReport.getTableHeader().setBackground(headerColor);
+		jspReport.getViewport().setBackground(myBackgroundColor);
+		
+		
 		
 		setSize(500, 440);
 		setLocationRelativeTo(amd);

@@ -1,15 +1,18 @@
 package kiosk.admin.view;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import kiosk.admin.event.AdminMainEvent;
 import kiosk.admin.dto.LoginDTO;
@@ -31,8 +34,10 @@ public class AdminMainDesign extends JFrame {
 		super("관리자 화면");
 		this.lDTO = lDTO;
 		
-		Font fontBold = new Font("맑은 고딕", Font.BOLD, 20);
-		Font fontPlain = new Font("맑은 고딕", Font.PLAIN, 15);
+		ImageIcon titleIcon = new ImageIcon(getClass().getResource("/kiosk/admin/images/coffee_icon_v2.png"));
+		if(titleIcon.getImage() != null) {
+			setIconImage(titleIcon.getImage());
+		}
 		
 		jbtnMenu = new JButton("메뉴 관리");
 		jbtnOrder = new JButton("주문 관리");
@@ -43,15 +48,7 @@ public class AdminMainDesign extends JFrame {
 		jlLastLoginDate = new JLabel("마지막 로그인 날짜 : "+lDTO.getLoginDate());
 		jlStatus = new JLabel();
 		
-		jbtnMenu.setFont(fontBold);
-		jbtnOrder.setFont(fontBold);
-		jbtnInven.setFont(fontBold);
-		jbtnSales.setFont(fontBold);
-		jbtnOpen.setFont(fontBold);
-		jbtnClose.setFont(fontBold);
-		jlLastLoginDate.setFont(fontPlain);
-		jlStatus.setFont(fontPlain);
-		
+
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new GridBagLayout());
 		
@@ -77,12 +74,15 @@ public class AdminMainDesign extends JFrame {
 		gbc.gridy = 1;
 		jp.add(jlStatus, gbc);	
 		
+		JPanel jpBlanck = new JPanel();
+		JPanel jpBlanck2 = new JPanel();
+		
 		//세로 공간을 추가하여 상단에 배치하는 것과 구분함
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.weighty = 0.5; //공간을 차지해야함
 		gbc.fill = GridBagConstraints.VERTICAL;
-		jp.add(new JPanel(), gbc);
+		jp.add(jpBlanck, gbc);
 		
 		//JButton 공통
 		gbc.insets = new Insets(30, 15, 0, 15);
@@ -127,11 +127,27 @@ public class AdminMainDesign extends JFrame {
 		gbc.gridy = 6;
 		gbc.weighty = 1.0; //공간을 차지해야함
 		gbc.fill = GridBagConstraints.VERTICAL;
-		jp.add(new JPanel(), gbc);
+		jp.add(jpBlanck2, gbc);
 
-
-		
 		contentPane.add(jp, new GridBagConstraints());
+		
+		
+		//디자인
+		DesignPreset dp = new DesignPreset();
+		dp.setButtonDesign(jbtnOpen, 15, "#964B00", "#FFFFFF");
+		dp.setButtonDesign(jbtnClose, 15,"#964B00", "#FFFFFF");
+		dp.setButtonDesign(jbtnMenu, 15);
+		dp.setButtonDesign(jbtnInven, 15);
+		dp.setButtonDesign(jbtnOrder, 15);
+		dp.setButtonDesign(jbtnSales, 15);
+		dp.setTextPlain(jlLastLoginDate, 15);
+		dp.setTextPlain(jlStatus, 15);
+				
+		dp.setPannelColor(contentPane);
+		dp.setPannelColor(jp);
+		dp.setPannelColor(jpBlanck);
+		dp.setPannelColor(jpBlanck2);
+		
 		
 		AdminMainEvent ame = new AdminMainEvent(this);
 		jbtnMenu.addActionListener(ame);
@@ -143,9 +159,6 @@ public class AdminMainDesign extends JFrame {
 		addWindowListener(ame);
 		
 		setSize(380, 440);
-//		Dimension frameSize = getSize();
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		setLocation((screenSize.width-frameSize.width)/2, (screenSize.height - frameSize.height)/2);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);//기본적으로 창이 닫히지 않도록 설정

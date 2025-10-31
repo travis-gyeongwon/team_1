@@ -48,8 +48,7 @@ public class UseCardEvent extends WindowAdapter implements ActionListener{
 	     JOptionPane.showMessageDialog(ucd,"카드 결제가 완료되었습니다.");
 	     
 	     
-	     
-	     OrderPayService ops = new OrderPayService();
+	     	OrderPayService ops = new OrderPayService();
 			List<OrderPayDTO> temp=ops.showOrderDetail();
 			EndService es=new EndService();
 				//매개변수에 orderNum
@@ -57,15 +56,14 @@ public class UseCardEvent extends WindowAdapter implements ActionListener{
 					es.changeInventory(opDTO.getMenuName(),opDTO.getAmount());//재고 변경
 					
 				}
-				
 				//매개변수에 주문번호 orderNum
 				es.changeOrderStatus(ops.showMaxOrderNum());//주문상태 변경(확인 대기 중으로)
 	     
+				new PrintDecisionDesign();
 	     
-		 ucd.dispose();
-		 ucd.getOd().dispose();
+				ucd.getOd().dispose();
+				ucd.dispose();
 		 //영수증 창으로
-		 new PrintDecisionDesign();
 		 
 		}//successCard
 		
