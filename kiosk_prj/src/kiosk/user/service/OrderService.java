@@ -36,7 +36,7 @@ public class OrderService {
 
 	public boolean saveOrder(List<OrderProductDTO> shoppingCart) {
 		boolean success = false;
-		GetConnection db = GetConnection.getInstance(); // DB 연결 객체
+		GetConnection db = GetConnection.getInstance(); 
 		Connection con = null;
 		OrderDAO dao = OrderDAO.getInstance();
 
@@ -45,7 +45,7 @@ public class OrderService {
 			con.setAutoCommit(false); 
 			String lastOrderNum = dao.selectMaxOrderNumToday(con); 		
 			String newOrderNum;
-			String today = new SimpleDateFormat("yyMMdd").format(new Date()); // "251027"
+			String today = new SimpleDateFormat("yyMMdd").format(new Date()); 
 			
 			if (lastOrderNum == null) {
 				newOrderNum = today + "0001";

@@ -1,10 +1,10 @@
-package kiosk.user.view; // 패키지 이름 확인
+package kiosk.user.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.util.Collections; // ❗️ Collections import 추가
-import java.util.List;    // ❗️ List import 추가
+import java.util.Collections; 
+import java.util.List;   
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,9 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-// ❗️ 수정된 Event 사용
 import kiosk.user.event.OptionEvent;
-// ❗️ 수정된 DTO 사용
 import kiosk.user.dto.OrderMenuDTO;
 
 public class OptionDesign extends JDialog {
@@ -42,12 +40,10 @@ public class OptionDesign extends JDialog {
 	public OptionDesign(OrderDesign parent, OrderMenuDTO menuDto) {
 		super(parent, "상품 세부 정보", true);
 
-		// --- ❗️ 허용된 옵션 코드 목록 가져오기 (null 체크 포함) ---
 		List<Integer> allowedTemps = menuDto.getAllowedTempCodes() != null ? menuDto.getAllowedTempCodes() : Collections.emptyList();
 		List<Integer> allowedSizes = menuDto.getAllowedSizeCodes() != null ? menuDto.getAllowedSizeCodes() : Collections.emptyList();
 		List<Integer> allowedShots = menuDto.getAllowedShotCodes() != null ? menuDto.getAllowedShotCodes() : Collections.emptyList();
 
-		// --- 컴포넌트 생성 ---
 		jlblMenu = new JLabel("상품명 : " + menuDto.getMenuName());
 		jlblTemp = new JLabel("핫,아이스");
 		jbtnHot = new JButton("              HOT              ");
@@ -67,22 +63,19 @@ public class OptionDesign extends JDialog {
 		jlblTprice = new JLabel(menuDto.getPrice() + "원");
 		jbtnCheck = new JButton("확인");
 
-		// --- ❗️ 버튼 활성화/비활성화 처리 (DB 코드 기준) ---
-		jbtnHot.setEnabled(allowedTemps.contains(1));   // TEMP 코드 1 (Hot)
-		jbtnIce.setEnabled(allowedTemps.contains(2));   // TEMP 코드 2 (Ice)
-		jbtnMedium.setEnabled(allowedSizes.contains(1)); // SIZE 코드 1 (Regular/Medium)
-		jbtnLarge.setEnabled(allowedSizes.contains(2)); // SIZE 코드 2 (Large)
-		jbtnNormal.setEnabled(allowedShots.contains(1)); // SHOT 코드 1 (기본)
-		jbtnMild.setEnabled(allowedShots.contains(2));   // SHOT 코드 2 (연하게)
-		jbtnShot.setEnabled(allowedShots.contains(3));   // SHOT 코드 3 (샷 추가)
-		
 
-		// --- ❗️ 유효한 기본 선택 옵션 결정 ---
+		jbtnHot.setEnabled(allowedTemps.contains(1));   
+		jbtnIce.setEnabled(allowedTemps.contains(2));   
+		jbtnMedium.setEnabled(allowedSizes.contains(1)); 
+		jbtnLarge.setEnabled(allowedSizes.contains(2)); 
+		jbtnNormal.setEnabled(allowedShots.contains(1)); 
+		jbtnMild.setEnabled(allowedShots.contains(2));  
+		jbtnShot.setEnabled(allowedShots.contains(3));  
+
 		String defaultTemp = allowedTemps.contains(2) ? "ICE" : (allowedTemps.contains(1) ? "HOT" : (allowedTemps.isEmpty() ? null : (allowedTemps.get(0) == 1 ? "HOT" : "ICE")));
 		String defaultSize = allowedSizes.contains(1) ? "Medium" : (allowedSizes.contains(2) ? "Large" : (allowedSizes.isEmpty() ? null : (allowedSizes.get(0) == 1 ? "Medium" : "Large")));
 		String defaultShot = allowedShots.contains(1) ? "기본" : (allowedShots.contains(2) ? "연하게" : (allowedShots.contains(3) ? "샷추가" : (allowedShots.isEmpty() ? null : (allowedShots.get(0) == 1 ? "기본" : (allowedShots.get(0) == 2 ? "연하게" : "샷추가")))));
 
-		// --- 레이아웃 설정 ---
 		Dimension labelSize = new Dimension(80, 30);
 		jlblTemp.setPreferredSize(labelSize);
 		jlblSize.setPreferredSize(labelSize);
@@ -110,18 +103,14 @@ public class OptionDesign extends JDialog {
 		mainPanel.add(jpOption); mainPanel.add(jpCount); mainPanel.add(jpTotal);
 		add(mainPanel);
 
-		// ❗️ OptionEvent 생성 시 결정된 기본 옵션 전달
 		new OptionEvent(this, parent, menuDto, defaultTemp, defaultSize, defaultShot);
-
-		// --- 다이얼로그 설정 ---
+		
 		pack();
 		setLocationRelativeTo(parent);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 
-	// --- Getters ---
-	// (보내주신 코드와 동일)
 	public JLabel getJlblMenu() { return jlblMenu; }
 	public JButton getJbtnHot() { return jbtnHot; }
 	public JButton getJbtnIce() { return jbtnIce; }
@@ -136,4 +125,4 @@ public class OptionDesign extends JDialog {
 	public JLabel getJlblTprice() { return jlblTprice; }
 	public JButton getJbtnCheck() { return jbtnCheck; }
 
-} // class 끝
+} 

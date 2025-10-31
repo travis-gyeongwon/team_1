@@ -1,17 +1,16 @@
 package kiosk.user.dao;
 
 import java.io.IOException;
-import java.io.InputStream; // InputStream import 추가
-import java.sql.Blob; // Blob import 추가
+import java.io.InputStream;
+import java.sql.Blob; 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections; // Collections import 추가
+import java.util.Collections;
 import java.util.List;
 
-// ❗️ 수정된 OrderMenuDTO 사용 (byte[] menuImage, allowed options 포함)
 import kiosk.user.dto.OrderMenuDTO;
 import kiosk.user.dto.OrderProductDTO;
 
@@ -35,7 +34,7 @@ public class OrderDAO {
 	 * @param category "커피" 또는 "논커피" (DB의 category_text 값)
 	 * @return 메뉴 DTO 리스트 (byte[] 이미지, 허용 옵션 목록 포함)
 	 */
-	public List<OrderMenuDTO> selectMenusByCategory(String category) { // category 파라미터 이름 유지
+	public List<OrderMenuDTO> selectMenusByCategory(String category) {
 		List<OrderMenuDTO> list = new ArrayList<>();
 		GetConnection db = GetConnection.getInstance();
 		Connection con = null;
@@ -43,9 +42,7 @@ public class OrderDAO {
 		ResultSet rs = null;
 
 		try {
-			con = db.getConnection(); // GetConnection 사용
-
-			// SQL 쿼리: menu_img 조회, category 테이블 JOIN (보내주신 버전 사용)
+			con = db.getConnection(); 
 			String sql = """
 				SELECT
 				    m.menu_name, m.price, m.status, m.delete_flag, c.category_text, m.menu_img,
@@ -67,15 +64,14 @@ public class OrderDAO {
 
 			while (rs.next()) {
 				OrderMenuDTO dto = new OrderMenuDTO();
-				String currentMenuName = rs.getString("menu_name"); // 옵션 조회 위해 미리 저장
+				String currentMenuName = rs.getString("menu_name");
 				dto.setMenuName(currentMenuName);
 				dto.setPrice(rs.getInt("price"));
-				dto.setStatus(rs.getString("status")); // status 설정
+				dto.setStatus(rs.getString("status"));
 				dto.setDeleteFlag(rs.getString("delete_flag"));
-				dto.setCategory(rs.getString("category_text")); // category_text 설정
+				dto.setCategory(rs.getString("category_text")); 
 				dto.setQuantity(rs.getInt("quantity"));
 
-				// BLOB 데이터 처리 -> byte[] 변환
 				Blob blob = rs.getBlob("menu_img");
 				byte[] imageBytes = null;
 				if (blob != null) {
@@ -85,9 +81,7 @@ public class OrderDAO {
 					    System.err.println("이미지 BLOB getBytes 오류 (" + currentMenuName + "): " + e.getMessage());
 					}
 				}
-				dto.setMenuImage(imageBytes); // byte[] 설정
-
-				// ❗️ 허용된 옵션 코드 목록 조회 및 설정 (Connection 재활용)
+				dto.setMenuImage(imageBytes); 
 				dto.setAllowedTempCodes(getAllowedOptionCodes(con, "SELECT temp_code FROM TEMP_OPTION WHERE menu_name = ?", currentMenuName));
 				dto.setAllowedSizeCodes(getAllowedOptionCodes(con, "SELECT size_code FROM SIZE_OPTION WHERE menu_name = ?", currentMenuName));
 				dto.setAllowedShotCodes(getAllowedOptionCodes(con, "SELECT shot_code FROM SHOT_OPTION WHERE menu_name = ?", currentMenuName));
@@ -95,12 +89,11 @@ public class OrderDAO {
 				list.add(dto);
 			}
 
-		} catch (IOException e) { // getConnection 용
+		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (SQLException e) { // 나머지 SQL 용
+		} catch (SQLException e) { 
 			e.printStackTrace();
 		} finally {
-			// dbClose 호출 (SQLException 처리)
 				db.dbClose(con, pstmt, rs);
 		}
 		return list;
@@ -140,12 +133,10 @@ public class OrderDAO {
 				dto = new OrderMenuDTO();
 				dto.setMenuName(rs.getString("menu_name"));
 				dto.setPrice(rs.getInt("price"));
-				dto.setStatus(rs.getString("status")); // status 설정
+				dto.setStatus(rs.getString("status")); 
 				dto.setDeleteFlag(rs.getString("delete_flag"));
-				dto.setCategory(rs.getString("category_text")); // category_text 설정
+				dto.setCategory(rs.getString("category_text")); 
 				dto.setQuantity(rs.getInt("quantity"));
-
-				// BLOB 처리 -> byte[]
 				Blob blob = rs.getBlob("menu_img");
 				byte[] imageBytes = null;
 				if (blob != null) {
@@ -155,24 +146,22 @@ public class OrderDAO {
 						System.err.println("이미지 BLOB getBytes 오류 (" + menuName + "): " + e.getMessage());
 					}
 				}
-				dto.setMenuImage(imageBytes); // byte[] 설정
-
+				dto.setMenuImage(imageBytes);
 				// ❗️ 2. 허용된 옵션 코드 목록 조회 및 설정 (pstmt, rs 재사용 전 닫기)
 				if (pstmt != null) pstmt.close();
 				if (rs != null) rs.close();
-				pstmt = null; rs = null; // 초기화 필수
+				pstmt = null; rs = null; 
 
 				dto.setAllowedTempCodes(getAllowedOptionCodes(con, "SELECT temp_code FROM TEMP_OPTION WHERE menu_name = ?", menuName));
 				dto.setAllowedSizeCodes(getAllowedOptionCodes(con, "SELECT size_code FROM SIZE_OPTION WHERE menu_name = ?", menuName));
 				dto.setAllowedShotCodes(getAllowedOptionCodes(con, "SELECT shot_code FROM SHOT_OPTION WHERE menu_name = ?", menuName));
 
-			} // if (rs.next()) 끝
-		} catch (IOException e) { // getConnection 용
+			}
+		} catch (IOException e) { 
 			e.printStackTrace();
-		} catch (SQLException e) { // 나머지 SQL 용
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			// 최종 자원 해제 (null 체크 필수)
 				db.dbClose(con, pstmt, rs);
 		}
 		return dto;
@@ -183,8 +172,8 @@ public class OrderDAO {
 	 */
 	private List<Integer> getAllowedOptionCodes(Connection con, String sql, String menuName) throws SQLException {
 		List<Integer> codes = new ArrayList<>();
-		PreparedStatement pstmtOption = null; // 새 PreparedStatement
-		ResultSet rsOption = null;       // 새 ResultSet
+		PreparedStatement pstmtOption = null;
+		ResultSet rsOption = null;       
 		try {
 			pstmtOption = con.prepareStatement(sql);
 			pstmtOption.setString(1, menuName);
@@ -193,11 +182,9 @@ public class OrderDAO {
 				codes.add(rsOption.getInt(1));
 			}
 		} finally {
-			// 여기서 사용한 PreparedStatement와 ResultSet만 닫음 (null 체크 후)
-			if (rsOption != null) { try { rsOption.close(); } catch (SQLException e) { /* ignored */ } }
-			if (pstmtOption != null) { try { pstmtOption.close(); } catch (SQLException e) { /* ignored */ } }
+			if (rsOption != null) { try { rsOption.close(); } catch (SQLException e) {} }
+			if (pstmtOption != null) { try { pstmtOption.close(); } catch (SQLException e) {} }
 		}
-		// 조회된 코드가 없으면 빈 리스트 반환
 		return codes.isEmpty() ? Collections.emptyList() : codes;
 	}
 
@@ -218,7 +205,7 @@ public class OrderDAO {
 			pstmt.setInt(4, 1);
 			result = pstmt.executeUpdate();
 		} finally {
-			if (pstmt != null) { try { pstmt.close(); } catch (SQLException e) { /* ignored */ } }
+			if (pstmt != null) { try { pstmt.close(); } catch (SQLException e) {} }
 		}
 		return result;
 	}
@@ -258,9 +245,6 @@ public class OrderDAO {
 		return results;
 	}
 
-
-	// --- 옵션 코드 매핑 헬퍼 메서드 ---
-	// (보내주신 코드와 동일)
 	private int mapTempOptionToCode(String tempOption) {
 		if ("HOT".equalsIgnoreCase(tempOption)) return 1;
 		if ("ICE".equalsIgnoreCase(tempOption)) return 2;
@@ -268,7 +252,6 @@ public class OrderDAO {
 		return 2;
 	}
 	private int mapSizeOptionToCode(String sizeOption) {
-		// DTO에는 "Medium"으로 저장되므로 "Regular" 체크 불필요 -> 필요함 (보내주신 코드 기준)
 		if ("Medium".equalsIgnoreCase(sizeOption) || "Regular".equalsIgnoreCase(sizeOption)) return 1;
 		if ("Large".equalsIgnoreCase(sizeOption)) return 2;
 		System.err.println("경고: 알 수 없는 사이즈 옵션 '" + sizeOption + "', 기본값 1(Regular) 사용");
@@ -293,7 +276,6 @@ public class OrderDAO {
 		int maxSequence = 0;
 		String likePattern = datePart + "%";
 		try {
-			// SQL 쿼리 수정: selectMaxOrderNumToday 기반 -> 순번 부분만 추출
 			String sql = "SELECT NVL(MAX(TO_NUMBER(SUBSTR(order_num, 7, 4))), 0) FROM order_list WHERE order_num LIKE ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, likePattern);
@@ -302,8 +284,8 @@ public class OrderDAO {
 				maxSequence = rs.getInt(1);
 			}
 		} finally {
-			if (rs != null) { try { rs.close(); } catch (SQLException e) { /* ignored */ } }
-			if (pstmt != null) { try { pstmt.close(); } catch (SQLException e) { /* ignored */ } }
+			if (rs != null) { try { rs.close(); } catch (SQLException e) { } }
+			if (pstmt != null) { try { pstmt.close(); } catch (SQLException e) { } }
 		}
 		return maxSequence;
 	}
@@ -323,8 +305,7 @@ public class OrderDAO {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, today + "%");
-			rs = pstmt.executeQuery();
-			
+			rs = pstmt.executeQuery();	
 			if (rs.next()) {
 				maxOrderNum = rs.getString(1); 
 			}
