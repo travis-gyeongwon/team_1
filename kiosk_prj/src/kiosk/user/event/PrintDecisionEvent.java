@@ -42,7 +42,7 @@ public class PrintDecisionEvent extends WindowAdapter implements ActionListener 
 	}// actionPerformed
 
 	public String searchOrderList() {
-		String order_num = us.searchOrderList();
+		String order_num = us.searchOrderNum();
 
 		return order_num;
 	}// searchOrderList

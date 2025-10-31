@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kiosk.user.dao.PrintReceiptDAO;
+import kiosk.user.dto.MemberDTO;
 import kiosk.user.dto.OrderDetailDTO;
+import kiosk.user.dto.OrderListDTO;
 
 public class PrintReceiptService {
 
@@ -15,11 +17,39 @@ public class PrintReceiptService {
 		prDAO = PrintReceiptDAO.getInstance();
 	}// PrintReceiptService
 
-	public String searchOrderList() {
+	public OrderListDTO searchOrderList() {
+		OrderListDTO olDTO = null;
+
+		try {
+			olDTO = prDAO.selectOrderList();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} // end catch
+
+		return olDTO;
+	}// searchOrderList
+
+	public String searchPhone() {
+		String phone = "";
+
+		try {
+			phone = prDAO.selectPhone();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} // end catch
+
+		return phone;
+	}// searchPhone
+
+	public String searchOrderNum() {
 		String order_num = "";
 
 		try {
-			order_num = prDAO.selectOrderList();
+			order_num = prDAO.selectOrderNum();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -27,7 +57,21 @@ public class PrintReceiptService {
 		} // end catch
 
 		return order_num;
-	}// searchOrderList
+	}// searchOrderNum
+
+	public MemberDTO searchMember(String phone) {
+		MemberDTO mDTO = null;
+
+		try {
+			mDTO = prDAO.selectMember(phone);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} // end catch
+
+		return mDTO;
+	}// searchMember
 
 	public List<OrderDetailDTO> searchOrderDetail() {
 		List<OrderDetailDTO> list = null;
