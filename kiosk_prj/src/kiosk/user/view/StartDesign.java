@@ -28,7 +28,7 @@ public class StartDesign extends JDialog{
 		jpStart=new JPanel();
 		jlblScreenStart=new JLabel("화면을 터치해주세요");
 	
-		Font font=new Font("나눔고딕",Font.BOLD,20);
+		Font font=new Font("맑은 고딕",Font.BOLD,20);
 		jlblScreenStart.setFont(font);
 		
 		ImageIcon originalMenuImg=new ImageIcon();
@@ -54,7 +54,6 @@ public class StartDesign extends JDialog{
 	
 	jlblScreenStart.setBounds(250,700,300,50);
 	jlblRecommendMenu.setBounds(150,100,400,600);
-	
 	
 	StartEvent se=new StartEvent(this);
 	jpStart.addMouseListener(se);

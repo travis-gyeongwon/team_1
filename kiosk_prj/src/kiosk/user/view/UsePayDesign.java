@@ -27,7 +27,7 @@ public class UsePayDesign extends JDialog {
 	public JProgressBar progress;
 	public  Timer timer;
 	public JButton jbtnCancel;
-	ImageIcon tempPayImg;
+	public ImageIcon tempPayImg;
 	private OrderDesign od;
 	
 	private static final Color COLOR_BG = Color.WHITE;
@@ -73,7 +73,7 @@ public class UsePayDesign extends JDialog {
 		 jlblPayMsg=new JLabel("휴대폰의 페이 결제 바코드를 스캔해주세요");
 		 jbtnCancel=new JButton("취소");
 		 
-		 Font payFont=new Font("나눔고딕", Font.PLAIN, 20);
+		 Font payFont=new Font("맑은 고딕", Font.BOLD, 20);
 		 jlblPayMsg.setFont(payFont);
 		 
 		 setLayout(null);
@@ -87,6 +87,8 @@ public class UsePayDesign extends JDialog {
 			jlblPayMsg.setBounds(180, 50, 525, 83);
 			progress.setBounds(175, 500, 350, 83);
 			jbtnCancel.setBounds(263, 667, 175, 83);
+			jbtnCancel.setBackground(Color.black);
+			jbtnCancel.setForeground(Color.white);
 
 			
 			addWindowListener(upe);

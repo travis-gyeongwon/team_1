@@ -41,8 +41,6 @@ public class OrderPayDesign extends JDialog{
 		
 		OrderProductDTO oDTO=new OrderProductDTO();
 		
-		//orderNum 받아옴
-     	String orderNum=oDTO.getOrderNum();
      	
 	    ops=new OrderPayService();
 	    String[]tableColumn={"메뉴명","수량","금액"};
@@ -98,11 +96,12 @@ public class OrderPayDesign extends JDialog{
 		orderTitle.setBounds(300,10,200,50);
 		scroll.setBounds(120,100,450,500);
 		jlblAmountPrice.setBounds(150,600,500,40);
-		jlblChoosePayMethod.setBounds(270,650,300,40);
-		jbtnCard.setBounds(140,700,100,50);
+		jlblChoosePayMethod.setBounds(240,650,300,40);
+		jlblChoosePayMethod.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		jbtnCard.setBounds(140,720,100,50);
 		jbtnCard.setBackground(Color.black);
 		jbtnCard.setForeground(COLOR_BG);
-		jbtnPay.setBounds(440,700,100,50);
+		jbtnPay.setBounds(440,720,100,50);
 		jbtnPay.setBackground(Color.black);
 		jbtnPay.setForeground(COLOR_BG);
 		
@@ -140,8 +139,5 @@ public class OrderPayDesign extends JDialog{
 	}
 
 
-	public static void main(String[] args) {
-//		new OrderPayDesign(od);
-	}
 
 }//class

@@ -25,7 +25,7 @@ public class UseCardDesign extends JDialog {
 	public JProgressBar progress;
 	public  Timer timer;
 	public JButton jbtnCancel;
-	ImageIcon tempCardImg;
+	public ImageIcon tempCardImg;
 	private OrderDesign od;
 	
 	private static final Color COLOR_BG = Color.WHITE;
@@ -72,8 +72,8 @@ public class UseCardDesign extends JDialog {
 		 jlblCardMsg=new JLabel("신용카드를 끝까지 넣어주세요");
 		 jbtnCancel=new JButton("취소");
 		 
-		 Font payFont=new Font("나눔고딕", Font.PLAIN, 20);
-		 jlblCardMsg.setFont(payFont);
+		 Font cardFont=new Font("맑은 고딕", Font.BOLD, 20);
+		 jlblCardMsg.setFont(cardFont);
 		 
 		    setLayout(null);
 			
@@ -86,6 +86,8 @@ public class UseCardDesign extends JDialog {
 			jlblCardMsg.setBounds(210, 50, 525, 83);
 			progress.setBounds(175, 500, 350, 83);
 			jbtnCancel.setBounds(263, 667, 175, 83);
+			jbtnCancel.setBackground(Color.black);
+			jbtnCancel.setForeground(Color.white);
 
 			jbtnCancel.addActionListener(uce);
 			addWindowListener(uce);

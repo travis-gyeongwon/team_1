@@ -29,9 +29,11 @@ public class EndDesign extends JDialog{
 	jlblreturnToStart=new JLabel("화면을 터치하면 처음으로 돌아갑니다");
 	
 	
-	Font font=new Font("나눔고딕",Font.BOLD,30);
+	Font font=new Font("맑은 고딕",Font.BOLD,30);
 	jlblOrderFinish.setFont(font);
 	jlblOrderNum.setFont(font);
+	
+	jlblreturnToStart.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 	
 	
 	EndEvent ee=new EndEvent(this);
@@ -51,7 +53,7 @@ public class EndDesign extends JDialog{
 	jpEnd.setBackground(COLOR_BG);
 	jlblOrderFinish.setBounds(190, 83, 525, 83);
 	jlblOrderNum.setBounds(180, 333, 525, 167);
-	jlblreturnToStart.setBounds(240, 667, 525, 167);
+	jlblreturnToStart.setBounds(180, 667, 525, 167);
 
 	
 	
@@ -75,11 +77,9 @@ public class EndDesign extends JDialog{
 		return jpEnd;
 	}
 	
-	
 	public static void main(String[] args) {
 		new EndDesign();
 	}
-	
 	
 
 }//class
