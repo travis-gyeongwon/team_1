@@ -38,10 +38,9 @@ public class PrintReceiptDAO {
 			con = gc.getConnection();
 
 			StringBuilder selectOrderList = new StringBuilder();
-			selectOrderList
-			.append("	select	takeout_flg, order_time, checkout_typecode					")
-			.append("	from  	ORDER_LIST    												")
-			.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
+			selectOrderList.append("	select	takeout_flg, order_time, checkout_typecode					")
+					.append("	from  	ORDER_LIST    												")
+					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
 
 			pstmt = con.prepareStatement(selectOrderList.toString());
 
@@ -177,31 +176,31 @@ public class PrintReceiptDAO {
 			con = gc.getConnection();
 
 			StringBuilder selectOrderDetail = new StringBuilder();
-			selectOrderDetail
-					.append("	select  menu_name, temp_option, size_option, shot_option, amount, order_price		")
-					.append("	from  	ORDER_DETAIL    															")
-					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)							");
+			selectOrderDetail.append(
+					"	select  od.menu_name, tp.temp_text, st.size_text, sh.shot_text, od.amount, od.order_price	")
+					.append("	from  	ORDER_DETAIL od, TEMP tp, SIZE_TABLE st, SHOT sh	")
+					.append("	where 	(tp.temp_code = od.temp_option and st.size_code=od.size_option and sh.shot_code=od.shot_option) and od.ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)		");
 
 			pstmt = con.prepareStatement(selectOrderDetail.toString());
 
 			rs = pstmt.executeQuery();
 
 			String menu_name = "";
-			int temp_option = 0;
-			int size_option = 0;
-			int shot_option = 0;
+			String temp_text = "";
+			String size_text = "";
+			String shot_text = "";
 			int amount = 0;
 			int order_price = 0;
 			OrderDetailDTO odDTO = null;
 			while (rs.next()) {
 				menu_name = rs.getString("menu_name");
-				temp_option = rs.getInt("temp_option");
-				size_option = rs.getInt("size_option");
-				shot_option = rs.getInt("shot_option");
+				temp_text = rs.getString("temp_text");
+				size_text = rs.getString("size_text");
+				shot_text = rs.getString("shot_text");
 				amount = rs.getInt("amount");
 				order_price = rs.getInt("order_price");
 
-				odDTO = new OrderDetailDTO(menu_name, temp_option, size_option, shot_option, amount, order_price);
+				odDTO = new OrderDetailDTO(menu_name, temp_text, size_text, shot_text, amount, order_price);
 
 				list.add(odDTO);
 			} // end while

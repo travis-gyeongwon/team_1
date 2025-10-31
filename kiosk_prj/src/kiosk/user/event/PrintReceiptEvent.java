@@ -110,7 +110,8 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 
 		List<Object> rowData = new ArrayList<Object>();
 		for (OrderDetailDTO odDTO : list) {
-			rowData.add(odDTO.getMenu_name());
+			rowData.add(odDTO.getMenu_name() + "(" + odDTO.getTemp_text() + ", " + odDTO.getSize_text() + ", "
+					+ odDTO.getShot_text() + ")");
 			rowData.add(odDTO.getAmount());
 			rowData.add(odDTO.getOrder_price());
 
@@ -126,7 +127,7 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 			total_price += odDTO.getOrder_price();
 		} // end for
 
-		ud.getJtpTotalPrice().setText(String.valueOf(total_price)+"원");
+		ud.getJtpTotalPrice().setText(String.valueOf(total_price) + "원");
 	}// addTotalPrice
 
 }// class
