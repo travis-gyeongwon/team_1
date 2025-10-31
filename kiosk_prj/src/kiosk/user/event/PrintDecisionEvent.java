@@ -69,7 +69,9 @@ public class PrintDecisionEvent extends WindowAdapter implements ActionListener 
 				total_coupon += temp_coupon;
 
 				us.modifyMember(phone, re_stamp, total_coupon);
-			} // end if
+			} else {
+				us.modifyMember(phone, total_stamp, total_coupon);
+			} // end else
 
 		} // end if
 	}// modifyMember
