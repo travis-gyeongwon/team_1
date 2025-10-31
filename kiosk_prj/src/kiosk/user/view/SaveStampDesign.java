@@ -36,6 +36,7 @@ public class SaveStampDesign extends JDialog {
 		jtfTel.setForeground(Color.BLACK);
 		jtfTel.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
 		jtfTel.setHorizontalAlignment(JTextField.CENTER);
+		jtfTel.setCaretColor(Color.WHITE);
 		
 		keyNums = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "010", "0", "←" };
 		keyBtns = new ArrayList<JButton>();

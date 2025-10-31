@@ -1,6 +1,7 @@
 package kiosk.user.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,7 +11,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.BorderFactory;
 
 import kiosk.user.event.PrintReceiptEvent;
@@ -68,9 +71,53 @@ public class PrintReceiptDesign extends JFrame {
 
 		String[] colNames = { "상품명", "수량", "금액" };
 		dtm = new DefaultTableModel(colNames, 0);
-
 		jtblOrderList = new JTable(dtm);
+
+		jtblOrderList.getColumnModel().getColumn(0).setPreferredWidth(300);
+		jtblOrderList.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtblOrderList.getColumnModel().getColumn(2).setPreferredWidth(100);
 		jspOrderList = new JScrollPane(jtblOrderList);
+
+		jtblOrderList.setFont(FONT_FIELD);
+		jtblOrderList.setForeground(Color.BLACK);
+		jtblOrderList.setBackground(Color.WHITE);
+		jtblOrderList.setGridColor(Color.BLACK);
+		jtblOrderList.setRowHeight(25);
+		jtblOrderList.setShowVerticalLines(true);
+		jtblOrderList.setShowHorizontalLines(true);
+
+		JTableHeader tableHeader = jtblOrderList.getTableHeader();
+		tableHeader.setFont(FONT_LABEL);
+		tableHeader.setBackground(Color.BLACK);
+		tableHeader.setForeground(Color.WHITE);
+		tableHeader.setReorderingAllowed(false);
+		tableHeader.setResizingAllowed(false);
+
+		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				c.setBackground(Color.WHITE);
+				c.setForeground(Color.BLACK);
+
+				if (isSelected) {
+					c.setBackground(new Color(220, 220, 220));
+					c.setForeground(Color.BLACK);
+				}
+				return c;
+			}
+		};
+
+		for (int i = 0; i < jtblOrderList.getColumnCount(); i++) {
+			jtblOrderList.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+		}
+
+		jspOrderList = new JScrollPane(jtblOrderList);
+
+		jspOrderList.setBackground(Color.WHITE);
+		jspOrderList.getViewport().setBackground(Color.WHITE);
+		jspOrderList.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
 		jbtnCheck = new JButton("확인");
 		jbtnCheck.setBackground(Color.BLACK);
@@ -81,22 +128,20 @@ public class PrintReceiptDesign extends JFrame {
 
 		jlblOrderNum.setBounds(100, 50, 500, 30);
 		jspOrderList.setBounds(100, 100, 500, 350);
-		jlblTel.setBounds(100, 470, 100, 30);
-		jtpTel.setBounds(200, 470, 350, 30);
-		jlblStamp.setBounds(100, 510, 100, 30);
-		jtpStamp.setBounds(200, 510, 350, 30);
-		jlblCoupon.setBounds(100, 550, 100, 30);
-		jtpCoupon.setBounds(200, 550, 350, 30);
-		jlblTakeOut.setBounds(100, 590, 100, 30);
-		jtpTakeOut.setBounds(200, 590, 350, 30);
-
-		jlblCheckOut.setBounds(100, 630, 100, 30);
-		jtpCheckOut.setBounds(200, 630, 350, 30);
-		jlblTime.setBounds(100, 670, 100, 30);
-		jtpTime.setBounds(200, 670, 350, 30);
-
-		jlblTotalPrice.setBounds(100, 710, 100, 30);
-		jtpTotalPrice.setBounds(200, 710, 350, 30);
+		jlblTel.setBounds(100, 470, 150, 30);
+		jtpTel.setBounds(250, 470, 350, 30);
+		jlblStamp.setBounds(100, 510, 150, 30);
+		jtpStamp.setBounds(250, 510, 350, 30);
+		jlblCoupon.setBounds(100, 550, 150, 30);
+		jtpCoupon.setBounds(250, 550, 350, 30);
+		jlblTakeOut.setBounds(100, 590, 150, 30);
+		jtpTakeOut.setBounds(250, 590, 350, 30);
+		jlblCheckOut.setBounds(100, 630, 150, 30);
+		jtpCheckOut.setBounds(250, 630, 350, 30);
+		jlblTime.setBounds(100, 670, 150, 30);
+		jtpTime.setBounds(250, 670, 350, 30);
+		jlblTotalPrice.setBounds(100, 710, 150, 30);
+		jtpTotalPrice.setBounds(250, 710, 350, 30);
 		jbtnCheck.setBounds(100, 790, 500, 50);
 
 		this.setLayout(null);
