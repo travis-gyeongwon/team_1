@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,11 +39,16 @@ public class AdminMainDesign extends JFrame {
 		if(titleIcon.getImage() != null) {
 			setIconImage(titleIcon.getImage());
 		}
+		ImageIcon menuIcon = new ImageIcon(getClass().getResource("/kiosk/admin/images/menu_icon.png"));
+		ImageIcon orderIcon = new ImageIcon(getClass().getResource("/kiosk/admin/images/order_icon.png"));
+		ImageIcon invenIcon = new ImageIcon(getClass().getResource("/kiosk/admin/images/inventory_icon.png"));
+		ImageIcon salesIcon = new ImageIcon(getClass().getResource("/kiosk/admin/images/report_icon.png"));
 		
-		jbtnMenu = new JButton("메뉴 관리");
-		jbtnOrder = new JButton("주문 관리");
-		jbtnInven = new JButton("재고 관리");
-		jbtnSales = new JButton("정산 관리");
+		
+		jbtnMenu = new JButton("메뉴 관리", menuIcon);
+		jbtnOrder = new JButton("주문 관리", orderIcon);
+		jbtnInven = new JButton("재고 관리", invenIcon);
+		jbtnSales = new JButton("정산 관리", salesIcon);
 		jbtnOpen = new JButton("영업 시작");
 		jbtnClose = new JButton("영업 종료");
 		jlLastLoginDate = new JLabel("마지막 로그인 날짜 : "+lDTO.getLoginDate());
@@ -148,6 +154,15 @@ public class AdminMainDesign extends JFrame {
 		dp.setPannelColor(jpBlanck);
 		dp.setPannelColor(jpBlanck2);
 		
+		jbtnMenu.setVerticalTextPosition(SwingConstants.BOTTOM);
+		jbtnMenu.setHorizontalTextPosition(SwingConstants.CENTER);
+		jbtnInven.setVerticalTextPosition(SwingConstants.BOTTOM);
+		jbtnInven.setHorizontalTextPosition(SwingConstants.CENTER);
+		jbtnOrder.setVerticalTextPosition(SwingConstants.BOTTOM);
+		jbtnOrder.setHorizontalTextPosition(SwingConstants.CENTER);
+		jbtnSales.setVerticalTextPosition(SwingConstants.BOTTOM);
+		jbtnSales.setHorizontalTextPosition(SwingConstants.CENTER);
+		
 		
 		AdminMainEvent ame = new AdminMainEvent(this);
 		jbtnMenu.addActionListener(ame);
@@ -158,7 +173,7 @@ public class AdminMainDesign extends JFrame {
 		jbtnClose.addActionListener(ame);
 		addWindowListener(ame);
 		
-		setSize(380, 440);
+		setSize(380, 550);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);//기본적으로 창이 닫히지 않도록 설정
