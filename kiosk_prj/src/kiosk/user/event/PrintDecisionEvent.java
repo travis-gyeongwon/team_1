@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import kiosk.user.service.PrintReceiptService;
+import kiosk.user.dto.MemberDTO;
+import kiosk.user.service.PrintDecisionService;
 import kiosk.user.view.EndDesign;
 import kiosk.user.view.PrintDecisionDesign;
 import kiosk.user.view.PrintReceiptDesign;
@@ -13,13 +14,20 @@ import kiosk.user.view.PrintReceiptDesign;
 public class PrintDecisionEvent extends WindowAdapter implements ActionListener {
 
 	private PrintDecisionDesign ud;
-	private PrintReceiptService us;
+	private PrintDecisionService us;
+	private String phone;
+	private int temp_stamp;
 
 	public PrintDecisionEvent(PrintDecisionDesign ud) {
 		this.ud = ud;
-		us = new PrintReceiptService();
+		us = new PrintDecisionService();
 
-		ud.getJlblOrderNum().setText("주문번호 : " + searchOrderList());
+		phone = us.searchOrderList();
+		temp_stamp = us.searchOrderDetail();
+
+		modifyMember();
+
+		ud.getJlblOrderNum().setText("주문번호 : " + searchOrderNum());
 	}// PrintDecisionEvent
 
 	@Override
@@ -41,10 +49,29 @@ public class PrintDecisionEvent extends WindowAdapter implements ActionListener 
 		} // end if
 	}// actionPerformed
 
-	public String searchOrderList() {
+	public String searchOrderNum() {
 		String order_num = us.searchOrderNum();
 
 		return order_num;
-	}// searchOrderList
+	}// searchOrderNum
+
+	public void modifyMember() {
+		MemberDTO mDTO = us.searchMember(phone);
+
+		if (mDTO != null) {
+			int total_stamp = mDTO.getStamp() + temp_stamp;
+			int total_coupon = mDTO.getCoupon();
+
+			if (total_stamp > 9) {
+				int re_stamp = total_stamp % 10;
+				int temp_coupon = total_stamp / 10;
+
+				total_coupon += temp_coupon;
+
+				us.modifyMember(phone, re_stamp, total_coupon);
+			} // end if
+
+		} // end if
+	}// modifyMember
 
 }// class
