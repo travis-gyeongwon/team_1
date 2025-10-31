@@ -1,5 +1,7 @@
 package kiosk.user.view;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.BorderFactory;
 
 import kiosk.user.event.PrintReceiptEvent;
 
@@ -21,67 +24,80 @@ public class PrintReceiptDesign extends JFrame {
 	private JScrollPane jspOrderList;
 	private JButton jbtnCheck;
 
+	private static final Font FONT_LABEL = new Font("Malgun Gothic", Font.BOLD, 20);
+	private static final Font FONT_FIELD = new Font("Malgun Gothic", Font.PLAIN, 18);
+	private static final Font FONT_BUTTON = new Font("Malgun Gothic", Font.BOLD, 22);
+
 	public PrintReceiptDesign() {
 		super("영수증 출력");
 
+		this.getContentPane().setBackground(Color.WHITE);
+
 		jlblOrderNum = new JLabel();
 		jlblOrderNum.setHorizontalAlignment(SwingConstants.CENTER);
+		jlblOrderNum.setFont(FONT_LABEL);
+		jlblOrderNum.setForeground(Color.BLACK);
 
 		jlblTotalPrice = new JLabel("총 금액 : ");
-		jtpTotalPrice = new JTextField();
-		jtpTotalPrice.setEditable(false);
+		jlblTotalPrice.setFont(FONT_LABEL);
+		jtpTotalPrice = createStyledJtf();
 
 		jlblTel = new JLabel("스탬프 적립 : ");
-		jtpTel = new JTextField();
-		jtpTel.setEditable(false);
+		jlblTel.setFont(FONT_LABEL);
+		jtpTel = createStyledJtf();
 
 		jlblStamp = new JLabel("보유 스탬프  : ");
-		jtpStamp = new JTextField();
-		jtpStamp.setEditable(false);
+		jlblStamp.setFont(FONT_LABEL);
+		jtpStamp = createStyledJtf();
 
 		jlblCoupon = new JLabel("보유 쿠폰  : ");
-		jtpCoupon = new JTextField();
-		jtpCoupon.setEditable(false);
+		jlblCoupon.setFont(FONT_LABEL);
+		jtpCoupon = createStyledJtf();
 
 		jlblTakeOut = new JLabel("포장 여부  : ");
-		jtpTakeOut = new JTextField();
-		jtpTakeOut.setEditable(false);
+		jlblTakeOut.setFont(FONT_LABEL);
+		jtpTakeOut = createStyledJtf();
 
 		jlblCheckOut = new JLabel("결제 방식  : ");
-		jtpCheckOut = new JTextField();
-		jtpCheckOut.setEditable(false);
+		jlblCheckOut.setFont(FONT_LABEL);
+		jtpCheckOut = createStyledJtf();
 
 		jlblTime = new JLabel("결제 시간  : ");
-		jtpTime = new JTextField();
-		jtpTime.setEditable(false);
+		jlblTime.setFont(FONT_LABEL);
+		jtpTime = createStyledJtf();
 
 		String[] colNames = { "상품명", "수량", "금액" };
-
 		dtm = new DefaultTableModel(colNames, 0);
 
 		jtblOrderList = new JTable(dtm);
 		jspOrderList = new JScrollPane(jtblOrderList);
+
 		jbtnCheck = new JButton("확인");
+		jbtnCheck.setBackground(Color.BLACK);
+		jbtnCheck.setForeground(Color.WHITE);
+		jbtnCheck.setFont(FONT_BUTTON);
+		jbtnCheck.setFocusPainted(false);
+		jbtnCheck.setBorderPainted(false);
 
-		jlblOrderNum.setBounds(100, 50, 600, 30);
-		jspOrderList.setBounds(100, 100, 600, 350);
-		jlblTel.setBounds(150, 470, 100, 30);
-		jtpTel.setBounds(250, 470, 350, 30);
-		jlblStamp.setBounds(150, 510, 100, 30);
-		jtpStamp.setBounds(250, 510, 350, 30);
-		jlblCoupon.setBounds(150, 550, 100, 30);
-		jtpCoupon.setBounds(250, 550, 350, 30);
-		jlblTakeOut.setBounds(150, 590, 100, 30);
-		jtpTakeOut.setBounds(250, 590, 350, 30);
+		jlblOrderNum.setBounds(100, 50, 500, 30);
+		jspOrderList.setBounds(100, 100, 500, 350);
+		jlblTel.setBounds(100, 470, 100, 30);
+		jtpTel.setBounds(200, 470, 350, 30);
+		jlblStamp.setBounds(100, 510, 100, 30);
+		jtpStamp.setBounds(200, 510, 350, 30);
+		jlblCoupon.setBounds(100, 550, 100, 30);
+		jtpCoupon.setBounds(200, 550, 350, 30);
+		jlblTakeOut.setBounds(100, 590, 100, 30);
+		jtpTakeOut.setBounds(200, 590, 350, 30);
 
-		jlblCheckOut.setBounds(150, 630, 100, 30);
-		jtpCheckOut.setBounds(250, 630, 350, 30);
-		jlblTime.setBounds(150, 670, 100, 30);
-		jtpTime.setBounds(250, 670, 350, 30);
+		jlblCheckOut.setBounds(100, 630, 100, 30);
+		jtpCheckOut.setBounds(200, 630, 350, 30);
+		jlblTime.setBounds(100, 670, 100, 30);
+		jtpTime.setBounds(200, 670, 350, 30);
 
-		jlblTotalPrice.setBounds(150, 710, 100, 30);
-		jtpTotalPrice.setBounds(250, 710, 350, 30);
-		jbtnCheck.setBounds(100, 790, 600, 50);
+		jlblTotalPrice.setBounds(100, 710, 100, 30);
+		jtpTotalPrice.setBounds(200, 710, 350, 30);
+		jbtnCheck.setBounds(100, 790, 500, 50);
 
 		this.setLayout(null);
 		this.setResizable(false);
@@ -109,9 +125,21 @@ public class PrintReceiptDesign extends JFrame {
 		add(jtpTotalPrice);
 		add(jbtnCheck);
 
-		this.setSize(800, 1000);
+		this.setSize(700, 1000);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}// PrintReceiptDesign
+
+	private JTextField createStyledJtf() {
+		JTextField jtf = new JTextField();
+		jtf.setEditable(false);
+
+		jtf.setBackground(Color.WHITE);
+		jtf.setForeground(Color.BLACK);
+		jtf.setFont(FONT_FIELD);
+		jtf.setBorder(BorderFactory.createEmptyBorder());
+		return jtf;
+	}// createStyledJtf
 
 	public JLabel getJlblOrderNum() {
 		return jlblOrderNum;

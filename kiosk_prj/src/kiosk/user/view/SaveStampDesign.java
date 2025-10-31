@@ -1,9 +1,12 @@
 package kiosk.user.view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -20,32 +23,60 @@ public class SaveStampDesign extends JDialog {
 	private List<JButton> keyBtns;
 	private JButton jbtnNs, jbtnYs;
 
+	private static final Font FONT_KEYPAD = new Font("Malgun Gothic", Font.BOLD, 22);
+	private static final Font FONT_BUTTON = new Font("Malgun Gothic", Font.BOLD, 20);
+
 	public SaveStampDesign(OrderDesign od) {
 		super(od, "스탬프 적립", true);
 		this.od = od;
 
 		jtfTel = new JTextField();
 		jtfTel.setEditable(false);
-
+		jtfTel.setBackground(Color.WHITE);
+		jtfTel.setForeground(Color.BLACK);
+		jtfTel.setFont(new Font("Malgun Gothic", Font.BOLD, 30));
+		jtfTel.setHorizontalAlignment(JTextField.CENTER);
+		
 		keyNums = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "010", "0", "←" };
 		keyBtns = new ArrayList<JButton>();
 
 		for (int i = 0; i < keyNums.length; i++) {
-			keyBtns.add(new JButton(keyNums[i]));
+			JButton keyBtn = new JButton(keyNums[i]);
+
+			keyBtn.setBackground(Color.DARK_GRAY);
+			keyBtn.setForeground(Color.WHITE);
+			keyBtn.setFont(FONT_KEYPAD);
+			keyBtn.setFocusPainted(false);
+			keyBtn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+
+			keyBtns.add(keyBtn);
 		} // end for
 
 		JPanel jpCenter = new JPanel();
 		jpCenter.setLayout(new GridLayout(4, 3));
+		jpCenter.setBackground(Color.WHITE);
 
 		for (JButton keyBtn : keyBtns) {
 			jpCenter.add(keyBtn);
 		} // end for
 
 		jbtnNs = new JButton("미적립");
+		jbtnNs.setBackground(Color.LIGHT_GRAY);
+		jbtnNs.setForeground(Color.BLACK);
+		jbtnNs.setFont(FONT_BUTTON);
+		jbtnNs.setFocusPainted(false);
+		jbtnNs.setBorderPainted(false);
+
 		jbtnYs = new JButton("적립");
+		jbtnYs.setBackground(Color.LIGHT_GRAY);
+		jbtnYs.setForeground(Color.BLACK);
+		jbtnYs.setFont(FONT_BUTTON);
+		jbtnYs.setFocusPainted(false);
+		jbtnYs.setBorderPainted(false);
 
 		JPanel jpSouth = new JPanel();
 		jpSouth.setLayout(new GridLayout(1, 2, 10, 0));
+		jpSouth.setBackground(Color.WHITE);
 
 		jpSouth.add(jbtnNs);
 		jpSouth.add(jbtnYs);
@@ -56,6 +87,7 @@ public class SaveStampDesign extends JDialog {
 
 		this.setLayout(null);
 		this.setResizable(false);
+		this.getContentPane().setBackground(Color.WHITE);
 
 		add(jtfTel);
 		add(jpCenter);
@@ -75,7 +107,7 @@ public class SaveStampDesign extends JDialog {
 		this.setLocationRelativeTo(od);
 		this.setVisible(true);
 	}// SaveStampDesign
-	
+
 	public OrderDesign getOd() {
 		return od;
 	}// getTjf
