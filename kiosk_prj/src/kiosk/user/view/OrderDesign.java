@@ -472,7 +472,4 @@ public class OrderDesign extends JFrame {
 	public JLabel getJlblBeveragePage1() { return jlblBeveragePage1; } 
 	public JLabel getJlblBeveragePage2() { return jlblBeveragePage2; } 
 
-	public static void main(String[] args) {
-		new OrderDesign();
-	}
 }
