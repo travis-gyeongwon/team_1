@@ -52,7 +52,6 @@ public List<OrderPayDTO> orderList;
            while(rs.next()) {//조회결과에 다음 레코드가 존재하는지
         	  orderNum= rs.getString("order_num");
            }//end while
-           System.out.println(orderNum);
            return orderNum;
            
         }finally {

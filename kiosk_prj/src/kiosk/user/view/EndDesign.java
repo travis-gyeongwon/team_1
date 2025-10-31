@@ -77,9 +77,5 @@ public class EndDesign extends JDialog{
 		return jpEnd;
 	}
 	
-	public static void main(String[] args) {
-		new EndDesign();
-	}
-	
 
 }//class
