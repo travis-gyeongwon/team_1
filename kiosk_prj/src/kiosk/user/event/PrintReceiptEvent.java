@@ -21,6 +21,7 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 
 	private PrintReceiptDesign ud;
 	private PrintReceiptService us;
+	private List<OrderDetailDTO> list;
 
 	public PrintReceiptEvent(PrintReceiptDesign ud) {
 		this.ud = ud;
@@ -31,7 +32,10 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 		searchOrderList();
 		searchMember();
 
+		list = us.searchOrderDetail();
+
 		addData();
+		addTotalPrice();
 	}// PrintReceiptEvent
 
 	@Override
@@ -63,7 +67,7 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 	public void searchOrderList() {
 		OrderListDTO olDTO = us.searchOrderList();
 
-		if (olDTO.getTakeout_flg() == "N") {
+		if ("N".equals(olDTO.getTakeout_flg())) {
 			ud.getJtpTakeOut().setText("홀");
 		} else {
 			ud.getJtpTakeOut().setText("포장");
@@ -80,46 +84,49 @@ public class PrintReceiptEvent extends WindowAdapter implements ActionListener {
 	}// searchOrderList
 
 	public void searchMember() {
-		if ("N".equals(searchPhone())) {
-			visibleFalseMember();
-		} else {
-			MemberDTO mDTO = us.searchMember(searchPhone());
+		MemberDTO mDTO = us.searchMember(searchPhone());
 
+		if (mDTO == null) {
+			setInvisibleMember();
+		} else {
 			ud.getJtpTel().setText(mDTO.getPhone());
 			ud.getJtpStamp().setText(String.valueOf(mDTO.getStamp()) + "개");
 			ud.getJtpCoupon().setText(String.valueOf(mDTO.getCoupon()) + "개");
 		} // end else
 	}// searchMember
 
-	public void visibleFalseMember() {
+	public void setInvisibleMember() {
 		ud.getJlblTel().setVisible(false);
 		ud.getJtpTel().setVisible(false);
 		ud.getJlblStamp().setVisible(false);
 		ud.getJtpStamp().setVisible(false);
 		ud.getJlblCoupon().setVisible(false);
 		ud.getJtpCoupon().setVisible(false);
-	}// removeMemberForm
-
-	public List<OrderDetailDTO> searchOrderDetail() {
-		List<OrderDetailDTO> list = us.searchOrderDetail();
-
-		return list;
-	}// searchOrderDetail
+	}// setInvisibleMember
 
 	public void addData() {
-		List<OrderDetailDTO> list = us.searchOrderDetail();
 		DefaultTableModel dtm = ud.getDtm();
 		dtm.setRowCount(0);
 
 		List<Object> rowData = new ArrayList<Object>();
-		for (OrderDetailDTO prDTO : list) {
-			rowData.add(prDTO.getMenu_name());
-			rowData.add(prDTO.getAmount());
-			rowData.add(prDTO.getOrder_price());
+		for (OrderDetailDTO odDTO : list) {
+			rowData.add(odDTO.getMenu_name());
+			rowData.add(odDTO.getAmount());
+			rowData.add(odDTO.getOrder_price());
 
 			dtm.addRow(rowData.toArray());
 			rowData.clear();
 		} // end for
 	}// addData
+
+	public void addTotalPrice() {
+		int total_price = 0;
+
+		for (OrderDetailDTO odDTO : list) {
+			total_price += odDTO.getOrder_price();
+		} // end for
+
+		ud.getJtpTotalPrice().setText(String.valueOf(total_price)+"원");
+	}// addTotalPrice
 
 }// class

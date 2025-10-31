@@ -58,4 +58,20 @@ public class StampInfoService {
 		return flag;
 	}// modifyMember
 
+	public int modifyOrderList(String phone) {
+		int flag = 0;
+
+		try {
+			StampInfoDAO siDAO = StampInfoDAO.getInstance();
+			flag = siDAO.updateOrderList(phone);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			flag = 2;
+			e.printStackTrace();
+		} // end catch
+
+		return flag;
+	}// modifyOrderList
+
 }// class

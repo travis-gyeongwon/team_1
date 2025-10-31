@@ -47,6 +47,7 @@ public class StampInfoEvent extends WindowAdapter implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ud.getJbtnCheck()) {
+			us.modifyOrderList(phone);
 			modifyMember(phone, total_stamp);
 		} // end if
 	}// actionPerformed

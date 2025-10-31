@@ -169,8 +169,4 @@ public class PrintReceiptDesign extends JFrame {
 		return jlblCoupon;
 	}// getJlblCoupon
 
-	public static void main(String[] args) {
-		new PrintReceiptDesign();
-	}// main
-
 }// class

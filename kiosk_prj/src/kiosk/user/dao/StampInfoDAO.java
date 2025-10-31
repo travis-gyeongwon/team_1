@@ -36,7 +36,8 @@ public class StampInfoDAO {
 
 			StringBuilder selectOrderDetail = new StringBuilder();
 			selectOrderDetail.append("	select 	ORDER_DETAIL_NUM, AMOUNT		")
-					.append("	from  	ORDER_DETAIL    	").append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
+					.append("	from  	ORDER_DETAIL    	")
+					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
 
 			pstmt = con.prepareStatement(selectOrderDetail.toString());
 
@@ -119,5 +120,32 @@ public class StampInfoDAO {
 
 		return flag;
 	}// updateMember
+
+	public int updateOrderList(String phone) throws SQLException, IOException {
+		int flag = 0;
+
+		GetConnection gc = GetConnection.getInstance();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = gc.getConnection();
+
+			StringBuilder updateOrderList = new StringBuilder();
+			updateOrderList.append("	update 	ORDER_LIST			").append("	set 	phone=?    	")
+					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
+
+			pstmt = con.prepareStatement(updateOrderList.toString());
+
+			pstmt.setString(1, phone);
+
+			flag = pstmt.executeUpdate();
+		} finally {
+			gc.dbClose(con, pstmt, null);
+		} // end finally
+
+		return flag;
+	}// updateOrderList
 
 }// class

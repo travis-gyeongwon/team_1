@@ -38,9 +38,10 @@ public class PrintReceiptDAO {
 			con = gc.getConnection();
 
 			StringBuilder selectOrderList = new StringBuilder();
-			selectOrderList.append("	select	takeout_flg, order_time, checkout_typecode						")
-					.append("	from  	ORDER_LIST    												")
-					.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
+			selectOrderList
+			.append("	select	takeout_flg, order_time, checkout_typecode					")
+			.append("	from  	ORDER_LIST    												")
+			.append("	where 	ORDER_NUM=(select 	MAX(ORDER_NUM) from ORDER_LIST)			");
 
 			pstmt = con.prepareStatement(selectOrderList.toString());
 
@@ -64,7 +65,7 @@ public class PrintReceiptDAO {
 	}// selectOrderList
 
 	public String selectPhone() throws SQLException, IOException {
-		String phone = "N";
+		String phone = "";
 
 		GetConnection gc = GetConnection.getInstance();
 
@@ -84,13 +85,8 @@ public class PrintReceiptDAO {
 
 			rs = pstmt.executeQuery();
 
-			String dbPhone = null;
 			while (rs.next()) {
-				dbPhone = rs.getString("phone");
-
-				if (dbPhone != null) {
-					phone = dbPhone;
-				} // end if
+				phone = rs.getString("phone");
 			} // end while
 		} finally {
 			gc.dbClose(con, pstmt, rs);
