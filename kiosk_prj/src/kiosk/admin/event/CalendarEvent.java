@@ -1,5 +1,6 @@
 package kiosk.admin.event;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -7,6 +8,7 @@ import java.util.Calendar;
 import javax.swing.JButton;
 
 import kiosk.admin.view.CalendarDesign;
+import kiosk.admin.view.DesignPreset;
 
 public class CalendarEvent implements ActionListener{
 	//선택한 년/월에 따라 jbtn 수정
@@ -48,15 +50,18 @@ public class CalendarEvent implements ActionListener{
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, 1);
 		
+		Color color = Color.decode("#FFFFFF");
+		Color color2 = Color.decode("#C6B2A2");
+
 		int weekCount = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
 		JButton[][] jbtnDay = cd.getJbtnDay();
 
 		weekCount = 0;
 		int dayCount = 0;
 		int startDayofWeek = cal.get(Calendar.DAY_OF_WEEK);
-		System.out.println(startDayofWeek);
 		for(int i = 1; i < startDayofWeek ; i++) {
 			jbtnDay[weekCount][dayCount].setText("");
+			jbtnDay[weekCount][dayCount].setBackground(color);
 			jbtnDay[weekCount][dayCount++].setEnabled(false);
 		}
 		for(int day = 1; ; day++) {
@@ -66,19 +71,22 @@ public class CalendarEvent implements ActionListener{
 				//다음 달의 1일의 요일을 받아서 토요일까지 공백으로 넣어주기
 				for(int blank = cal.get(Calendar.DAY_OF_WEEK); blank < Calendar.SATURDAY + 1; blank++) {
 					jbtnDay[weekCount][dayCount].setText("");
+					jbtnDay[weekCount][dayCount].setBackground(color);
 					jbtnDay[weekCount][dayCount++].setEnabled(false);
 				}
 				if(weekCount == 4) {
 					weekCount++;
 					dayCount = 0;
 					for(int i = 0; i < 7 ; i++) {
-						jbtnDay[weekCount][dayCount].setText("");;
+						jbtnDay[weekCount][dayCount].setText("");
+						jbtnDay[weekCount][dayCount].setBackground(color);
 						jbtnDay[weekCount][dayCount++].setEnabled(false);
 					}
 				}
 				break;
 			}
 			jbtnDay[weekCount][dayCount].setText(String.valueOf(day));
+			jbtnDay[weekCount][dayCount].setBackground(color2);
 			jbtnDay[weekCount][dayCount++].setEnabled(true);
 			
 			if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {

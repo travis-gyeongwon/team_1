@@ -1,7 +1,11 @@
 package kiosk.admin.view;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
@@ -12,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import kiosk.admin.event.CalendarEvent;
 
@@ -48,8 +54,15 @@ public class CalendarDesign extends JDialog {
 		jcbYear.addActionListener(ce);
 		jcbMonth.addActionListener(ce);
 		
+		
+		//디자인
+		DesignPreset dp = new DesignPreset();
+		dp.setTextPlain(jlYear, 13);
+		dp.setTextPlain(jlMonth, 13);
+		dp.setTextBold(jcbYear, 15);
+		dp.setTextBold(jcbMonth, 15);
+		
 		jbtnDay = new JButton[6][7];
-//		setDay(ce);
 		JPanel jpCenter = new JPanel();
 		jpCenter.setLayout(new GridLayout(7,7));
 		
@@ -62,12 +75,21 @@ public class CalendarDesign extends JDialog {
 			jlDayText[i].setText(dayTextArr[i]);
 			jlDayText[i].setFont(font);
 			jlDayText[i].setHorizontalAlignment(SwingConstants.CENTER);
+			dp.setTextBold(jlDayText[i], 13);
 			jpCenter.add(jlDayText[i]);
 		}
+		
+		Color lineColor = Color.decode("#F5EFE7");
+		Border btnB = new LineBorder(lineColor);
+		
+		
 		for(int i = 0; i < jbtnDay.length; i++) {
 			for(int j = 0; j < jbtnDay[0].length; j++) {
 				jbtnDay[i][j] = new JButton();
 				jbtnDay[i][j].addActionListener(ce);
+				dp.setButtonDesign(jbtnDay[i][j], 15);
+				jbtnDay[i][j].setBorderPainted(true);
+				jbtnDay[i][j].setBorder(btnB);
 				jpCenter.add(jbtnDay[i][j]);
 			}
 		}
@@ -76,8 +98,11 @@ public class CalendarDesign extends JDialog {
 		add("North", jpNorth);
 		add("Center", jpCenter);
 		
-//		setLocationRelativeTo(srd);
-//		setSize(400,300);
+		dp.setPannelColor(jpCenter);
+		dp.setPannelColor(jpNorth);
+		dp.setColor(jcbMonth,"#FFFFFF");
+		dp.setColor(jcbYear,"#FFFFFF");
+		
 		
 		setSize(400,300);
 		int x = srd.getLocation().x + srd.getSize().width/2 - getSize().width/2;
