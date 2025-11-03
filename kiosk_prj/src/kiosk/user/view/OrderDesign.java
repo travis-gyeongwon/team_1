@@ -211,7 +211,7 @@ public class OrderDesign extends JFrame {
     */
    private JButton createMenuButton(OrderMenuDTO dto) {
       String text = "<html><center>" + dto.getMenuName() + "<br>" + dto.getPrice() + "원</center></html>";
-      if (dto.getQuantity() <= 0) {
+      if (dto.getQuantity() <= 10) {
          text = "<html><center>" + dto.getMenuName() + "<br><font color='red'>(품절)</font></center></html>";
       }
       
@@ -245,7 +245,7 @@ public class OrderDesign extends JFrame {
       button.setFocusPainted(false);
       button.setActionCommand(dto.getMenuName());
       
-      if (dto.getQuantity() <= 0) {
+      if (dto.getQuantity() <= 10) {
          button.setEnabled(false);
       } else {
          if(this.orderEvent != null) {
