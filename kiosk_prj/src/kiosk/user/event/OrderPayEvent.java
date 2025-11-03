@@ -46,6 +46,8 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 				new UseCardDesign(opd.getOd());
 			}else {//영업중이 아니면
 				JOptionPane.showMessageDialog(opd, "영업 중이 아닙니다");
+				ops.removeOrderDetail();
+				ops.removeOrderList();
 			}
 		}//end if
 		
@@ -56,6 +58,8 @@ public class OrderPayEvent extends WindowAdapter implements ActionListener{
 				new UsePayDesign(opd.getOd());
 			}else {//영업 중이 아니면
 				JOptionPane.showMessageDialog(opd, "영업 중이 아닙니다");
+				ops.removeOrderDetail();
+				ops.removeOrderList();
 			}
 		}//end if
 		
